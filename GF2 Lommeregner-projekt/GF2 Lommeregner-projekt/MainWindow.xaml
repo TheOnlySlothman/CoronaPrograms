@@ -7,12 +7,24 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="566,166,0,0" VerticalAlignment="Top" Width="50" Height="50"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="621,166,0,0" VerticalAlignment="Top" Width="50" Height="50"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="676,166,0,0" VerticalAlignment="Top" Width="50" Height="50"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="566,221,0,0" VerticalAlignment="Top" Width="50" Height="50"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="621,221,0,0" VerticalAlignment="Top" Width="50" Height="50"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="676,221,0,0" VerticalAlignment="Top" Width="50" Height="50"/>
+        <Button x:Name="_1" Content="1" HorizontalAlignment="Left" Margin="507,276,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="_1_Click"/>
+        <Button x:Name="_2" Content="2" HorizontalAlignment="Left" Margin="562,276,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="_2_Click"/>
+        <Button x:Name="_3" Content="3" HorizontalAlignment="Left" Margin="617,276,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="_3_Click"/>
+        <Button x:Name="_4" Content="4" HorizontalAlignment="Left" Margin="507,221,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="_4_Click"/>
+        <Button x:Name="_5" Content="5" HorizontalAlignment="Left" Margin="562,221,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="_5_Click"/>
+        <Button x:Name="_6" Content="6" HorizontalAlignment="Left" Margin="617,221,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="_6_Click"/>
+        <Button x:Name="_7" Content="7" HorizontalAlignment="Left" Margin="507,166,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="_7_Click"/>
+        <Button x:Name="_8" Content="8" HorizontalAlignment="Left" Margin="562,166,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="_8_Click"/>
+        <Button x:Name="_9" Content="9" HorizontalAlignment="Left" Margin="617,166,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="_9_Click"/>
+        <Button x:Name="_0" Content="0" HorizontalAlignment="Left" Margin="562,331,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="_0_Click"/>
+        <TextBox x:Name="text" HorizontalAlignment="Left" Height="23" Margin="192,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="_Equal" Content="=" HorizontalAlignment="Left" Margin="672,331,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="_Equal_Click"/>
+        <Button x:Name="_Divide" Content="/" HorizontalAlignment="Left" Margin="672,111,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="_Divide_Click"/>
+        <Button x:Name="_Multiply" Content="*" HorizontalAlignment="Left" Margin="672,166,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="_Multiply_Click"/>
+        <Button x:Name="_Minus" Content="-" HorizontalAlignment="Left" Margin="672,221,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="_Minus_Click"/>
+        <Button x:Name="_Add" Content="+" HorizontalAlignment="Left" Margin="672,276,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="_Add_Click"/>
+        <Button x:Name="_Clear" Content="C" HorizontalAlignment="Left" Margin="507,111,0,0" VerticalAlignment="Top" Width="105" Height="50" Click="_Clear_Click"/>
+        <Button x:Name="_Dot" Content="." HorizontalAlignment="Left" Margin="617,331,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="_Dot_Click"/>
 
     </Grid>
 </Window>
