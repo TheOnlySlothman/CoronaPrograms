@@ -188,7 +188,7 @@ namespace GF2_Lommeregner_projekt
                     text.Text = result.ToString();
                     break;
                 case '-':
-                    result = num1 + num2;
+                    result = num1 - num2;
                     text.Text = result.ToString();
                     break;
                 case '*':
@@ -207,6 +207,8 @@ namespace GF2_Lommeregner_projekt
                     }
                     break;
             }
+            operand1 = result.ToString();
+            input = "";
         }
     }
 }
