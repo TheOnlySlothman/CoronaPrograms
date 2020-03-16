@@ -25,6 +25,7 @@ namespace GF2_Lommeregner_projekt
         string operand2 = string.Empty;
         char sign;
         double result = 0.0;
+        bool hasResult = false;
 
         public MainWindow()
         {
@@ -62,77 +63,77 @@ namespace GF2_Lommeregner_projekt
         {
             text.Text = "";
             input += "0";
-            text.Text += input;
+            text.Text = input;
         }
 
         private void _1_Click(object sender, RoutedEventArgs e)
         {
             text.Text = "";
             input += "1";
-            text.Text += input;
+            text.Text = input;
         }
 
         private void _2_Click(object sender, RoutedEventArgs e)
         {
             text.Text = "";
             input += "2";
-            text.Text += input;
+            text.Text = input;
         }
 
         private void _3_Click(object sender, RoutedEventArgs e)
         {
             text.Text = "";
             input += "3";
-            text.Text += input;
+            text.Text = input;
         }
 
         private void _4_Click(object sender, RoutedEventArgs e)
         {
             text.Text = "";
             input += "4";
-            text.Text += input;
+            text.Text = input;
         }
 
         private void _5_Click(object sender, RoutedEventArgs e)
         {
             text.Text = "";
             input += "5";
-            text.Text += input;
+            text.Text = input;
         }
 
         private void _6_Click(object sender, RoutedEventArgs e)
         {
             text.Text = "";
             input += "6";
-            text.Text += input;
+            text.Text = input;
         }
 
         private void _7_Click(object sender, RoutedEventArgs e)
         {
             text.Text = "";
             input += "7";
-            text.Text += input;
+            text.Text = input;
         }
 
         private void _8_Click(object sender, RoutedEventArgs e)
         {
             text.Text = "";
             input += "8";
-            text.Text += input;
+            text.Text = input;
         }
 
         private void _9_Click(object sender, RoutedEventArgs e)
         {
             text.Text = "";
             input += "9";
-            text.Text += input;
+            text.Text = input;
         }
 
         private void _Dot_Click(object sender, RoutedEventArgs e)
         {
             text.Text = "";
-            input += ".";
-            text.Text += input;
+            input += ",";
+            text.Text = input;
         }
         #endregion
         private void _Clear_Click(object sender, RoutedEventArgs e)
@@ -142,12 +143,20 @@ namespace GF2_Lommeregner_projekt
             operand1 = string.Empty;
             operand2 = string.Empty;
             result = 0.0;
+            hasResult = false;
         }
 
         #region operators
         private void _Add_Click(object sender, RoutedEventArgs e)
         {
-            operand1 = input;
+            if (hasResult)
+            {
+                operand1 = result.ToString();
+            }
+            else
+            {
+                operand1 = input;
+            }
             sign = '+';
             input = string.Empty;
         }
@@ -155,28 +164,49 @@ namespace GF2_Lommeregner_projekt
 
         private void _Minus_Click(object sender, RoutedEventArgs e)
         {
-            operand1 = input;
+            if (hasResult)
+            {
+                operand1 = result.ToString();
+            }
+            else
+            {
+                operand1 = input;
+            }
             sign = '-';
             input = string.Empty;
         }
 
         private void _Multiply_Click(object sender, RoutedEventArgs e)
         {
-            operand1 = input;
+            if (hasResult)
+            {
+                operand1 = result.ToString();
+            }
+            else
+            {
+                operand1 = input;
+            }
             sign = '*';
             input = string.Empty;
         }
 
         private void _Divide_Click(object sender, RoutedEventArgs e)
         {
-            operand1 = input;
+            if (hasResult)
+            {
+                operand1 = result.ToString();
+            }
+            else
+            {
+                operand1 = input;
+            }
             sign = '/';
             input = string.Empty;
         }
         #endregion
         private void _Equal_Click(object sender, RoutedEventArgs e)
         {
-            operand2 = input;
+                operand2 = input;
             double num1, num2;
             double.TryParse(operand1, out num1);
             double.TryParse(operand2, out num2);
@@ -208,7 +238,7 @@ namespace GF2_Lommeregner_projekt
                     break;
             }
             operand1 = result.ToString();
-            input = "";
+            hasResult = true;
         }
     }
 }
