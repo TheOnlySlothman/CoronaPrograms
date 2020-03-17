@@ -149,64 +149,52 @@ namespace GF2_Lommeregner_projekt
         #region operators
         private void _Add_Click(object sender, RoutedEventArgs e)
         {
-            if (hasResult)
-            {
-                operand1 = result.ToString();
-            }
-            else
-            {
-                operand1 = input;
-            }
             sign = '+';
+            Calculate();
             input = string.Empty;
+
         }
 
 
         private void _Minus_Click(object sender, RoutedEventArgs e)
         {
-            if (hasResult)
-            {
-                operand1 = result.ToString();
-            }
-            else
-            {
-                operand1 = input;
-            }
+
             sign = '-';
+            Calculate();
             input = string.Empty;
         }
 
         private void _Multiply_Click(object sender, RoutedEventArgs e)
         {
-            if (hasResult)
-            {
-                operand1 = result.ToString();
-            }
-            else
-            {
-                operand1 = input;
-            }
             sign = '*';
+            Calculate();
             input = string.Empty;
         }
 
         private void _Divide_Click(object sender, RoutedEventArgs e)
         {
-            if (hasResult)
-            {
-                operand1 = result.ToString();
-            }
-            else
-            {
-                operand1 = input;
-            }
             sign = '/';
+            Calculate();
             input = string.Empty;
         }
         #endregion
         private void _Equal_Click(object sender, RoutedEventArgs e)
         {
+            Calculate();
+        }
+
+        private void Calculate()
+        {
+            if (hasResult)
+            {
                 operand2 = input;
+            }
+            else
+            {
+                operand1 = input;
+                hasResult = true;
+                return;
+            }
             double num1, num2;
             double.TryParse(operand1, out num1);
             double.TryParse(operand2, out num2);
@@ -226,7 +214,7 @@ namespace GF2_Lommeregner_projekt
                     text.Text = result.ToString();
                     break;
                 case '/':
-                    if (num2!=0)
+                    if (num2 != 0)
                     {
                         result = num1 / num2;
                         text.Text = result.ToString();
@@ -238,7 +226,11 @@ namespace GF2_Lommeregner_projekt
                     break;
             }
             operand1 = result.ToString();
-            hasResult = true;
+        }
+
+        private void _Square_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
