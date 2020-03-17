@@ -26,6 +26,7 @@ namespace GF2_Lommeregner_projekt
         char sign;
         double result = 0.0;
         bool hasResult = false;
+        bool invert = false;
 
         public MainWindow()
         {
@@ -144,6 +145,7 @@ namespace GF2_Lommeregner_projekt
             operand2 = string.Empty;
             result = 0.0;
             hasResult = false;
+            invert = false;
         }
 
         #region operators
@@ -158,9 +160,16 @@ namespace GF2_Lommeregner_projekt
 
         private void _Minus_Click(object sender, RoutedEventArgs e)
         {
-
             sign = '-';
-            Calculate();
+            if (!invert)
+            {
+                invert = true;
+            }
+            else
+            {
+                Calculate();
+            }
+
             input = string.Empty;
         }
 
@@ -192,6 +201,10 @@ namespace GF2_Lommeregner_projekt
             else
             {
                 operand1 = input;
+                if (invert)
+                {
+                    operand1 = (0 - Convert.ToInt32(operand1)).ToString();
+                }
                 hasResult = true;
                 return;
             }
