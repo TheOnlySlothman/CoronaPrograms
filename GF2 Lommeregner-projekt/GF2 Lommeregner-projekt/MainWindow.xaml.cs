@@ -151,8 +151,8 @@ namespace GF2_Lommeregner_projekt
         #region operators
         private void _Add_Click(object sender, RoutedEventArgs e)
         {
-            sign = '+';
             Calculate();
+            sign = '+';
             input = string.Empty;
 
         }
@@ -160,8 +160,7 @@ namespace GF2_Lommeregner_projekt
 
         private void _Minus_Click(object sender, RoutedEventArgs e)
         {
-            sign = '-';
-            if (!invert)
+            if (!invert && !hasResult)
             {
                 invert = true;
             }
@@ -169,21 +168,22 @@ namespace GF2_Lommeregner_projekt
             {
                 Calculate();
             }
+            sign = '-';
 
             input = string.Empty;
         }
 
         private void _Multiply_Click(object sender, RoutedEventArgs e)
         {
-            sign = '*';
             Calculate();
+            sign = '*';
             input = string.Empty;
         }
 
         private void _Divide_Click(object sender, RoutedEventArgs e)
         {
-            sign = '/';
             Calculate();
+            sign = '/';
             input = string.Empty;
         }
         #endregion
@@ -241,9 +241,5 @@ namespace GF2_Lommeregner_projekt
             operand1 = result.ToString();
         }
 
-        private void _Square_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

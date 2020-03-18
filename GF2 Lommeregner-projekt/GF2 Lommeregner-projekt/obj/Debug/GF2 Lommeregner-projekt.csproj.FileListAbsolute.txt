@@ -1,17 +1,3 @@
-C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\bin\Debug\GF2 Lommeregner-projekt.exe.config
-C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\bin\Debug\GF2 Lommeregner-projekt.exe
-C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\bin\Debug\GF2 Lommeregner-projekt.pdb
-C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\obj\Debug\GF2 Lommeregner-projekt.csprojAssemblyReference.cache
-C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\obj\Debug\MainWindow.g.cs
-C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\obj\Debug\App.g.cs
-C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\obj\Debug\GF2 Lommeregner-projekt_MarkupCompile.cache
-C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\obj\Debug\GF2 Lommeregner-projekt_MarkupCompile.lref
-C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\obj\Debug\MainWindow.baml
-C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\obj\Debug\GF2 Lommeregner-projekt.g.resources
-C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\obj\Debug\GF2_Lommeregner_projekt.Properties.Resources.resources
-C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\obj\Debug\GF2 Lommeregner-projekt.csproj.GenerateResource.cache
-C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\obj\Debug\GF2 Lommeregner-projekt.exe
-C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\obj\Debug\GF2 Lommeregner-projekt.pdb
 C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\bin\Debug\GF2 Lommeregner-projekt.exe.config
 C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\bin\Debug\GF2 Lommeregner-projekt.exe
 C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\bin\Debug\GF2 Lommeregner-projekt.pdb
@@ -26,3 +12,17 @@ C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-
 C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\obj\Debug\GF2 Lommeregner-projekt.csproj.GenerateResource.cache
 C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\obj\Debug\GF2 Lommeregner-projekt.exe
 C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\obj\Debug\GF2 Lommeregner-projekt.pdb
+C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\obj\Debug\MainWindow.g.cs
+C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\obj\Debug\App.g.cs
+C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\obj\Debug\GF2 Lommeregner-projekt_MarkupCompile.cache
+C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\obj\Debug\GF2 Lommeregner-projekt_MarkupCompile.lref
+C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\bin\Debug\GF2 Lommeregner-projekt.exe.config
+C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\bin\Debug\GF2 Lommeregner-projekt.exe
+C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\bin\Debug\GF2 Lommeregner-projekt.pdb
+C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\obj\Debug\MainWindow.baml
+C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\obj\Debug\GF2 Lommeregner-projekt.g.resources
+C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\obj\Debug\GF2_Lommeregner_projekt.Properties.Resources.resources
+C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\obj\Debug\GF2 Lommeregner-projekt.csproj.GenerateResource.cache
+C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\obj\Debug\GF2 Lommeregner-projekt.exe
+C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\obj\Debug\GF2 Lommeregner-projekt.pdb
+C:\Users\Lasse\Documents\CoronaPrograms\GF2 Lommeregner-projekt\GF2 Lommeregner-projekt\obj\Debug\GF2 Lommeregner-projekt.csprojAssemblyReference.cache
