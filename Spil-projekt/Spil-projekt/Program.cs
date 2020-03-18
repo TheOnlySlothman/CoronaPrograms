@@ -10,15 +10,17 @@ namespace Spil_projekt
     {
         static void Main(string[] args)
         {
-            int score = 0;
+            int points = 0;
             int tries = 3;
 
-            while(NewGame(tries, out int newTries))
+            Highscores m_sys = Highscores.ScoreReader("..\\..\\Score_Data.xml");
+
+            while (NewGame(tries, out int newTries))
             {
-                score++;
+                points++;
                 tries = newTries;
             }
-            EndGame(score);
+            EndGame(points, m_sys);
         }
 
         static bool NewGame(int tries, out int newTries)
@@ -26,36 +28,48 @@ namespace Spil_projekt
             int number = new Random().Next(0,11);
             Console.Clear();
             Console.WriteLine("I am thinking of a number between 0 and 10. ");
+            Console.WriteLine($"you have {tries} left");
             int guess;
-            int.TryParse(Console.ReadLine(), out guess);
             
             for (int i = tries; i > 0; i--)
             {
-                if (guess == number)
+            int.TryParse(Console.ReadLine(), out guess);
+                if (guess < number)
+                {
+                    Console.WriteLine("too low");
+                }
+                else if (guess > number)
+                {
+                    Console.WriteLine("too high");
+                }
+                else if (guess == number)
                 {
                     Console.WriteLine("you got it");
                     Console.ReadKey();
-                    newTries = i + 3;
+                    newTries = i + 2;
                     return true;
-                }
-                else if (guess <= number)
-                {
-                    Console.WriteLine("too low");
-                    guess = Convert.ToInt32(Console.ReadLine());
-                }
-                else if (guess >= number)
-                {
-                    Console.WriteLine("too high");
-                    guess = Convert.ToInt32(Console.ReadLine());
                 }
             }
             newTries = 0;
             return false;
         }
 
-        static void EndGame(int scores)
+        static void EndGame(int points, Highscores sys)
         {
-            throw new NotImplementedException();
+            Console.Clear();
+            Console.WriteLine("game over");
+            Console.WriteLine("Please input name");
+            string name = Console.ReadLine();
+
+            Score score = new Score
+            {
+                Name = name,
+                Points = points.ToString()
+            };
+
+            sys.Scores.Add(score);
+            sys.Save();
         }
+
     }
 }
