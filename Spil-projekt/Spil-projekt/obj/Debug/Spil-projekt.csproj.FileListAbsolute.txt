@@ -1,0 +1,6 @@
+C:\Users\Lasse\Documents\CoronaPrograms\Spil-projekt\Spil-projekt\obj\Debug\Spil-projekt.csprojAssemblyReference.cache
+C:\Users\Lasse\Documents\CoronaPrograms\Spil-projekt\Spil-projekt\bin\Debug\Spil-projekt.exe.config
+C:\Users\Lasse\Documents\CoronaPrograms\Spil-projekt\Spil-projekt\bin\Debug\Spil-projekt.exe
+C:\Users\Lasse\Documents\CoronaPrograms\Spil-projekt\Spil-projekt\bin\Debug\Spil-projekt.pdb
+C:\Users\Lasse\Documents\CoronaPrograms\Spil-projekt\Spil-projekt\obj\Debug\Spil-projekt.exe
+C:\Users\Lasse\Documents\CoronaPrograms\Spil-projekt\Spil-projekt\obj\Debug\Spil-projekt.pdb
