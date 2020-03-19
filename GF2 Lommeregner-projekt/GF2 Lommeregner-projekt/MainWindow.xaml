@@ -25,6 +25,8 @@
         <Button x:Name="_Add" Content="+" HorizontalAlignment="Left" Margin="672,276,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="_Add_Click"/>
         <Button x:Name="_Clear" Content="C" HorizontalAlignment="Left" Margin="507,111,0,0" VerticalAlignment="Top" Width="105" Height="50" Click="_Clear_Click"/>
         <Button x:Name="_Dot" Content="." HorizontalAlignment="Left" Margin="617,331,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="_Dot_Click"/>
-        <Button x:Name="_Square" Content="Square" HorizontalAlignment="Left" Margin="93,276,0,0" VerticalAlignment="Top" Width="50" Height="50"/>
+        <Button x:Name="_Square" Content="Square" HorizontalAlignment="Left" Margin="50,276,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="_Square_Click"/>
+        <Grid x:Name="_Grid" HorizontalAlignment="Left" Height="160" Margin="235,166,0,0" VerticalAlignment="Top" Width="160"/>
+        <Button x:Name="_Circle" Content="Circle" HorizontalAlignment="Left" Margin="105,276,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="_Circle_Click"/>
     </Grid>
 </Window>

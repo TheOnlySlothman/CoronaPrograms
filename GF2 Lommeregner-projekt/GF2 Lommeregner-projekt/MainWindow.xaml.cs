@@ -241,5 +241,42 @@ namespace GF2_Lommeregner_projekt
             operand1 = result.ToString();
         }
 
+        private void _Square_Click(object sender, RoutedEventArgs e)
+        {
+            _Grid.Children.Clear();
+
+            Random rand = new Random();
+
+            Rectangle myRect = new Rectangle
+            {
+                Stroke = Brushes.Black,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                Height = rand.Next(0, 150),
+                Width = rand.Next(0, 150)
+            };
+            _Grid.Children.Add(myRect);
+
+            text.Text = Square(Convert.ToDouble(myRect.Height), Convert.ToDouble(myRect.Width)).ToString();
+        }
+
+        private void _Circle_Click(object sender, RoutedEventArgs e)
+        {
+            _Grid.Children.Clear();
+
+            int rand = new Random().Next(0, 150);
+
+            Ellipse myRect = new Ellipse
+            {
+                Stroke = Brushes.Black,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                Height = rand,
+                Width = rand
+            };
+            _Grid.Children.Add(myRect);
+
+            text.Text = Circle(Convert.ToDouble(rand / 2)).ToString();
+        }
     }
 }
