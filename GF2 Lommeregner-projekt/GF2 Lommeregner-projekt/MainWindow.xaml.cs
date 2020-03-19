@@ -278,5 +278,36 @@ namespace GF2_Lommeregner_projekt
 
             text.Text = Circle(Convert.ToDouble(rand / 2)).ToString();
         }
+
+        private void _Trapezoid_Click(object sender, RoutedEventArgs e)
+        {
+            _Grid.Children.Clear();
+
+            Random rand = new Random();
+
+            PointCollection points = new PointCollection();
+
+            int l1, l2, h;
+
+            l1 = rand.Next(0, 150);
+            l2 = rand.Next(0, 150);
+            h = rand.Next(0, 150);
+
+            points.Add(new Point(0, 0));
+            points.Add(new Point(l1, 0));
+            points.Add(new Point(l2, h));
+            points.Add(new Point(0, h));
+
+            Polygon myRect = new Polygon()
+            {
+                Stroke = Brushes.Black,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                Points = points
+            };
+            _Grid.Children.Add(myRect);
+
+            text.Text = Trapezoid(l1, l2, h).ToString();
+        }
     }
 }
