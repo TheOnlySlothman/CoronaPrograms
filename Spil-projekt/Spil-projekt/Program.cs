@@ -69,6 +69,17 @@ namespace Spil_projekt
 
             sys.Scores.Add(score);
             sys.Save();
+
+            IEnumerable<Score> query = sys.Scores.OrderBy(order => order.Points).Reverse();
+
+            Console.Clear();
+
+            foreach (Score i in query)
+            {
+                Console.WriteLine("{0} - {1}", i.Points, i.Name);
+            }
+
+            Console.ReadKey();
         }
 
     }

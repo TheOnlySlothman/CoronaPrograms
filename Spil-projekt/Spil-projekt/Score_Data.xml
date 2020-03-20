@@ -1,3 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <scores xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Scores>
+    <Score>
+      <name>lasse</name>
+      <points>10</points>
+    </Score>
+  </Scores>
 </scores>
