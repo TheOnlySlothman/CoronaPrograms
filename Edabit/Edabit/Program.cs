@@ -48,5 +48,87 @@ namespace Edabit
             return true;
         }
 
+       
+            public static string LandscapeType(int[] arr)
+            {
+
+            /*
+             * Mountains or Valleys
+             * A mountain is an array with exactly one peak.
+             *
+             * All numbers to the left of the peak are increasing.
+             * All numbers to the right of the peak are decreasing.
+             * The peak CANNOT be on the boundary.
+             * A valley is an array with exactly one trough.
+
+                All numbers to the left of the trough are decreasing.
+                All numbers to the right of the trough are increasing.
+                The trough CANNOT be on the boundary.
+                Some examples of mountains and valleys:
+             */
+                string terrain = "";
+                int x = 0;
+                int y = 0;
+
+                while (terrain == "")
+                {
+                    if (arr[x] < arr[x + 1])
+                    {
+
+                        terrain = "mountain";
+                        for (int i = 1; i < arr.Length - 1; i++)
+                        {
+                            if (arr[y] < arr[i])
+                                y = i;
+                        }
+                    }
+                    else if (arr[x] > arr[x + 1])
+                    {
+
+                        terrain = "valley";
+                        for (int i = 1; i < arr.Length - 1; i++)
+                        {
+                            if (arr[y] > arr[i])
+                                y = i;
+                        }
+                    }
+                    else
+                        x++;
+                }
+
+                for (int i = y; i < arr.Length - 1; i++)
+                {
+                    if (terrain == "mountain")
+                    {
+                        if (arr[i] < arr[i + 1])
+                            return "neither";
+                    }
+                    else if (terrain == "valley")
+                    {
+                        if (arr[i] > arr[i + 1])
+                            return "neither";
+                    }
+                }
+
+                for (int i = y; i > 0; i--)
+                {
+                    if (terrain == "mountain")
+                    {
+                        if (arr[i] < arr[i - 1])
+                            return "neither";
+                    }
+                    else if (terrain == "valley")
+                    {
+                        if (arr[i] > arr[i - 1])
+                            return "neither";
+                    }
+                }
+
+
+                return terrain;
+
+            }
+        
+
     }
 }
