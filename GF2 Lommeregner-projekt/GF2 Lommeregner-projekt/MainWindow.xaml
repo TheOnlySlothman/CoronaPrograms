@@ -28,6 +28,6 @@
         <Button x:Name="_Square" Content="Square" HorizontalAlignment="Left" Margin="50,276,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="_Square_Click"/>
         <Grid x:Name="_Grid" HorizontalAlignment="Left" Height="160" Margin="235,166,0,0" VerticalAlignment="Top" Width="160"/>
         <Button x:Name="_Circle" Content="Circle" HorizontalAlignment="Left" Margin="105,276,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="_Circle_Click"/>
-        <Button x:Name="_Trapezoid" Content="Trapezoid" HorizontalAlignment="Left" Margin="160,276,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="_Trapezoid_Click"/>
+        <Button x:Name="_Trapezoid" Content="Trapezoid" HorizontalAlignment="Left" Margin="160,276,0,0" VerticalAlignment="Top" Width="70" Height="50" Click="_Trapezoid_Click"/>
     </Grid>
 </Window>
