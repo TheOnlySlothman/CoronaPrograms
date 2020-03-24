@@ -48,9 +48,9 @@ namespace Edabit
             return true;
         }
 
-       
-            public static string LandscapeType(int[] arr)
-            {
+
+        public static string LandscapeType(int[] arr)
+        {
 
             /*
              * Mountains or Valleys
@@ -66,69 +66,125 @@ namespace Edabit
                 The trough CANNOT be on the boundary.
                 Some examples of mountains and valleys:
              */
-                string terrain = "";
-                int x = 0;
-                int y = 0;
+            string terrain = "";
+            int x = 0;
+            int y = 0;
 
-                while (terrain == "")
+            while (terrain == "")
+            {
+                if (arr[x] < arr[x + 1])
                 {
-                    if (arr[x] < arr[x + 1])
-                    {
 
-                        terrain = "mountain";
-                        for (int i = 1; i < arr.Length - 1; i++)
-                        {
-                            if (arr[y] < arr[i])
-                                y = i;
-                        }
-                    }
-                    else if (arr[x] > arr[x + 1])
+                    terrain = "mountain";
+                    for (int i = 1; i < arr.Length - 1; i++)
                     {
-
-                        terrain = "valley";
-                        for (int i = 1; i < arr.Length - 1; i++)
-                        {
-                            if (arr[y] > arr[i])
-                                y = i;
-                        }
-                    }
-                    else
-                        x++;
-                }
-
-                for (int i = y; i < arr.Length - 1; i++)
-                {
-                    if (terrain == "mountain")
-                    {
-                        if (arr[i] < arr[i + 1])
-                            return "neither";
-                    }
-                    else if (terrain == "valley")
-                    {
-                        if (arr[i] > arr[i + 1])
-                            return "neither";
+                        if (arr[y] < arr[i])
+                            y = i;
                     }
                 }
-
-                for (int i = y; i > 0; i--)
+                else if (arr[x] > arr[x + 1])
                 {
-                    if (terrain == "mountain")
+
+                    terrain = "valley";
+                    for (int i = 1; i < arr.Length - 1; i++)
                     {
-                        if (arr[i] < arr[i - 1])
-                            return "neither";
-                    }
-                    else if (terrain == "valley")
-                    {
-                        if (arr[i] > arr[i - 1])
-                            return "neither";
+                        if (arr[y] > arr[i])
+                            y = i;
                     }
                 }
+                else
+                    x++;
+            }
+
+            for (int i = y; i < arr.Length - 1; i++)
+            {
+                if (terrain == "mountain")
+                {
+                    if (arr[i] < arr[i + 1])
+                        return "neither";
+                }
+                else if (terrain == "valley")
+                {
+                    if (arr[i] > arr[i + 1])
+                        return "neither";
+                }
+            }
+
+            for (int i = y; i > 0; i--)
+            {
+                if (terrain == "mountain")
+                {
+                    if (arr[i] < arr[i - 1])
+                        return "neither";
+                }
+                else if (terrain == "valley")
+                {
+                    if (arr[i] > arr[i - 1])
+                        return "neither";
+                }
+            }
 
 
-                return terrain;
+            return terrain;
+
+        }
+
+        public static bool IsIsogram(string str)
+        {
+            /*
+             * Is the Word an Isogram?
+             * 
+             * An isogram is a word that has no repeating letters, consecutive or nonconsecutive. Create a function that takes a string and returns either true or false depending on whether or not it's an "isogram".
+             */
+            char[] charr = str.ToLower().ToCharArray();
+            List<char> letters = new List<char>();
+
+            foreach (char item in charr)
+            {
+                if (letters.Contains(item))
+                {
+                    return false;
+                }
+                else
+                {
+                    letters.Add(item);
+                }
+            }
+            return true;
+        }
+
+        public static int MysteryFunc(int num)
+        {
+            /*
+             * Reverse Coding Challenge #6
+             * 
+             * This is a reverse coding challenge. Normally you're given explicit directions with how to create a function. Here, you must generate your own function to satisfy the relationship between the inputs and outputs.
+             * Your task is to create a function that, when fed the inputs below, produces the sample outputs shown.
+             * MysteryFunc(152) ➞ 10
+             * MysteryFunc(832) ➞ 48
+             * MysteryFunc(19) ➞ 9
+             * MysteryFunc(133) ➞ 9
+             */
+
+            char[] charr = Convert.ToString(num).ToCharArray();
+            List<int> numbers = new List<int>();
+
+            foreach (char item in charr)
+            {
+                numbers.Add(item - '0');
+            }
+            return numbers.Aggregate(1, (num1, num2) => num1 *= num2);
+        }
+        /*
+        public static int SockPairs(string socks)
+        {
+            foreach (KeyValuePair<string, string> kvp in openWith)
+            {
+                Console.WriteLine("Key = {0}, Value = {1}",
+                    kvp.Key, kvp.Value);
 
             }
-        
-
+        }
+        */
     }
 }
