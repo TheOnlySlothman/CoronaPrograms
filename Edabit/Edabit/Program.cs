@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Edabit
@@ -10,7 +11,7 @@ namespace Edabit
     {
         static void Main(string[] args)
         {
-
+            SockPairs("CABBACCC");
         }
 
         public static int[] ArrayOfMultiples(int num, int length)
@@ -175,16 +176,41 @@ namespace Edabit
             }
             return numbers.Aggregate(1, (num1, num2) => num1 *= num2);
         }
+
         /*
         public static int SockPairs(string socks)
         {
-            foreach (KeyValuePair<string, string> kvp in openWith)
-            {
-                Console.WriteLine("Key = {0}, Value = {1}",
-                    kvp.Key, kvp.Value);
+            char[] charr = socks.ToCharArray();
+            IEnumerable<char> dist = socks.Distinct();
 
-            }
+        }
+        
+
+        public static bool IsPalindrome(string str)
+        {
+            Regex rx = new Regex(@"([a-z]*)\w+",
+          RegexOptions.Compiled | RegexOptions.IgnoreCase);
         }
         */
+
+        public static bool ValidatePIN(string pin)
+        {
+            /*
+             * ATM PIN Code Validation
+             * 
+             * ATM machines allow 4 or 6 digit PIN codes and PIN codes cannot contain anything but exactly 4 digits or exactly 6 digits. Your task is to create a function that takes a string and returns true if the PIN is valid and false if it's not.
+             */
+            return Regex.IsMatch(pin, @"^\d{4}(?:\d{2})?$");
+        }
+
+        public static bool IsSymmetrical(int num)
+        {
+            /*
+             * Is the Number Symmetrical?
+             * 
+             * Create a function that takes a number as an argument and returns true or false depending on whether the number is symmetrical or not. A number is symmetrical when it is the same as its reverse.
+             */
+            return num.ToString() == string.Concat(num.ToString().Reverse());
+        }
     }
 }
