@@ -11,7 +11,7 @@ namespace Edabit
     {
         static void Main(string[] args)
         {
-            SockPairs("CABBACCC");
+            IsPalindrome("neuquen");
         }
 
         public static int[] ArrayOfMultiples(int num, int length)
@@ -184,14 +184,32 @@ namespace Edabit
             IEnumerable<char> dist = socks.Distinct();
 
         }
-        
+        */
 
         public static bool IsPalindrome(string str)
         {
-            Regex rx = new Regex(@"([a-z]*)\w+",
-          RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            /*
+             * Check if the String is a Palindrome
+             * 
+             * A palindrome is a word, phrase, number or other sequence of characters which reads the same backward or forward, such as madam or kayak.
+             * Write a function that takes a string and determines whether it's a palindrome or not. The function should return a boolean (true or false value).
+             */
+
+            Regex rx = new Regex(@"([\W])",
+            RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+            string onlyLetters = rx.Replace(str, "").ToLower();
+
+            if (onlyLetters == string.Concat(onlyLetters.Reverse()))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
-        */
+
 
         public static bool ValidatePIN(string pin)
         {
@@ -211,6 +229,40 @@ namespace Edabit
              * Create a function that takes a number as an argument and returns true or false depending on whether the number is symmetrical or not. A number is symmetrical when it is the same as its reverse.
              */
             return num.ToString() == string.Concat(num.ToString().Reverse());
+        }
+
+        public static string AlternatingCaps(string str)
+        {
+            /*
+             * AlTeRnAtInG cApS
+             * 
+             * Create a function that alternates the case of the letters in a string (known as Spongecase).
+             */
+            Regex rx = new Regex(@"([\w])");
+
+            char[] charr = str.ToCharArray();
+            bool capitalize = true;
+
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < charr.Length; i++)
+            {
+                if (rx.IsMatch(charr[i].ToString()))
+                {
+                    if (capitalize)
+                    {
+                        charr[i] = char.ToUpper(charr[i]);
+                        capitalize = false;
+                    }
+                    else
+                    {
+                        charr[i] = char.ToLower(charr[i]);
+                        capitalize = true;
+                    }
+                }
+                sb.Append(charr[i]);
+            }
+            return sb.ToString();
         }
     }
 }
