@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -11,7 +12,7 @@ namespace Edabit
     {
         static void Main(string[] args)
         {
-            IsPalindrome("neuquen");
+            ReverseAndNot(123);
         }
 
         public static int[] ArrayOfMultiples(int num, int length)
@@ -183,6 +184,7 @@ namespace Edabit
             char[] charr = socks.ToCharArray();
             IEnumerable<char> dist = socks.Distinct();
 
+            charr.
         }
         */
 
@@ -263,6 +265,33 @@ namespace Edabit
                 sb.Append(charr[i]);
             }
             return sb.ToString();
+        }
+
+        public static string[] CapMe(string[] arr)
+        {
+            /*
+             * Capitalize the Names
+             * 
+             * Create a function that takes an array of names and returns an array with only the first letter capitalized.
+             */
+            TextInfo myTI = new CultureInfo("en-US", false).TextInfo;
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                arr[i] = myTI.ToTitleCase(arr[i].ToLower());
+            }
+
+            return arr;
+        }
+
+        public static string ReverseAndNot(int i)
+        {
+            /*
+             * ReverseAndNot
+             * 
+             * Write a function that takes an integer i and returns a string with the integer backwards followed by the original integer.
+             */
+            return new string(i.ToString().Reverse().ToArray()) + i.ToString();
         }
     }
 }
