@@ -12,7 +12,7 @@ namespace Edabit
     {
         static void Main(string[] args)
         {
-            ReverseAndNot(123);
+            LongestCommonEnding("pitiful", "beautiful");
         }
 
         public static int[] ArrayOfMultiples(int num, int length)
@@ -290,8 +290,45 @@ namespace Edabit
              * ReverseAndNot
              * 
              * Write a function that takes an integer i and returns a string with the integer backwards followed by the original integer.
-             */
+             */ 
             return new string(i.ToString().Reverse().ToArray()) + i.ToString();
+        }
+
+        public static string LongestCommonEnding(string str1, string str2)
+        {
+            /*
+             * Longest Common Ending
+             * 
+             * Write a function that returns the longest common ending between two strings.
+             */
+            char[] charr1 = str1.Reverse().ToArray();
+            char[] charr2 = str2.Reverse().ToArray();
+
+            int arrLength = (charr1.Length < charr2.Length) ? charr1.Length : charr2.Length;
+
+            string reversedResult = "";
+
+            for (int i = 0; i < arrLength; i++)
+            {
+                if (charr1[i] == charr2[i])
+                {
+                    reversedResult += charr1[i];
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            IEnumerable<char> reversedCharr = reversedResult.Reverse();
+
+            string result = "";
+            foreach (var item in reversedCharr)
+            {
+                result += item;
+            }
+
+            return result;
         }
     }
 }
