@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Pizzaria.Properties
+namespace PizzariaNamespace.Properties
 {
 
 

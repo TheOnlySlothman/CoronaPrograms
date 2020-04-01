@@ -10,7 +10,7 @@ namespace Spil_projekt
     {
         static void Main(string[] args)
         {
-            Highscores m_sys = Highscores.ScoreReader("..\\..\\Score_Data.xml");
+            Highscores m_sys = Highscores.ScoreReader();
             ConsoleKeyInfo i;
             do
             {

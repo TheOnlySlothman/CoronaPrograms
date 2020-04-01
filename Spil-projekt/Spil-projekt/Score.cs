@@ -13,13 +13,12 @@ namespace Spil_projekt
     {
         public List<Score> Scores { get; set; }
 
-        private static string m_path = "";
+        private static string m_path = "..\\..\\Score_Data.xml";
 
-        public static Highscores ScoreReader(string path)
+        public static Highscores ScoreReader()
         {
-            m_path = path;
             XmlSerializer serializer = new XmlSerializer(typeof(Highscores));
-            StreamReader reader = new StreamReader(path);
+            StreamReader reader = new StreamReader(m_path);
             Highscores m_sys = (Highscores)serializer.Deserialize(reader);
             reader.Close();
             return m_sys;

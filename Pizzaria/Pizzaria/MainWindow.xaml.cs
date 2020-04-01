@@ -10,21 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Pizzaria
+namespace PizzariaNamespace
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-
         public MainWindow()
         {
             InitializeComponent();
-            
+
             Grid myGrid = new Grid
             {
                 Margin = new Thickness(10, 0, 10, 10),
@@ -85,6 +83,10 @@ namespace Pizzaria
 
             Content = myGrid;
             Show();
+
+            Pizzaria m_sys = Pizzaria.PizzaReader();
+            //new Pizzaria().Save();
+            //m_sys.Properties.sauce.Append(new PizzaProperty("Tomato sauce", 18));
         }
     }
 }
