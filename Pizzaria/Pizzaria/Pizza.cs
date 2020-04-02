@@ -5,94 +5,124 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Xml.Serialization;
+using System.Xml;
+using System.Runtime.Serialization;
 
-namespace PizzariaNamespace
+namespace Pizzaria
 {
-    [XmlRoot(ElementName = "Pizzaria")]
+    [DataContract(Name = "Pizzaria")]
     public class Pizzaria
     {
-        public List<Pizza> Pizzas { get; set; }
-
-        public PizzaProperties Properties { get; set; }
+        [DataMember()]
+        public List<Pizza> Pizzas;
+        [DataMember()]
+        public PizzaProperties Properties;
 
         private static string m_path = "..\\..\\Pizza_Data.xml";
 
         public static Pizzaria PizzaReader()
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(Pizzaria));
-            StreamReader reader = new StreamReader(m_path);
-            Pizzaria m_sys = (Pizzaria)serializer.Deserialize(reader);
-            reader.Close();
-            return m_sys;
-        }
+            Console.WriteLine("Deserializing an instance of the object.");
+            FileStream fs = new FileStream(m_path,
+            FileMode.Open);
+            XmlDictionaryReader reader =
+                XmlDictionaryReader.CreateTextReader(fs, new XmlDictionaryReaderQuotas());
+            DataContractSerializer ser = new DataContractSerializer(typeof(Pizzaria));
 
+            Pizzaria pizzaria = (Pizzaria)ser.ReadObject(reader, true);
+            reader.Close();
+            fs.Close();
+
+            return pizzaria;
+
+        }
         public void Save()
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(Pizzaria));
-            StreamWriter writer = new StreamWriter(m_path);
-            serializer.Serialize(writer, this);
+            Console.WriteLine(
+                "Creating a Person object and serializing it.");
+            FileStream writer = new FileStream(m_path, FileMode.Create);
+            DataContractSerializer ser =
+                new DataContractSerializer(typeof(Pizzaria));
+            ser.WriteObject(writer, this);
             writer.Close();
         }
     }
 
+    [DataContract(Name = "Pizza")]
     public class Pizza
     {
-        [XmlAttribute(AttributeName = "Id")]
+        [DataMember()]
         public int Id { get; set; }
 
-        [XmlElement(ElementName = "name")]
+        [DataMember()]
         public string Name { get; set; }
 
-        [XmlElement(ElementName = "price")]
+        [DataMember()]
         public string Price { get; set; }
 
-        [XmlElement(ElementName = "sauce")]
-        public List<PizzaProperty> Sauce { get; set; }
+        [DataMember()]
+        public List<int> Sauce { get; set; }
 
-        [XmlElement(ElementName = "cheese")]
-        public List<PizzaProperty> Cheese { get; set; }
+        [DataMember()]
+        public List<int> Cheese { get; set; }
 
-        [XmlElement(ElementName = "topping")]
-        public List<PizzaProperty> topping { get; set; }
+        [DataMember()]
+        public List<int> Topping { get; set; }
 
-        [XmlElement(ElementName = "size")]
-        public PizzaProperty Size { get; set; }
+        [DataMember()]
+        public int Size { get; set; }
 
-        [XmlElement(ElementName = "dough")]
-        public PizzaProperty Dough { get; set; }
+        [DataMember()]
+        public int Dough { get; set; }
 
-        [XmlElement(ElementName = "spice")]
-        public List<PizzaProperty> Spice { get; set; }
+        [DataMember()]
+        public List<int> Spice { get; set; }
 
     }
 
+    [DataContract(Name = "Properties")]
     public class PizzaProperties
     {
-        [XmlElement(ElementName = "sauce")]
+        [DataMember()]
         public List<PizzaProperty> sauce;
-        [XmlElement(ElementName = "cheese")]
-        List<PizzaProperty> cheese;
-        [XmlElement(ElementName = "toppings")]
-        List<PizzaProperty> toppings;
-        [XmlElement(ElementName = "sizes")]
-        List<PizzaProperty> sizes;
-        [XmlElement(ElementName = "dough")]
-        List<PizzaProperty> dough;
-        [XmlElement(ElementName = "spice")]
-        List<PizzaProperty> spice;
+        [DataMember()]
+        public List<PizzaProperty> cheese;
+        [DataMember()]
+        public List<PizzaProperty> toppings;
+        [DataMember()]
+        public List<PizzaProperty> sizes;
+        [DataMember()]
+        public List<PizzaProperty> dough;
+        [DataMember()]
+        public List<PizzaProperty> spice;
+
+        //public string NextEid(List<PizzaProperty> PP)
+        //{
+        //    int m_result = 0;
+        //    foreach (PizzaProperty item in PP)
+        //        if (Convert.ToInt32(item.id) > m_result)
+        //            m_result = Convert.ToInt32(item.id);
+        //    return (++m_result).ToString();
+        //}
     }
 
+    [DataContract(Name = "Property")]
     public class PizzaProperty
     {
-        int id;
-        string name;
-        double price;
+        [DataMember]
+        public int id;
+        [DataMember()]
+        public string name;
+        [DataMember()]
+        public double price;
 
         public PizzaProperty(string name, double price)
         {
             this.id = 1;
             this.name = name;
             this.price = price;
+
+
         }
     }
 }

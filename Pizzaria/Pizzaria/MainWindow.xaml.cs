@@ -84,7 +84,9 @@ namespace PizzariaNamespace
             Content = myGrid;
             Show();
 
-            Pizzaria m_sys = Pizzaria.PizzaReader();
+           
+
+            //Pizzaria m_sys = Pizzaria.PizzaReader();
             //new Pizzaria().Save();
             //m_sys.Properties.sauce.Append(new PizzaProperty("Tomato sauce", 18));
         }
