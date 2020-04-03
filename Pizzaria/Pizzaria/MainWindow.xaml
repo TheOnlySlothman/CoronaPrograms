@@ -5,8 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PizzariaNamespace"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="MainWindow" Height="475.333" Width="800">
+    <Grid HorizontalAlignment="Left" Height="100" Margin="80,80,0,0" VerticalAlignment="Top" Width="200" ShowGridLines="True">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">Pizza1</TextBlock>
+        <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">59 kr.</TextBlock>
+        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" TextWrapping="Wrap">Tomato sauce, cheese, ham and oregano</TextBlock>
+        <RadioButton Content="Normal Size" Grid.Column="1" HorizontalAlignment="Left" Margin="239,32,-239,0" VerticalAlignment="Top" Width="100" IsChecked="True"/>
+        <RadioButton Content="Family" Grid.Column="1" HorizontalAlignment="Left" Margin="239,16,-239,0" Grid.Row="1" VerticalAlignment="Top" Width="100"/>
+        <RadioButton Content="Deep-pan" Grid.Column="1" HorizontalAlignment="Left" Margin="239,54,-239,-24" Grid.Row="1" VerticalAlignment="Top" Width="100"/>
     </Grid>
 </Window>

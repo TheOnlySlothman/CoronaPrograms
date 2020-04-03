@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 using System.Xml;
 using System.Runtime.Serialization;
 
-namespace Pizzaria
+namespace PizzariaNamespace
 {
     [DataContract(Name = "Pizzaria")]
     public class Pizzaria
@@ -38,8 +38,6 @@ namespace Pizzaria
         }
         public void Save()
         {
-            Console.WriteLine(
-                "Creating a Person object and serializing it.");
             FileStream writer = new FileStream(m_path, FileMode.Create);
             DataContractSerializer ser =
                 new DataContractSerializer(typeof(Pizzaria));
@@ -58,25 +56,21 @@ namespace Pizzaria
         public string Name { get; set; }
 
         [DataMember()]
-        public string Price { get; set; }
+        public int Price { get; set; }
 
         [DataMember()]
-        public List<int> Sauce { get; set; }
+        public List<string> Ingredients { get; set; }
 
         [DataMember()]
-        public List<int> Cheese { get; set; }
+        public string Size { get; set; }
 
         [DataMember()]
-        public List<int> Topping { get; set; }
+        public string Dough { get; set; }
 
-        [DataMember()]
-        public int Size { get; set; }
-
-        [DataMember()]
-        public int Dough { get; set; }
-
-        [DataMember()]
-        public List<int> Spice { get; set; }
+        public Pizza()
+        {
+            Ingredients = new List<string>();
+        }
 
     }
 
@@ -109,8 +103,6 @@ namespace Pizzaria
     [DataContract(Name = "Property")]
     public class PizzaProperty
     {
-        [DataMember]
-        public int id;
         [DataMember()]
         public string name;
         [DataMember()]
@@ -118,11 +110,8 @@ namespace Pizzaria
 
         public PizzaProperty(string name, double price)
         {
-            this.id = 1;
             this.name = name;
             this.price = price;
-
-
         }
     }
 }

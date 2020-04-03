@@ -22,7 +22,7 @@ namespace PizzariaNamespace
         public MainWindow()
         {
             InitializeComponent();
-
+            /*
             Grid myGrid = new Grid
             {
                 Margin = new Thickness(10, 0, 10, 10),
@@ -83,12 +83,8 @@ namespace PizzariaNamespace
 
             Content = myGrid;
             Show();
-
-           
-
-            //Pizzaria m_sys = Pizzaria.PizzaReader();
-            //new Pizzaria().Save();
-            //m_sys.Properties.sauce.Append(new PizzaProperty("Tomato sauce", 18));
+            */
+            
         }
     }
 }

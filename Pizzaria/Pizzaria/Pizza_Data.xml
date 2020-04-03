@@ -1,114 +1,89 @@
-﻿<Pizzaria xmlns="http://schemas.datacontract.org/2004/07/Test" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+<Pizzaria xmlns="http://schemas.datacontract.org/2004/07/PizzariaNamespace" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
   <Pizzas>
     <Pizza>
-      <Cheese xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-        <a:int>1</a:int>
-      </Cheese>
-      <Dough>1</Dough>
+      <Dough>normal</Dough>
       <Id>1</Id>
-      <Name>pizza1</Name>
-      <Price>0</Price>
-      <Sauce xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-        <a:int>1</a:int>
-      </Sauce>
-      <Size>1</Size>
-      <Spice xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-        <a:int>1</a:int>
-      </Spice>
-      <Topping xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-        <a:int>1</a:int>
-      </Topping>
+      <Ingredients xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+        <a:string>test</a:string>
+      </Ingredients>
+      <Name>pizzaName</Name>
+      <Price>10</Price>
+      <Size>normal</Size>
     </Pizza>
   </Pizzas>
   <Properties>
     <cheese>
       <Property>
-        <id>1</id>
         <name>cheese</name>
         <price>10</price>
       </Property>
       <Property>
-        <id>2</id>
         <name>mozarella</name>
         <price>15</price>
       </Property>
     </cheese>
     <dough>
       <Property>
-        <id>1</id>
         <name>normal</name>
         <price>20</price>
       </Property>
       <Property>
-        <id>2</id>
         <name>gluten-free</name>
         <price>40</price>
       </Property>
     </dough>
     <sauce>
       <Property>
-        <id>1</id>
         <name>tomato</name>
         <price>10</price>
       </Property>
       <Property>
-        <id>2</id>
         <name>bérnais sauce</name>
         <price>20</price>
       </Property>
     </sauce>
     <sizes>
       <Property>
-        <id>1</id>
         <name>normal</name>
         <price>0</price>
       </Property>
       <Property>
-        <id>2</id>
         <name>family</name>
         <price>0</price>
       </Property>
       <Property>
-        <id>3</id>
         <name>deep-pan</name>
         <price>20</price>
       </Property>
     </sizes>
     <spice>
       <Property>
-        <id>1</id>
         <name>oregano</name>
         <price>0</price>
       </Property>
       <Property>
-        <id>2</id>
         <name>chili</name>
         <price>0</price>
       </Property>
       <Property>
-        <id>3</id>
         <name>garlic</name>
         <price>0</price>
       </Property>
     </spice>
     <toppings>
       <Property>
-        <id>1</id>
         <name>ham</name>
         <price>0</price>
       </Property>
       <Property>
-        <id>2</id>
         <name>peperoni</name>
         <price>0</price>
       </Property>
       <Property>
-        <id>3</id>
         <name>kebab</name>
         <price>0</price>
       </Property>
       <Property>
-        <id>4</id>
         <name>mushroom</name>
         <price>0</price>
       </Property>
