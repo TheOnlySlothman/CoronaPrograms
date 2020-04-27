@@ -290,7 +290,7 @@ namespace Edabit
              * ReverseAndNot
              * 
              * Write a function that takes an integer i and returns a string with the integer backwards followed by the original integer.
-             */ 
+             */
             return new string(i.ToString().Reverse().ToArray()) + i.ToString();
         }
 
@@ -330,7 +330,30 @@ namespace Edabit
 
             return result;
         }
+        public static int FindIndex(string[] arr, string str)
+        {
+            /*
+             * Find the Index
+             * 
+             * Create a function that takes an array and a string as arguments and return the index of the string.
+             */
+            return Array.IndexOf(arr, str);
+        }
+
+        public static bool IsPlural(string word)
+        {
+            return word.EndsWith("s");
+        }
+        public static bool CorrectSigns(string str)
+        {
+            Regex rgx = new Regex(@"([0 - 9 <>] +)");
+
+            MatchCollection mc = rgx.Matches(str);
+
+            mc.
+    
+            return true;
+        }
     }
 
-    //test
 }
