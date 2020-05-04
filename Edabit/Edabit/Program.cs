@@ -12,7 +12,7 @@ namespace Edabit
     {
         static void Main(string[] args)
         {
-            LongestCommonEnding("pitiful", "beautiful");
+            CorrectSigns("3 < 7 < 11");
         }
 
         public static int[] ArrayOfMultiples(int num, int length)
@@ -346,13 +346,85 @@ namespace Edabit
         }
         public static bool CorrectSigns(string str)
         {
-            Regex rgx = new Regex(@"([0 - 9 <>] +)");
+            /*
+             * Correct Inequality Signs
+             * 
+             * Create a function that returns true if a given inequality expression is correct and false otherwise.
+             */
+            Regex rgx = new Regex(@"([0-9<>]+)");
 
             MatchCollection mc = rgx.Matches(str);
 
-            mc.
-    
+            List<string> list = new List<string>();
+
+            foreach (Match item in mc)
+            {
+                list.Add(item.Value);
+            }
+
+            string[] arr = list.ToArray();
+
+            for (int i = 1; i < arr.Length; i += 2)
+            {
+
+                switch (arr[i])
+                {
+                    case "<":
+                        if (Convert.ToInt32(arr[i - 1]) >= Convert.ToInt32(arr[i + 1]))
+                        {
+                            return false;
+                        }
+                        break;
+                    case ">":
+                        if (Convert.ToInt32(arr[i - 1]) <= Convert.ToInt32(arr[i + 1]))
+                        {
+                            return false;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+
             return true;
+        }
+
+        public static string ReverseCase(string str)
+        {
+            /*
+             * Reverse the Case
+             * 
+             * Given a string, create a function to reverse the case. All lower-cased letters should be upper-cased, and vice versa.
+             */
+            string output = string.Empty;
+            char[] charr = str.ToCharArray();
+            foreach (char character in charr)
+            {
+
+                if (char.IsLower(character))
+                {
+                    output += character.ToString().ToUpper();
+                }
+                else if (char.IsUpper(character))
+                {
+                    output += character.ToString().ToLower();
+                }
+                else
+                    output += character;
+            }
+
+            return output;
+        }
+
+        public static int Remainder(int x, int y)
+        {
+            /*
+             * Return the Remainder from Two Numbers
+             * 
+             * There is a single operator in C#, capable of providing the remainder of a division operation. Two numbers are passed as parameters. The first parameter divided by the second parameter will have a remainder, possibly zero. Return that value.
+             */
+            int remainder = x % y;
+            return remainder;
         }
     }
 
