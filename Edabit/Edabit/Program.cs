@@ -426,6 +426,56 @@ namespace Edabit
             int remainder = x % y;
             return remainder;
         }
+
+        public static string GetMiddle(string str)
+        {
+            /*
+             * Return the Middle Character(s) of a String
+             * 
+             * Create a function that takes a string and returns the middle character(s). If the word's length is odd, return the middle character. If the word's length is even, return the middle two characters.
+             */
+            char[] charr = str.ToCharArray();
+            int left = (charr.Length - 1) / 2;
+            int right = charr.Length / 2;
+            if (left == right)
+                return string.Concat(charr[left]);
+            else
+                return string.Concat(charr[left], charr[right]);
+        }
+        public static int NextPrime(int num)
+        {
+            /*
+             * Next Prime
+             * 
+             * Given an integer, create a function that returns the next prime. If the number is prime, return the number itself.
+             */
+            while (true)
+            {
+                int num2 = num;
+                int result = 0;
+
+                while (num2 % 2 == 0)
+                {
+                    result = 2;
+                    num2 /= 2;
+                }
+                int f = 3;
+                while (f * f <= num2)
+                {
+                    if (num2 % f == 0)
+                    {
+                        result = f;
+                        num2 /= f;
+                    }
+                    else
+                        f += 2;
+                }
+                if (num == num2 || num == result)
+                    return num;
+                num++;
+            }
+        }
+
     }
 
 }
