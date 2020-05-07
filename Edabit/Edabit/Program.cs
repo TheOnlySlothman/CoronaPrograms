@@ -488,6 +488,28 @@ namespace Edabit
                 return phoneNums;
             }
 
+        public static int FindLargestNum(int[] arr)
+        {
+            /*
+             * Find the Largest Number in an Array
+             * 
+             * Create a function that takes an array of numbers. Return the largest number in the array.
+             */
+            return arr.Max();
+
+        }
+
+        public static int FindDigitAmount(int num)
+        {
+            /*
+             * Find the Total Number of Digits the Given Number Has
+             * 
+             * Create a function that takes a number as an argument and returns the amount of digits it has.
+             */
+            string str = Convert.ToString(num);
+            return str.Length;
+        }
+
     }
 
 }
