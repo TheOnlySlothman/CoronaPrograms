@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Pizzaria_3
 {
-    class Pizza
+    public class Pizza
     {
 
         public int Id { get; set; }
