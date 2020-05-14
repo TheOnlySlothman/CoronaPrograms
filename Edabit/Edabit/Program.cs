@@ -510,6 +510,55 @@ namespace Edabit
             return str.Length;
         }
 
+        public static int animals(int chickens, int cows, int pigs)
+        {
+            /*
+             * The Farm Problem
+             * 
+             * In this challenge, a farmer is asking you to tell him how many legs can be counted among all his animals. The farmer breeds three species:
+                chickens = 2 legs
+                cows = 4 legs
+                pigs = 4 legs
+                */
+            int legs;
+            return legs = (2 * chickens + 4 * cows + 4 * pigs);
+        }
+
+        public static bool divisibleByFive(int n)
+        {
+            /*
+             * Check if an Integer is Divisible By Five
+             * 
+             * Create a function that returns true if an integer is evenly divisible by 5, and false otherwise.
+             */
+            if (0 == n % 5)
+                return true;
+            else
+                return false;
+        }
+
+        public static int[] IndexOfCapitals(string str)
+        {
+            /*
+             * Return the Index of All Capital Letters
+             * 
+             * Create a function that takes a single string as argument and returns an ordered array containing the indices of all capital letters in the string.
+             */
+
+            List<int> caps = new List<int>();
+            char[] charr = str.ToCharArray();
+            for (int i = 0; i < charr.Length; i++)
+            {
+
+                if (char.IsUpper(charr[i]))
+                {
+                    caps.Add(i);
+                }
+
+            }
+            return caps.ToArray();
+        }
+
     }
 
 }
