@@ -15,37 +15,14 @@ namespace Pizzaria_3
     {
         public Form1()
         {
-             InitializeComponent();
+            InitializeComponent();
         }
+
+        public PizzaProperties pizzaProperties = new PizzaProperties();
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //forms has made me a broken man, so i have to write this painful code
-            PizzaProperties pizzaProperties = new PizzaProperties();
-            pizzaProperties.cheese.Add(new PizzaProperty("pizza cheese", 1));
-            pizzaProperties.cheese.Add(new PizzaProperty("cheddar", 1));
-
-            pizzaProperties.dough.Add(new PizzaProperty("normal", 1));
-            pizzaProperties.dough.Add(new PizzaProperty("Gluten-free", 1));
-
-            pizzaProperties.sauce.Add(new PizzaProperty("tomato", 1));
-            pizzaProperties.sauce.Add(new PizzaProperty("bearnaise", 1));
-
-            pizzaProperties.sizes.Add(new PizzaProperty("normal", 1));
-            pizzaProperties.sizes.Add(new PizzaProperty("family", 1));
-
-            pizzaProperties.spice.Add(new PizzaProperty("oregano", 1));
-            pizzaProperties.spice.Add(new PizzaProperty("paprika", 1));
-            pizzaProperties.spice.Add(new PizzaProperty("chili", 1));
-
-            pizzaProperties.toppings.Add(new PizzaProperty("ham", 1));
-            pizzaProperties.toppings.Add(new PizzaProperty("peperoni", 1));
-            pizzaProperties.toppings.Add(new PizzaProperty("mushroom", 1));
-            pizzaProperties.toppings.Add(new PizzaProperty("kebab", 1));
-            pizzaProperties.toppings.Add(new PizzaProperty("pineapple", 1));
-            pizzaProperties.toppings.Add(new PizzaProperty("meatballs", 1));
-
-
+            
             /*
             Pizza pizza2 = new Pizza();
             pizza2.Dough = nDough;
@@ -60,7 +37,7 @@ namespace Pizzaria_3
         {
             PizzaEditor EditorForm = new PizzaEditor();
             EditorForm.Show();
-            this.Hide();
+         //   this.Hide();
         }
     }
 }
