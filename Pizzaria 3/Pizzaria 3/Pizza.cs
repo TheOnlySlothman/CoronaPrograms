@@ -10,15 +10,32 @@ namespace Pizzaria_3
     public class Pizzaria
     {
         public List<Pizza> Pizzas;
-        public PizzaProperties Properties;
+        public PizzaProperties Properties = new PizzaProperties();
+        public List<Pizza> Checkout = new List<Pizza>();
 
-        Pizzaria()
+        public Pizzaria()
         {
-            Pizzas = new List<Pizza>();
-            Pizzas.Add(new Pizza("pizza1", new List<PizzaProperty>() { 
-                Properties.cheese.Find(x => x.name == "pizza cheese")
-            
-            }));
+            int id = 1;
+            Pizzas = new List<Pizza>
+            {
+                new Pizza(id++, "pizza1", new List<PizzaProperty>()
+                {
+                    Properties.dough.Find(x => x.name == "normal"),
+                    Properties.sauce.Find(x => x.name == "tomato"),
+                    Properties.cheese.Find(x => x.name == "pizza cheese"),
+                    Properties.toppings.Find(x => x.name == "ham"),
+                    Properties.toppings.Find(x => x.name == "oregano")
+                }),
+
+                new Pizza(id++, "pizza2", new List<PizzaProperty>()
+                {
+                    Properties.dough.Find(x => x.name == "normal"),
+                    Properties.sauce.Find(x => x.name == "tomato"),
+                    Properties.cheese.Find(x => x.name == "pizza cheese"),
+                    Properties.toppings.Find(x => x.name == "peperoni"),
+                    Properties.toppings.Find(x => x.name == "oregano")
+                })
+            };
         }
     }
 
@@ -28,25 +45,36 @@ namespace Pizzaria_3
 
         public string Name { get; set; }
 
-        public double getPrice()
+        public double GetPrice()
         {
             IEnumerable<double> i = from x in Ingredients
                                     select x.price;
-            return i.Sum() * Size.price;
+
+            if (Size == null)
+            {
+                return i.Sum();
+            }
+            else
+            {
+                return i.Sum() * Size.price;
+            }
         }
 
         public List<PizzaProperty> Ingredients { get; set; }
 
         public PizzaProperty Size { get; set; }
 
-        public Pizza()
+        public Pizza() => Ingredients = new List<PizzaProperty>();
+        
+
+        public Pizza(int id, string name, List<PizzaProperty> ingredients)
         {
+            this.Id = id;
+
+            this.Name = name;
+
             Ingredients = new List<PizzaProperty>();
-        }
-
-        public Pizza(string name, List<PizzaProperty> ingredients)
-        {
-
+            this.Ingredients.AddRange(ingredients);
         }
 
     }
@@ -99,7 +127,7 @@ namespace Pizzaria_3
                 new PizzaProperty("peperoni", 10),
                 new PizzaProperty("mushroom", 10),
                 new PizzaProperty("kebab", 10),
-                new PizzaProperty("pineapple", 10),
+                new PizzaProperty("pineapple", 60),
                 new PizzaProperty("meatballs", 10),
 
                 new PizzaProperty("oregano", 5),
