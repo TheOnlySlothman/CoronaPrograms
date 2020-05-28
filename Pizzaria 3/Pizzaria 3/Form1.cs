@@ -51,6 +51,9 @@ namespace Pizzaria_3
 
             foreach (var item in pizzaProperties.sizes)
                 sizeList.Add(item.name);
+
+            DoughBox.DataSource = doughList;
+            SizeBox.DataSource = sizeList;
         }
 
         private void EditorButton_Click(object sender, EventArgs e)
@@ -69,19 +72,61 @@ namespace Pizzaria_3
             };
 
             int result = Convert.ToInt32(pizzaChoice.Find(x => x.Checked).Tag);
-            
-             //= Pizza1RadioButton.Checked = true ? 1 : Pizza2RadioButton.Checked = true ? 2 : 0;
+
             Pizza selectedPizza = pizzaria.Pizzas.Find(x => x.Id == result);
 
-           // selectedPizza.Ingredients.Add(pizzaProperties.dough.Find(x => x.name == DoughBox.SelectedValue.ToString()));
+            selectedPizza.Ingredients.Add(pizzaProperties.dough.Find(x => x.name == DoughBox.SelectedValue.ToString()));
 
-         //   selectedPizza.Size = pizzaProperties.sizes.Find(x => x.name == SizeBox.SelectedValue.ToString());
+            selectedPizza.Size = pizzaProperties.sizes.Find(x => x.name == SizeBox.SelectedValue.ToString());
+            /*
+            List<PizzaProperty> pizza1 = new List<PizzaProperty>();
+            List<PizzaProperty> pizza2 = new List<PizzaProperty>();
 
-        //    pizzaria.Checkout.Add(selectedPizza);
+            pizza1.AddRange(selectedPizza.Ingredients);
 
-            string[] row = { selectedPizza.Name, "", selectedPizza.GetPrice().ToString() };
+            foreach (var item in pizzaria.Checkout)
+            {
+                item.Ingredients
+            }
 
-            dataGridView1.Rows.Add(row);
+            selectedPizza.Ingredients.Sort(delegate (PizzaProperty property1, PizzaProperty property2) { return property1.name.CompareTo(property2.name); }) ;
+            */
+            /*
+            Pizza pizza3 = pizzaria.Pizzas.Find(x => x.Id == 3);
+            Pizza pizza4 = pizzaria.Pizzas.Find(x => x.Id == 4);
+
+            pizza3.Ingredients.
+            */
+            foreach (var item in pizzaria.Checkout)
+            {
+                if (item.Ingredients.containsall(selectedPizza.Ingredients) && item.Ingredients.Count == selectedPizza.Ingredients.Count)
+                {
+
+                }
+
+            }
+
+
+            for (int i = 0; i < PizzaAmount.Value; i++)
+            {
+
+                pizzaria.Checkout.Add(selectedPizza);
+
+                dataGridView1.Rows.Add(selectedPizza.ToStringArray());
+
+            }
+
+
+                /*
+                 * Control.ControlCollection controlCollection = panel1.Controls;
+            Control[] controls = new Control[controlCollection.Count];
+            List<Control> controlsList = new List<Control>();
+
+            controlCollection.CopyTo(controls, 0);
+
+
+            controlsList.AddRange(controls);
+            */
         }
 
         private void dataGridView1_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)

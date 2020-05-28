@@ -28,12 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.AddPizzaButton = new System.Windows.Forms.Button();
             this.EditorButton = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.nameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ingredientsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.priceColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.Ingredients1 = new System.Windows.Forms.Label();
             this.price1 = new System.Windows.Forms.Label();
@@ -46,21 +43,27 @@
             this.Pizza2RadioButton = new System.Windows.Forms.RadioButton();
             this.SizeBox = new System.Windows.Forms.ComboBox();
             this.DoughBox = new System.Windows.Forms.ComboBox();
+            this.PizzaAmount = new System.Windows.Forms.NumericUpDown();
+            this.Antal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ingredientsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.priceColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PizzaAmount)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // AddPizzaButton
             // 
-            this.button1.Location = new System.Drawing.Point(533, 353);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 28);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.AddPizzaButton.Location = new System.Drawing.Point(292, 336);
+            this.AddPizzaButton.Margin = new System.Windows.Forms.Padding(4);
+            this.AddPizzaButton.Name = "AddPizzaButton";
+            this.AddPizzaButton.Size = new System.Drawing.Size(100, 28);
+            this.AddPizzaButton.TabIndex = 2;
+            this.AddPizzaButton.Text = "Add Pizza";
+            this.AddPizzaButton.UseVisualStyleBackColor = true;
+            this.AddPizzaButton.Click += new System.EventHandler(this.button1_Click);
             // 
             // EditorButton
             // 
@@ -77,6 +80,7 @@
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Antal,
             this.nameColumn,
             this.ingredientsColumn,
             this.priceColumn});
@@ -88,30 +92,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(356, 248);
             this.dataGridView1.TabIndex = 13;
             this.dataGridView1.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridView1_RowsAdded);
-            // 
-            // nameColumn
-            // 
-            this.nameColumn.HeaderText = "nym";
-            this.nameColumn.MinimumWidth = 6;
-            this.nameColumn.Name = "nameColumn";
-            this.nameColumn.ReadOnly = true;
-            this.nameColumn.Width = 125;
-            // 
-            // ingredientsColumn
-            // 
-            this.ingredientsColumn.HeaderText = "ingredients";
-            this.ingredientsColumn.MinimumWidth = 6;
-            this.ingredientsColumn.Name = "ingredientsColumn";
-            this.ingredientsColumn.ReadOnly = true;
-            this.ingredientsColumn.Width = 125;
-            // 
-            // priceColumn
-            // 
-            this.priceColumn.HeaderText = "price";
-            this.priceColumn.MinimumWidth = 6;
-            this.priceColumn.Name = "priceColumn";
-            this.priceColumn.ReadOnly = true;
-            this.priceColumn.Width = 125;
             // 
             // panel1
             // 
@@ -192,10 +172,12 @@
             // Pizza1RadioButton
             // 
             this.Pizza1RadioButton.AutoSize = true;
+            this.Pizza1RadioButton.Checked = true;
             this.Pizza1RadioButton.Location = new System.Drawing.Point(13, 54);
             this.Pizza1RadioButton.Name = "Pizza1RadioButton";
             this.Pizza1RadioButton.Size = new System.Drawing.Size(17, 16);
             this.Pizza1RadioButton.TabIndex = 16;
+            this.Pizza1RadioButton.TabStop = true;
             this.Pizza1RadioButton.Tag = "1";
             this.Pizza1RadioButton.UseVisualStyleBackColor = true;
             // 
@@ -225,11 +207,56 @@
             this.DoughBox.Size = new System.Drawing.Size(122, 24);
             this.DoughBox.TabIndex = 19;
             // 
+            // PizzaAmount
+            // 
+            this.PizzaAmount.Location = new System.Drawing.Point(292, 296);
+            this.PizzaAmount.Name = "PizzaAmount";
+            this.PizzaAmount.Size = new System.Drawing.Size(100, 22);
+            this.PizzaAmount.TabIndex = 20;
+            this.PizzaAmount.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // Antal
+            // 
+            this.Antal.HeaderText = "Antal";
+            this.Antal.MinimumWidth = 6;
+            this.Antal.Name = "Antal";
+            this.Antal.ReadOnly = true;
+            this.Antal.Width = 125;
+            // 
+            // nameColumn
+            // 
+            this.nameColumn.HeaderText = "Navn";
+            this.nameColumn.MinimumWidth = 6;
+            this.nameColumn.Name = "nameColumn";
+            this.nameColumn.ReadOnly = true;
+            this.nameColumn.Width = 125;
+            // 
+            // ingredientsColumn
+            // 
+            this.ingredientsColumn.HeaderText = "Ingredienser";
+            this.ingredientsColumn.MinimumWidth = 6;
+            this.ingredientsColumn.Name = "ingredientsColumn";
+            this.ingredientsColumn.ReadOnly = true;
+            this.ingredientsColumn.Width = 125;
+            // 
+            // priceColumn
+            // 
+            this.priceColumn.HeaderText = "Pris";
+            this.priceColumn.MinimumWidth = 6;
+            this.priceColumn.Name = "priceColumn";
+            this.priceColumn.ReadOnly = true;
+            this.priceColumn.Width = 125;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1050, 553);
+            this.Controls.Add(this.PizzaAmount);
             this.Controls.Add(this.DoughBox);
             this.Controls.Add(this.SizeBox);
             this.Controls.Add(this.Pizza2RadioButton);
@@ -238,7 +265,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.EditorButton);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.AddPizzaButton);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -248,17 +275,15 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PizzaAmount)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button AddPizzaButton;
         private System.Windows.Forms.Button EditorButton;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nameColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ingredientsColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn priceColumn;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label Ingredients1;
         private System.Windows.Forms.Label price1;
@@ -272,6 +297,11 @@
         public System.Windows.Forms.RadioButton Pizza2RadioButton;
         private System.Windows.Forms.ComboBox SizeBox;
         private System.Windows.Forms.ComboBox DoughBox;
+        private System.Windows.Forms.NumericUpDown PizzaAmount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Antal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nameColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ingredientsColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn priceColumn;
     }
 }
 

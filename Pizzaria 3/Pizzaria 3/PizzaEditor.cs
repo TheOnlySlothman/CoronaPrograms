@@ -12,7 +12,7 @@ namespace Pizzaria_3
 {
     public partial class PizzaEditor : Form
     {
-        Form1 f1;
+        readonly Form1 f1;
 
         public PizzaEditor(Form1 f1)
         {
@@ -22,8 +22,7 @@ namespace Pizzaria_3
 
         public PizzaProperties pizzaProperties = new PizzaProperties();
         public List<CheckBox> checkBoxes = new List<CheckBox>();
-
-        Pizzaria pizzaria = new Pizzaria();
+        readonly Pizzaria pizzaria = new Pizzaria();
 
         public bool ready = false;
 
@@ -124,15 +123,15 @@ namespace Pizzaria_3
             if (!ready) return;
 
             Pizza customPizza = new Pizza();
-            customPizza.Ingredients.Add(pizzaProperties.dough.Find(x => x.name == DoughBox.SelectedValue.ToString()));
-            customPizza.Ingredients.Add(pizzaProperties.cheese.Find(x => x.name == CheeseBox.SelectedValue.ToString()));
             customPizza.Ingredients.Add(pizzaProperties.sauce.Find(x => x.name == SauceBox.SelectedValue.ToString()));
-
+            customPizza.Ingredients.Add(pizzaProperties.cheese.Find(x => x.name == CheeseBox.SelectedValue.ToString()));
             IEnumerable<PizzaProperty> j = from x in pizzaProperties.toppings
                                            where checkBoxes.Any(y => y.Checked == true && x.name == y.Text)
                                            select x;
-
             customPizza.Ingredients.AddRange(j);
+            customPizza.Ingredients.Add(pizzaProperties.dough.Find(x => x.name == DoughBox.SelectedValue.ToString()));
+
+
             customPizza.Size = pizzaProperties.sizes.Find(x => x.name == SizeBox.SelectedValue.ToString());
 
             textBox1.Text = customPizza.GetPrice().ToString();
