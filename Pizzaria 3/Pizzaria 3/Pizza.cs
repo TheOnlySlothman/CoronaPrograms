@@ -4,51 +4,58 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Windows.Forms;
+using System.Drawing;
 
 namespace Pizzaria_3
 {
     public class Pizzaria
     {
         public List<Pizza> Pizzas;
-        public PizzaProperties Properties = new PizzaProperties();
-        public List<Pizza> Checkout = new List<Pizza>();
+        public List<Drink> Drinks;
+        public PizzaProperties PProperties = new PizzaProperties();
+        public DrinkProperties DProperties = new DrinkProperties();
+        public List<Item> Checkout = new List<Item>();
 
         public Pizzaria()
         {
-            int id = 1;
+            int pid = 1;
+            int did = 50;
             Pizzas = new List<Pizza>
             {
-                new Pizza(id++, "pizza1", new List<PizzaProperty>()
+                new Pizza(pid++, "pizza1", new List<ItemProperty>()
                 {
-                    Properties.sauce.Find(x => x.name == "tomato sauce"),
-                    Properties.cheese.Find(x => x.name == "pizza cheese"),
-                    Properties.toppings.Find(x => x.name == "ham"),
-                    Properties.toppings.Find(x => x.name == "oregano")
+                    PProperties.sauce.Find(x => x.name == "tomato sauce"),
+                    PProperties.cheese.Find(x => x.name == "pizza cheese"),
+                    PProperties.toppings.Find(x => x.name == "ham"),
+                    PProperties.spice.Find(x => x.name == "oregano")
                 }),
 
-                new Pizza(id++, "pizza2", new List<PizzaProperty>()
+                new Pizza(pid++, "pizza2", new List<ItemProperty>()
                 {
-                    Properties.sauce.Find(x => x.name == "tomato sauce"),
-                    Properties.cheese.Find(x => x.name == "pizza cheese"),
-                    Properties.toppings.Find(x => x.name == "peperoni"),
-                    Properties.toppings.Find(x => x.name == "oregano")
+                    PProperties.sauce.Find(x => x.name == "tomato sauce"),
+                    PProperties.cheese.Find(x => x.name == "pizza cheese"),
+                    PProperties.toppings.Find(x => x.name == "peperoni"),
+                    PProperties.spice.Find(x => x.name == "oregano")
                 }),
 
-                new Pizza(id++, "pizza3", new List<PizzaProperty>()
+                new Pizza(pid++, "pizza3", new List<ItemProperty>()
                 {
-                    Properties.sauce.Find(x => x.name == "tomato"),
-                    Properties.cheese.Find(x => x.name == "pizza cheese"),
-                    Properties.toppings.Find(x => x.name == "ham"),
-                    Properties.toppings.Find(x => x.name == "oregano")
+                    PProperties.sauce.Find(x => x.name == "tomato sauce"),
+                    PProperties.cheese.Find(x => x.name == "pizza cheese"),
+                    PProperties.toppings.Find(x => x.name == "ham"),
+                    PProperties.toppings.Find(x => x.name == "peperoni"),
+                    PProperties.toppings.Find(x => x.name == "kebab"),
+                    PProperties.toppings.Find(x => x.name == "meatballs"),
+                    PProperties.spice.Find(x => x.name == "oregano")
                 }),
+            };
 
-                new Pizza(id++, "pizza3", new List<PizzaProperty>()
-                {
-                    Properties.sauce.Find(x => x.name == "tomato"),
-                    Properties.cheese.Find(x => x.name == "pizza cheese"),
-                    Properties.toppings.Find(x => x.name == "ham"),
-                    Properties.toppings.Find(x => x.name == "oregano")
-                }),
+            Drinks = new List<Drink>
+            {
+                new Drink(did++, "sprite"),
+                new Drink(did++, "cola"),
+                new Drink(did++, "fanta")
             };
         }
 
@@ -64,15 +71,10 @@ namespace Pizzaria_3
         }
     }
 
-    public class Pizza
+    public class Pizza : Item
     {
-        public int Id { get; set; }
 
-        public int Amount { get; set; }
-
-        public string Name { get; set; }
-
-        public double GetPrice()
+        public override double GetPrice()
         {
             IEnumerable<double> i = from x in Ingredients
                                     select x.price;
@@ -80,11 +82,10 @@ namespace Pizzaria_3
             return Size == null ? i.Sum() : i.Sum() * Size.price;
         }
 
-        public List<PizzaProperty> Ingredients { get; set; }
+        public List<ItemProperty> Ingredients { get; set; }
 
-        public PizzaProperty Size { get; set; }
 
-        public Pizza() => Ingredients = new List<PizzaProperty>();
+        public Pizza() => Ingredients = new List<ItemProperty>();
 
         public string[] ToStringArray()
         {
@@ -97,13 +98,13 @@ namespace Pizzaria_3
             return new string[] { Amount.ToString(), Name, sb.ToString(), GetPrice().ToString() };
         }
 
-        public Pizza(int id, string name, List<PizzaProperty> ingredients)
+        public Pizza(int id, string name, List<ItemProperty> ingredients)
         {
             Id = id;
 
             Name = name;
 
-            Ingredients = new List<PizzaProperty>();
+            Ingredients = new List<ItemProperty>();
             Ingredients.AddRange(ingredients);
         }
 
@@ -112,73 +113,130 @@ namespace Pizzaria_3
 
     public class PizzaProperties
     {
-        public List<PizzaProperty> sauce;
-        public List<PizzaProperty> cheese;
-        public List<PizzaProperty> toppings;
-        public List<PizzaProperty> sizes;
-        public List<PizzaProperty> dough;
+        public List<ItemProperty> sauce;
+        public List<ItemProperty> cheese;
+        public List<ItemProperty> toppings;
+        public List<ItemProperty> sizes;
+        public List<ItemProperty> dough;
+        public List<ItemProperty> spice;
 
         public PizzaProperties()
         {
-            sauce = new List<PizzaProperty>();
-            cheese = new List<PizzaProperty>();
-            toppings = new List<PizzaProperty>();
-            sizes = new List<PizzaProperty>();
-            dough = new List<PizzaProperty>();
+            sauce = new List<ItemProperty>();
+            cheese = new List<ItemProperty>();
+            toppings = new List<ItemProperty>();
+            sizes = new List<ItemProperty>();
+            dough = new List<ItemProperty>();
+            spice = new List<ItemProperty>();
 
-            cheese.AddRange(new List<PizzaProperty>()
+            cheese.AddRange(new List<ItemProperty>()
             {
-                new PizzaProperty("none", 0),
-                new PizzaProperty("pizza cheese", 10),
-                new PizzaProperty("cheddar", 10)
+                new ItemProperty("none", 0),
+                new ItemProperty("pizza cheese", 10),
+                new ItemProperty("cheddar", 10)
             });
 
-            dough.AddRange(new List<PizzaProperty>()
+            dough.AddRange(new List<ItemProperty>()
             {
-                new PizzaProperty("normal bread", 20),
-                new PizzaProperty("Gluten-free", 40)
+                new ItemProperty("normal bread", 20),
+                new ItemProperty("Gluten-free", 40)
             });
 
-            sauce.AddRange(new List<PizzaProperty>()
+            sauce.AddRange(new List<ItemProperty>()
             {
-                new PizzaProperty("no sauce", 0),
-                new PizzaProperty("tomato sauce", 10),
-                new PizzaProperty("bearnaise sauce", 10)
+                new ItemProperty("no sauce", 0),
+                new ItemProperty("tomato sauce", 10),
+                new ItemProperty("bearnaise sauce", 10)
             });
 
-            sizes.AddRange(new List<PizzaProperty>()
+            sizes.AddRange(new List<ItemProperty>()
             {
-                new PizzaProperty("normal size", 1),
-                new PizzaProperty("family size", 2)
+                new ItemProperty("normal size", 1),
+                new ItemProperty("family size", 2)
             });
 
-            toppings.AddRange(new List<PizzaProperty>()
+            toppings.AddRange(new List<ItemProperty>()
             {
-                new PizzaProperty("ham", 10),
-                new PizzaProperty("peperoni", 10),
-                new PizzaProperty("mushroom", 10),
-                new PizzaProperty("kebab", 10),
-                new PizzaProperty("pineapple", 60),
-                new PizzaProperty("meatballs", 10),
+                new ItemProperty("ham", 10),
+                new ItemProperty("peperoni", 10),
+                new ItemProperty("mushroom", 10),
+                new ItemProperty("kebab", 10),
+                new ItemProperty("pineapple", 60),
+                new ItemProperty("meatballs", 10),
+            });
 
-                new PizzaProperty("oregano", 5),
-                new PizzaProperty("paprika", 5),
-                new PizzaProperty("chili", 0)
+            spice.AddRange(new List<ItemProperty>()
+            {
+                new ItemProperty("oregano", 5),
+                new ItemProperty("paprika", 5),
+                new ItemProperty("chili", 0)
             });
         }
 
 
     }
 
-    public class PizzaProperty
+    public class ItemProperty
     {
         public string name;
         public double price;
 
-        public PizzaProperty(string name, double price)
+        public ItemProperty(string name, double price)
         {
             this.name = name;
             this.price = price;
+        }
+    }
+
+    public abstract class Item
+    {
+        public int Id { get; set; }
+
+        public int Amount { get; set; }
+
+        public string Name { get; set; }
+
+        public ItemProperty Size { get; set; }
+
+        public abstract double GetPrice();
+    }
+
+    public class Drink : Item
+    {
+        readonly double i = 10;
+
+        public override double GetPrice()
+        {
+
+            return Size == null ? i : i * Size.price;
+        }
+
+        public Drink(int id, string name)
+        {
+            this.Id = id;
+            this.Name = name;
+        }
+
+        public Drink(PizzaProperty size)
+        {
+
+        }
+    }
+
+    public class DrinkProperties
+    {
+        public List<ItemProperty> sizes;
+
+        public DrinkProperties()
+        {
+            sizes = new List<ItemProperty>();
+
+            sizes.AddRange(new List<ItemProperty>()
+            {
+                new ItemProperty("small", 1),
+                new ItemProperty("medium", 1.5),
+                new ItemProperty("large", 2)
+            });
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Pizzaria_3
     public partial class PizzaEditor : Form
     {
         readonly Form1 f1;
-        Pizza pizza;
+        readonly Pizza pizza;
 
         public PizzaEditor(Form1 f1, Pizza pizza)
         {
@@ -23,7 +23,8 @@ namespace Pizzaria_3
         }
 
         public PizzaProperties pizzaProperties = new PizzaProperties();
-        public List<CheckBox> checkBoxes = new List<CheckBox>();
+        public List<CheckBox> toppingBoxes = new List<CheckBox>();
+        public List<CheckBox> spiceBoxes = new List<CheckBox>();
         readonly Pizzaria pizzaria = new Pizzaria();
 
         public bool ready = false;
@@ -61,35 +62,14 @@ namespace Pizzaria_3
             SizeBox.SelectedValue = sizeList.Last();
             */
 
-            checkBoxes.AddRange(new List<CheckBox>
-            {
-                checkBox1,
-                checkBox2,
-                checkBox3,
-                checkBox4,
-                checkBox5,
-                checkBox6,
-                checkBox7,
-                checkBox8,
-                checkBox9,
-                checkBox10
-            });
+            toppingBoxes.AddRange(GetCheckBoxes(ToppingPanel));
 
-            List<PizzaProperty> multIngredients = new List<PizzaProperty>();
+            spiceBoxes.AddRange(GetCheckBoxes(SpicePanel));
 
-            multIngredients.AddRange(
-                pizzaProperties.toppings
-                );
+            CheckBoxSetup(toppingBoxes, pizzaria.PProperties.toppings);
+            CheckBoxSetup(spiceBoxes, pizzaria.PProperties.spice);
 
-            CheckBox[] checkBoxArr = checkBoxes.ToArray();
-            PizzaProperty[] multIngredientsArr = multIngredients.ToArray();
 
-            int amount = Math.Min(checkBoxArr.Length, multIngredientsArr.Length);
-
-            for (int i = 0; i < amount; i++)
-            {
-                checkBoxArr[i].Text = multIngredients[i].name.ToString();
-            }
             ready = true;
 
             //CheeseBox.DisplayMember = pizza.Ingredients.Find(x => pizzaria.Properties.cheese).name;
@@ -111,47 +91,80 @@ namespace Pizzaria_3
                 SauceBox.Text = x.name;
             }
 
-            foreach (var (x, y) in from x in checkBoxes
+            foreach (var (x, y) in from x in toppingBoxes
                                    from y in pizza.Ingredients
                                    select (x, y))
             {
                 if (x.Text == y.name)
                 {
                     x.Checked = true;
-                    break;
                 }
-                else
+            }
+
+            foreach (var (x, y) in from x in spiceBoxes
+                                   from y in pizza.Ingredients
+                                   select (x, y))
+            {
+                if (x.Text == y.name)
                 {
-                    x.Checked = false;
+                    x.Checked = true;
                 }
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private List<CheckBox> GetCheckBoxes(Panel panel)
         {
-            /*
-            IEnumerable<double> i = from x in pizzaProperties.dough
-                    where x.name == DoughBox.SelectedValue.ToString()
-                    select x.price;
-                    */
+            Control.ControlCollection controlCollection = panel.Controls;
+            Control[] controls = new Control[controlCollection.Count];
+            List<Control> controlsList = new List<Control>();
+            List<CheckBox> checkBoxList = new List<CheckBox>();
 
-            Pizza customPizza = new Pizza();
-            customPizza.Ingredients.Add(pizzaProperties.dough.Find(x => x.name == DoughBox.SelectedValue.ToString()));
-            customPizza.Ingredients.Add(pizzaProperties.sauce.Find(x => x.name == SauceBox.SelectedValue.ToString()));
-            customPizza.Ingredients.Add(pizzaProperties.cheese.Find(x => x.name == CheeseBox.SelectedValue.ToString()));
+            controlCollection.CopyTo(controls, 0);
 
-            IEnumerable<PizzaProperty> j = from x in pizzaProperties.toppings
-                                           where checkBoxes.Any(y => y.Checked == true && x.name == y.Text)
+
+            controlsList.AddRange(controls);
+
+            foreach (CheckBox item in controlsList)
+            {
+                checkBoxList.Add(item);
+            }
+
+            checkBoxList.Reverse();
+
+            return checkBoxList;
+        }
+
+        private void CheckBoxSetup(List<CheckBox> checkBoxes, List<ItemProperty> properties)
+        {
+            List<ItemProperty> multIngredients = new List<ItemProperty>();
+
+            multIngredients.AddRange(
+                properties
+                );
+
+            CheckBox[] checkBoxArr = checkBoxes.ToArray();
+            ItemProperty[] multIngredientsArr = multIngredients.ToArray();
+
+            int amount = Math.Min(checkBoxArr.Length, multIngredientsArr.Length);
+
+            for (int i = 0; i < amount; i++)
+            {
+                checkBoxArr[i].Text = multIngredients[i].name.ToString();
+            }
+        }
+
+        private void AddPizzaButton_Click(object sender, EventArgs e)
+        {
+
+            IEnumerable<ItemProperty> i = from x in pizzaProperties.toppings
+                                           where toppingBoxes.Any(y => y.Checked == true && x.name == y.Text)
                                            select x;
+            if (i.Count() > 4)
+            {
+                return;
+            }
 
-            customPizza.Ingredients.AddRange(j);
-            customPizza.Size = pizzaProperties.sizes.Find(x => x.name == SizeBox.SelectedValue.ToString());
-
-            pizzaria.Checkout.Add(customPizza);
-
-            customPizza.Name = "Custom Pizza";
-
-            customPizza.Amount = Convert.ToInt32(PizzaAmount.Value);
+            Pizza customPizza = MakePizza();
 
             string[] row = customPizza.ToStringArray();
 
@@ -163,21 +176,37 @@ namespace Pizzaria_3
         {
             if (!ready) return;
 
-            Pizza customPizza = new Pizza();
+            Pizza customPizza = MakePizza();
+
+            textBox1.Text = customPizza.GetPrice().ToString();
+        }
+
+        private Pizza MakePizza()
+        {
+            Pizza customPizza = new Pizza
+            {
+                Name = "custom pizza"
+            };
+            customPizza.Ingredients.Add(pizzaProperties.dough.Find(x => x.name == DoughBox.SelectedValue.ToString()));
             customPizza.Ingredients.Add(pizzaProperties.sauce.Find(x => x.name == SauceBox.SelectedValue.ToString()));
             customPizza.Ingredients.Add(pizzaProperties.cheese.Find(x => x.name == CheeseBox.SelectedValue.ToString()));
-            IEnumerable<PizzaProperty> j = from x in pizzaProperties.toppings
-                                           where checkBoxes.Any(y => y.Checked == true && x.name == y.Text)
+
+            IEnumerable<ItemProperty> i = from x in pizzaProperties.toppings
+                                           where toppingBoxes.Any(y => y.Checked == true && x.name == y.Text)
+                                           select x;
+            customPizza.Ingredients.AddRange(i);
+
+            IEnumerable<ItemProperty> j = from x in pizzaProperties.spice
+                                           where spiceBoxes.Any(y => y.Checked == true && x.name == y.Text)
                                            select x;
             customPizza.Ingredients.AddRange(j);
-            customPizza.Ingredients.Add(pizzaProperties.dough.Find(x => x.name == DoughBox.SelectedValue.ToString()));
 
 
             customPizza.Size = pizzaProperties.sizes.Find(x => x.name == SizeBox.SelectedValue.ToString());
 
             customPizza.Amount = Convert.ToInt32(PizzaAmount.Value);
 
-            textBox1.Text = customPizza.GetPrice().ToString();
+            return customPizza;
         }
     }
 }

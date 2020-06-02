@@ -28,9 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.AddPizzaButton = new System.Windows.Forms.Button();
+            this.AddItemButton = new System.Windows.Forms.Button();
             this.EditorButton = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Antal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ingredientsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.priceColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.Ingredients1 = new System.Windows.Forms.Label();
             this.price1 = new System.Windows.Forms.Label();
@@ -45,30 +49,38 @@
             this.DoughBox = new System.Windows.Forms.ComboBox();
             this.PizzaAmount = new System.Windows.Forms.NumericUpDown();
             this.CheckoutButton = new System.Windows.Forms.Button();
-            this.Antal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ingredientsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.priceColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GlutenBreadPrice = new System.Windows.Forms.Label();
+            this.SizePrice = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.Ingredients3 = new System.Windows.Forms.Label();
+            this.price3 = new System.Windows.Forms.Label();
+            this.name3 = new System.Windows.Forms.Label();
+            this.Pizza3RadioButton = new System.Windows.Forms.RadioButton();
+            this.Drink1RadioButton = new System.Windows.Forms.RadioButton();
+            this.Drink2RadioButton = new System.Windows.Forms.RadioButton();
+            this.Drink3RadioButton = new System.Windows.Forms.RadioButton();
+            this.DrinkPrice = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PizzaAmount)).BeginInit();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
-            // AddPizzaButton
+            // AddItemButton
             // 
-            this.AddPizzaButton.Location = new System.Drawing.Point(292, 336);
-            this.AddPizzaButton.Margin = new System.Windows.Forms.Padding(4);
-            this.AddPizzaButton.Name = "AddPizzaButton";
-            this.AddPizzaButton.Size = new System.Drawing.Size(100, 28);
-            this.AddPizzaButton.TabIndex = 2;
-            this.AddPizzaButton.Text = "Add Pizza";
-            this.AddPizzaButton.UseVisualStyleBackColor = true;
-            this.AddPizzaButton.Click += new System.EventHandler(this.AddPizzaButton_Click);
+            this.AddItemButton.Location = new System.Drawing.Point(767, 190);
+            this.AddItemButton.Margin = new System.Windows.Forms.Padding(4);
+            this.AddItemButton.Name = "AddItemButton";
+            this.AddItemButton.Size = new System.Drawing.Size(100, 28);
+            this.AddItemButton.TabIndex = 2;
+            this.AddItemButton.Text = "Add Item";
+            this.AddItemButton.UseVisualStyleBackColor = true;
+            this.AddItemButton.Click += new System.EventHandler(this.AddItemButton_Click);
             // 
             // EditorButton
             // 
-            this.EditorButton.Location = new System.Drawing.Point(792, 457);
+            this.EditorButton.Location = new System.Drawing.Point(801, 500);
             this.EditorButton.Name = "EditorButton";
             this.EditorButton.Size = new System.Drawing.Size(75, 23);
             this.EditorButton.TabIndex = 12;
@@ -85,14 +97,45 @@
             this.nameColumn,
             this.ingredientsColumn,
             this.priceColumn});
-            this.dataGridView1.Location = new System.Drawing.Point(682, 54);
+            this.dataGridView1.Location = new System.Drawing.Point(682, 246);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(356, 248);
             this.dataGridView1.TabIndex = 13;
-            this.dataGridView1.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridView1_RowsAdded);
+            // 
+            // Antal
+            // 
+            this.Antal.HeaderText = "Antal";
+            this.Antal.MinimumWidth = 6;
+            this.Antal.Name = "Antal";
+            this.Antal.ReadOnly = true;
+            this.Antal.Width = 75;
+            // 
+            // nameColumn
+            // 
+            this.nameColumn.HeaderText = "Navn";
+            this.nameColumn.MinimumWidth = 6;
+            this.nameColumn.Name = "nameColumn";
+            this.nameColumn.ReadOnly = true;
+            this.nameColumn.Width = 75;
+            // 
+            // ingredientsColumn
+            // 
+            this.ingredientsColumn.HeaderText = "Ingredienser";
+            this.ingredientsColumn.MinimumWidth = 6;
+            this.ingredientsColumn.Name = "ingredientsColumn";
+            this.ingredientsColumn.ReadOnly = true;
+            this.ingredientsColumn.Width = 250;
+            // 
+            // priceColumn
+            // 
+            this.priceColumn.HeaderText = "Pris";
+            this.priceColumn.MinimumWidth = 6;
+            this.priceColumn.Name = "priceColumn";
+            this.priceColumn.ReadOnly = true;
+            this.priceColumn.Width = 75;
             // 
             // panel1
             // 
@@ -104,6 +147,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(200, 100);
             this.panel1.TabIndex = 14;
+            this.panel1.Tag = "1";
             // 
             // Ingredients1
             // 
@@ -142,6 +186,7 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(200, 100);
             this.panel2.TabIndex = 15;
+            this.panel2.Tag = "2";
             // 
             // Ingredients2
             // 
@@ -157,9 +202,9 @@
             this.price2.AutoSize = true;
             this.price2.Location = new System.Drawing.Point(119, 4);
             this.price2.Name = "price2";
-            this.price2.Size = new System.Drawing.Size(24, 17);
+            this.price2.Size = new System.Drawing.Size(39, 17);
             this.price2.TabIndex = 1;
-            this.price2.Text = "55";
+            this.price2.Text = "price";
             // 
             // name2
             // 
@@ -195,10 +240,11 @@
             // SizeBox
             // 
             this.SizeBox.FormattingEnabled = true;
-            this.SizeBox.Location = new System.Drawing.Point(383, 12);
+            this.SizeBox.Location = new System.Drawing.Point(255, 166);
             this.SizeBox.Name = "SizeBox";
             this.SizeBox.Size = new System.Drawing.Size(121, 24);
             this.SizeBox.TabIndex = 18;
+            this.SizeBox.SelectedIndexChanged += new System.EventHandler(this.PizzaPrice_Update);
             // 
             // DoughBox
             // 
@@ -207,10 +253,11 @@
             this.DoughBox.Name = "DoughBox";
             this.DoughBox.Size = new System.Drawing.Size(122, 24);
             this.DoughBox.TabIndex = 19;
+            this.DoughBox.SelectedIndexChanged += new System.EventHandler(this.PizzaPrice_Update);
             // 
             // PizzaAmount
             // 
-            this.PizzaAmount.Location = new System.Drawing.Point(292, 296);
+            this.PizzaAmount.Location = new System.Drawing.Point(467, 421);
             this.PizzaAmount.Name = "PizzaAmount";
             this.PizzaAmount.Size = new System.Drawing.Size(100, 22);
             this.PizzaAmount.TabIndex = 20;
@@ -219,55 +266,141 @@
             0,
             0,
             0});
-            this.PizzaAmount.ValueChanged += new System.EventHandler(this.PizzaAmount_ValueChanged);
+            this.PizzaAmount.ValueChanged += new System.EventHandler(this.PizzaPrice_Update);
             // 
             // CheckoutButton
             // 
-            this.CheckoutButton.Location = new System.Drawing.Point(830, 336);
+            this.CheckoutButton.Location = new System.Drawing.Point(682, 500);
             this.CheckoutButton.Name = "CheckoutButton";
-            this.CheckoutButton.Size = new System.Drawing.Size(75, 23);
+            this.CheckoutButton.Size = new System.Drawing.Size(113, 23);
             this.CheckoutButton.TabIndex = 21;
             this.CheckoutButton.Text = "Checkout";
             this.CheckoutButton.UseVisualStyleBackColor = true;
             this.CheckoutButton.Click += new System.EventHandler(this.CheckoutButton_Click);
             // 
-            // Antal
+            // GlutenBreadPrice
             // 
-            this.Antal.HeaderText = "Antal";
-            this.Antal.MinimumWidth = 6;
-            this.Antal.Name = "Antal";
-            this.Antal.ReadOnly = true;
-            this.Antal.Width = 75;
+            this.GlutenBreadPrice.AutoSize = true;
+            this.GlutenBreadPrice.Location = new System.Drawing.Point(46, 393);
+            this.GlutenBreadPrice.Name = "GlutenBreadPrice";
+            this.GlutenBreadPrice.Size = new System.Drawing.Size(126, 17);
+            this.GlutenBreadPrice.TabIndex = 22;
+            this.GlutenBreadPrice.Text = "Gluten bread price";
             // 
-            // nameColumn
+            // SizePrice
             // 
-            this.nameColumn.HeaderText = "Navn";
-            this.nameColumn.MinimumWidth = 6;
-            this.nameColumn.Name = "nameColumn";
-            this.nameColumn.ReadOnly = true;
-            this.nameColumn.Width = 75;
+            this.SizePrice.AutoSize = true;
+            this.SizePrice.Location = new System.Drawing.Point(46, 347);
+            this.SizePrice.Name = "SizePrice";
+            this.SizePrice.Size = new System.Drawing.Size(70, 17);
+            this.SizePrice.TabIndex = 23;
+            this.SizePrice.Text = "Size price";
             // 
-            // ingredientsColumn
+            // panel3
             // 
-            this.ingredientsColumn.HeaderText = "Ingredienser";
-            this.ingredientsColumn.MinimumWidth = 6;
-            this.ingredientsColumn.Name = "ingredientsColumn";
-            this.ingredientsColumn.ReadOnly = true;
-            this.ingredientsColumn.Width = 250;
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.Ingredients3);
+            this.panel3.Controls.Add(this.price3);
+            this.panel3.Controls.Add(this.name3);
+            this.panel3.Location = new System.Drawing.Point(49, 224);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(200, 100);
+            this.panel3.TabIndex = 16;
+            this.panel3.Tag = "3";
             // 
-            // priceColumn
+            // Ingredients3
             // 
-            this.priceColumn.HeaderText = "Pris";
-            this.priceColumn.MinimumWidth = 6;
-            this.priceColumn.Name = "priceColumn";
-            this.priceColumn.ReadOnly = true;
-            this.priceColumn.Width = 75;
+            this.Ingredients3.AutoSize = true;
+            this.Ingredients3.Location = new System.Drawing.Point(3, 47);
+            this.Ingredients3.Name = "Ingredients3";
+            this.Ingredients3.Size = new System.Drawing.Size(154, 51);
+            this.Ingredients3.TabIndex = 2;
+            this.Ingredients3.Text = "Tomatsauce, pizza ost,\r\n ham, peperoni, kebab,\r\n meatballs og oregano\r\n";
+            // 
+            // price3
+            // 
+            this.price3.AutoSize = true;
+            this.price3.Location = new System.Drawing.Point(119, 4);
+            this.price3.Name = "price3";
+            this.price3.Size = new System.Drawing.Size(39, 17);
+            this.price3.TabIndex = 1;
+            this.price3.Text = "price";
+            // 
+            // name3
+            // 
+            this.name3.AutoSize = true;
+            this.name3.Location = new System.Drawing.Point(13, 4);
+            this.name3.Name = "name3";
+            this.name3.Size = new System.Drawing.Size(49, 17);
+            this.name3.TabIndex = 0;
+            this.name3.Text = "pizza3";
+            // 
+            // Pizza3RadioButton
+            // 
+            this.Pizza3RadioButton.AutoSize = true;
+            this.Pizza3RadioButton.Location = new System.Drawing.Point(13, 259);
+            this.Pizza3RadioButton.Name = "Pizza3RadioButton";
+            this.Pizza3RadioButton.Size = new System.Drawing.Size(17, 16);
+            this.Pizza3RadioButton.TabIndex = 24;
+            this.Pizza3RadioButton.Tag = "3";
+            this.Pizza3RadioButton.UseVisualStyleBackColor = true;
+            // 
+            // Drink1RadioButton
+            // 
+            this.Drink1RadioButton.AutoSize = true;
+            this.Drink1RadioButton.Location = new System.Drawing.Point(419, 118);
+            this.Drink1RadioButton.Name = "Drink1RadioButton";
+            this.Drink1RadioButton.Size = new System.Drawing.Size(148, 21);
+            this.Drink1RadioButton.TabIndex = 25;
+            this.Drink1RadioButton.TabStop = true;
+            this.Drink1RadioButton.Tag = "50";
+            this.Drink1RadioButton.Text = "Drink1RadioButton";
+            this.Drink1RadioButton.UseVisualStyleBackColor = true;
+            // 
+            // Drink2RadioButton
+            // 
+            this.Drink2RadioButton.AutoSize = true;
+            this.Drink2RadioButton.Location = new System.Drawing.Point(419, 159);
+            this.Drink2RadioButton.Name = "Drink2RadioButton";
+            this.Drink2RadioButton.Size = new System.Drawing.Size(17, 16);
+            this.Drink2RadioButton.TabIndex = 26;
+            this.Drink2RadioButton.TabStop = true;
+            this.Drink2RadioButton.Tag = "51";
+            this.Drink2RadioButton.UseVisualStyleBackColor = true;
+            // 
+            // Drink3RadioButton
+            // 
+            this.Drink3RadioButton.AutoSize = true;
+            this.Drink3RadioButton.Location = new System.Drawing.Point(419, 202);
+            this.Drink3RadioButton.Name = "Drink3RadioButton";
+            this.Drink3RadioButton.Size = new System.Drawing.Size(17, 16);
+            this.Drink3RadioButton.TabIndex = 27;
+            this.Drink3RadioButton.TabStop = true;
+            this.Drink3RadioButton.Tag = "52";
+            this.Drink3RadioButton.UseVisualStyleBackColor = true;
+            // 
+            // DrinkPrice
+            // 
+            this.DrinkPrice.AutoSize = true;
+            this.DrinkPrice.Location = new System.Drawing.Point(419, 12);
+            this.DrinkPrice.Name = "DrinkPrice";
+            this.DrinkPrice.Size = new System.Drawing.Size(73, 17);
+            this.DrinkPrice.TabIndex = 28;
+            this.DrinkPrice.Text = "DrinkPrice";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1050, 553);
+            this.Controls.Add(this.DrinkPrice);
+            this.Controls.Add(this.Drink3RadioButton);
+            this.Controls.Add(this.Drink2RadioButton);
+            this.Controls.Add(this.Drink1RadioButton);
+            this.Controls.Add(this.Pizza3RadioButton);
+            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.SizePrice);
+            this.Controls.Add(this.GlutenBreadPrice);
             this.Controls.Add(this.CheckoutButton);
             this.Controls.Add(this.PizzaAmount);
             this.Controls.Add(this.DoughBox);
@@ -278,7 +411,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.EditorButton);
-            this.Controls.Add(this.AddPizzaButton);
+            this.Controls.Add(this.AddItemButton);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -289,13 +422,15 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PizzaAmount)).EndInit();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Button AddPizzaButton;
+        private System.Windows.Forms.Button AddItemButton;
         private System.Windows.Forms.Button EditorButton;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label Ingredients1;
@@ -316,6 +451,17 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn nameColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn ingredientsColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn priceColumn;
+        private System.Windows.Forms.Label GlutenBreadPrice;
+        private System.Windows.Forms.Label SizePrice;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label Ingredients3;
+        private System.Windows.Forms.Label price3;
+        private System.Windows.Forms.Label name3;
+        public System.Windows.Forms.RadioButton Pizza3RadioButton;
+        private System.Windows.Forms.RadioButton Drink1RadioButton;
+        private System.Windows.Forms.RadioButton Drink2RadioButton;
+        private System.Windows.Forms.RadioButton Drink3RadioButton;
+        private System.Windows.Forms.Label DrinkPrice;
     }
 }
 

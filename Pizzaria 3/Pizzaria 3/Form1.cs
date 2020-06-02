@@ -19,8 +19,9 @@ namespace Pizzaria_3
         }
 
         public PizzaProperties pizzaProperties = new PizzaProperties();
-        Pizzaria pizzaria = new Pizzaria();
+        readonly Pizzaria pizzaria = new Pizzaria();
 
+        public bool ready = false;
         private void Form1_Load(object sender, EventArgs e)
         {
             /*
@@ -31,17 +32,9 @@ namespace Pizzaria_3
             pizza2.Ingredients.Add(cheese);
             pizza2.Ingredients.Add(peperoni);
             */
-            Control.ControlCollection controlCollection = panel1.Controls;
-            Control[] controls = new Control[controlCollection.Count];
-            List<Control> controlsList = new List<Control>();
+            
 
-            controlCollection.CopyTo(controls, 0);
-
-
-            controlsList.AddRange(controls);
-
-            controlsList.First(x => x.Name.Contains("name")).Text = pizzaria.Pizzas.Find(y => y.Id == 1).Name;
-            controlsList.First(x => x.Name.Contains("price")).Text = pizzaria.Pizzas.Find(y => y.Id == 1).GetPrice().ToString();
+            
 
             BindingList<string> doughList = new BindingList<string>();
             BindingList<string> sizeList = new BindingList<string>();
@@ -54,41 +47,61 @@ namespace Pizzaria_3
 
             DoughBox.DataSource = doughList;
             SizeBox.DataSource = sizeList;
+
+            GlutenBreadPrice.Text = $"Gluten free bread is +{pizzaria.PProperties.dough.Find(x => x.name == "Gluten-free").price - pizzaria.PProperties.dough.First().price}";
+
+            SizePrice.Text = $"Family size is *{pizzaria.PProperties.sizes.Find(x => x.name == "family size").price} prize";
+
+            DrinkPrice.Text = $"Drinks:\nSmall: {new Drink(0, "temp").Size = pizzaria.DProperties.sizes.Find(x => x.name == "small")}";
+
+            ready = true;
+
+            PizzaPrice_Update(sender, e);
         }
 
         private void EditorButton_Click(object sender, EventArgs e)
         {
-            PizzaEditor EditorForm = new PizzaEditor(this, GetPizza());
+            PizzaEditor EditorForm = new PizzaEditor(this, MakePizza(ItemChoice()));
             EditorForm.Show();
             //   this.Hide();
         }
 
-        private Pizza GetPizza()
+        private int ItemChoice()
         {
-            List<RadioButton> pizzaChoice = new List<RadioButton>()
+            List<RadioButton> ItemChoice = new List<RadioButton>()
             {
                 Pizza1RadioButton,
-                Pizza2RadioButton
+                Pizza2RadioButton,
+                Pizza3RadioButton,
+                Drink1RadioButton,
+                Drink2RadioButton,
+                Drink3RadioButton
             };
 
-
-
-            int result = Convert.ToInt32(pizzaChoice.Find(x => x.Checked).Tag);
-
-            return pizzaria.Pizzas.Find(x => x.Id == result).GetPizza();
+            return Convert.ToInt32(ItemChoice.Find(x => x.Checked).Tag);
         }
 
-        private void AddPizzaButton_Click(object sender, EventArgs e)
+        private Pizza MakePizza(int result)
         {
 
-            Pizza selectedPizza = GetPizza();
+            Pizza pizza = pizzaria.Pizzas.Find(x => x.Id == result).GetPizza();
+            pizza.Ingredients.Insert(0, pizzaProperties.dough.Find(x => x.name == DoughBox.SelectedValue.ToString()));
+
+            pizza.Size = pizzaProperties.sizes.Find(x => x.name == SizeBox.SelectedValue.ToString());
+
+            return pizza;
+        }
+
+        private void AddItemButton_Click(object sender, EventArgs e)
+        {
+
+            Pizza selectedPizza = MakePizza(ItemChoice());
 
 
-            selectedPizza.Ingredients.Insert(0, pizzaProperties.dough.Find(x => x.name == DoughBox.SelectedValue.ToString()));
-
-            selectedPizza.Size = pizzaProperties.sizes.Find(x => x.name == SizeBox.SelectedValue.ToString());
+            
 
             selectedPizza.Amount = Convert.ToInt32(PizzaAmount.Value);
+
             #region
             /*
             List<PizzaProperty> pizza1 = new List<PizzaProperty>();
@@ -149,14 +162,42 @@ namespace Pizzaria_3
             #endregion
         }
 
-        private void dataGridView1_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        private void PizzaPrice_Update(object sender, EventArgs e)
         {
+            if (!ready) return;
 
+            List<Panel> panels = new List<Panel>
+            {
+                panel1,
+                panel2,
+                panel3
+            };
+
+            foreach (Panel panel in panels)
+            {
+                UpdatePanel(panel);
+            }
         }
 
-        private void PizzaAmount_ValueChanged(object sender, EventArgs e)
+        private void UpdatePanel(Panel panel)
         {
+            Control.ControlCollection controlCollection = panel.Controls;
+            Control[] controls = new Control[controlCollection.Count];
+            List<Control> controlsList = new List<Control>();
 
+            controlCollection.CopyTo(controls, 0);
+
+
+            controlsList.AddRange(controls);
+
+            Pizza selectedPizza = pizzaria.Pizzas.Find(y => y.Id == Convert.ToInt32(panel.Tag)).GetPizza();
+
+            selectedPizza.Ingredients.Insert(0, pizzaProperties.dough.Find(x => x.name == DoughBox.SelectedValue.ToString()));
+
+            selectedPizza.Size = pizzaProperties.sizes.Find(x => x.name == SizeBox.SelectedValue.ToString());
+
+            controlsList.First(x => x.Name.Contains("name")).Text = selectedPizza.Name;
+            controlsList.First(x => x.Name.Contains("price")).Text = selectedPizza.GetPrice().ToString();
         }
 
         private void CheckoutButton_Click(object sender, EventArgs e)
