@@ -20,7 +20,7 @@ namespace Pizzaria_3
             {
                 new Pizza(id++, "pizza1", new List<PizzaProperty>()
                 {
-                    Properties.sauce.Find(x => x.name == "tomato"),
+                    Properties.sauce.Find(x => x.name == "tomato sauce"),
                     Properties.cheese.Find(x => x.name == "pizza cheese"),
                     Properties.toppings.Find(x => x.name == "ham"),
                     Properties.toppings.Find(x => x.name == "oregano")
@@ -28,7 +28,7 @@ namespace Pizzaria_3
 
                 new Pizza(id++, "pizza2", new List<PizzaProperty>()
                 {
-                    Properties.sauce.Find(x => x.name == "tomato"),
+                    Properties.sauce.Find(x => x.name == "tomato sauce"),
                     Properties.cheese.Find(x => x.name == "pizza cheese"),
                     Properties.toppings.Find(x => x.name == "peperoni"),
                     Properties.toppings.Find(x => x.name == "oregano")
@@ -51,6 +51,17 @@ namespace Pizzaria_3
                 }),
             };
         }
+
+        public double GetTotal()
+        {
+            double total = 0;
+
+            foreach (var item in Checkout)
+            {
+                total += item.GetPrice() * item.Amount;
+            }
+            return total;
+        }
     }
 
     public class Pizza
@@ -66,14 +77,7 @@ namespace Pizzaria_3
             IEnumerable<double> i = from x in Ingredients
                                     select x.price;
 
-            if (Size == null)
-            {
-                return i.Sum();
-            }
-            else
-            {
-                return i.Sum() * Size.price;
-            }
+            return Size == null ? i.Sum() : i.Sum() * Size.price;
         }
 
         public List<PizzaProperty> Ingredients { get; set; }
@@ -81,10 +85,16 @@ namespace Pizzaria_3
         public PizzaProperty Size { get; set; }
 
         public Pizza() => Ingredients = new List<PizzaProperty>();
-        
+
         public string[] ToStringArray()
         {
-            return new string[] { Amount.ToString(), Name, "", GetPrice().ToString() };
+            StringBuilder sb = new StringBuilder();
+            foreach (var item in Ingredients)
+            {
+                sb.Append(item.name + ", ");
+            }
+            sb.Remove(sb.Length - 2, 2);
+            return new string[] { Amount.ToString(), Name, sb.ToString(), GetPrice().ToString() };
         }
 
         public Pizza(int id, string name, List<PizzaProperty> ingredients)
@@ -97,6 +107,7 @@ namespace Pizzaria_3
             Ingredients.AddRange(ingredients);
         }
 
+        public Pizza GetPizza() => new Pizza(Id, Name, Ingredients);
     }
 
     public class PizzaProperties
@@ -131,8 +142,8 @@ namespace Pizzaria_3
             sauce.AddRange(new List<PizzaProperty>()
             {
                 new PizzaProperty("no sauce", 0),
-                new PizzaProperty("tomato", 10),
-                new PizzaProperty("bearnaise", 10)
+                new PizzaProperty("tomato sauce", 10),
+                new PizzaProperty("bearnaise sauce", 10)
             });
 
             sizes.AddRange(new List<PizzaProperty>()

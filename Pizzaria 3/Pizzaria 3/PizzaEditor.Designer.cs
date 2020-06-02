@@ -45,7 +45,9 @@
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.PizzaAmount = new System.Windows.Forms.NumericUpDown();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PizzaAmount)).BeginInit();
             this.SuspendLayout();
             // 
             // DoughBox
@@ -219,11 +221,25 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // PizzaAmount
+            // 
+            this.PizzaAmount.Location = new System.Drawing.Point(521, 14);
+            this.PizzaAmount.Name = "PizzaAmount";
+            this.PizzaAmount.Size = new System.Drawing.Size(100, 22);
+            this.PizzaAmount.TabIndex = 21;
+            this.PizzaAmount.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.PizzaAmount.ValueChanged += new System.EventHandler(this.PizzaProperty_Changed);
+            // 
             // PizzaEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.PizzaAmount);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
@@ -236,6 +252,7 @@
             this.Load += new System.EventHandler(this.PizzaEditor_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PizzaAmount)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -260,5 +277,6 @@
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.CheckBox checkBox4;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.NumericUpDown PizzaAmount;
     }
 }

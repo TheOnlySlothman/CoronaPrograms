@@ -44,6 +44,7 @@
             this.SizeBox = new System.Windows.Forms.ComboBox();
             this.DoughBox = new System.Windows.Forms.ComboBox();
             this.PizzaAmount = new System.Windows.Forms.NumericUpDown();
+            this.CheckoutButton = new System.Windows.Forms.Button();
             this.Antal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ingredientsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -63,7 +64,7 @@
             this.AddPizzaButton.TabIndex = 2;
             this.AddPizzaButton.Text = "Add Pizza";
             this.AddPizzaButton.UseVisualStyleBackColor = true;
-            this.AddPizzaButton.Click += new System.EventHandler(this.button1_Click);
+            this.AddPizzaButton.Click += new System.EventHandler(this.AddPizzaButton_Click);
             // 
             // EditorButton
             // 
@@ -218,6 +219,17 @@
             0,
             0,
             0});
+            this.PizzaAmount.ValueChanged += new System.EventHandler(this.PizzaAmount_ValueChanged);
+            // 
+            // CheckoutButton
+            // 
+            this.CheckoutButton.Location = new System.Drawing.Point(830, 336);
+            this.CheckoutButton.Name = "CheckoutButton";
+            this.CheckoutButton.Size = new System.Drawing.Size(75, 23);
+            this.CheckoutButton.TabIndex = 21;
+            this.CheckoutButton.Text = "Checkout";
+            this.CheckoutButton.UseVisualStyleBackColor = true;
+            this.CheckoutButton.Click += new System.EventHandler(this.CheckoutButton_Click);
             // 
             // Antal
             // 
@@ -225,7 +237,7 @@
             this.Antal.MinimumWidth = 6;
             this.Antal.Name = "Antal";
             this.Antal.ReadOnly = true;
-            this.Antal.Width = 125;
+            this.Antal.Width = 75;
             // 
             // nameColumn
             // 
@@ -233,7 +245,7 @@
             this.nameColumn.MinimumWidth = 6;
             this.nameColumn.Name = "nameColumn";
             this.nameColumn.ReadOnly = true;
-            this.nameColumn.Width = 125;
+            this.nameColumn.Width = 75;
             // 
             // ingredientsColumn
             // 
@@ -241,7 +253,7 @@
             this.ingredientsColumn.MinimumWidth = 6;
             this.ingredientsColumn.Name = "ingredientsColumn";
             this.ingredientsColumn.ReadOnly = true;
-            this.ingredientsColumn.Width = 125;
+            this.ingredientsColumn.Width = 250;
             // 
             // priceColumn
             // 
@@ -249,13 +261,14 @@
             this.priceColumn.MinimumWidth = 6;
             this.priceColumn.Name = "priceColumn";
             this.priceColumn.ReadOnly = true;
-            this.priceColumn.Width = 125;
+            this.priceColumn.Width = 75;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1050, 553);
+            this.Controls.Add(this.CheckoutButton);
             this.Controls.Add(this.PizzaAmount);
             this.Controls.Add(this.DoughBox);
             this.Controls.Add(this.SizeBox);
@@ -298,6 +311,7 @@
         private System.Windows.Forms.ComboBox SizeBox;
         private System.Windows.Forms.ComboBox DoughBox;
         private System.Windows.Forms.NumericUpDown PizzaAmount;
+        private System.Windows.Forms.Button CheckoutButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn Antal;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn ingredientsColumn;

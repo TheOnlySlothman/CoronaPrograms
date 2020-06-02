@@ -58,12 +58,12 @@ namespace Pizzaria_3
 
         private void EditorButton_Click(object sender, EventArgs e)
         {
-            PizzaEditor EditorForm = new PizzaEditor(this);
+            PizzaEditor EditorForm = new PizzaEditor(this, GetPizza());
             EditorForm.Show();
             //   this.Hide();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private Pizza GetPizza()
         {
             List<RadioButton> pizzaChoice = new List<RadioButton>()
             {
@@ -71,13 +71,25 @@ namespace Pizzaria_3
                 Pizza2RadioButton
             };
 
+
+
             int result = Convert.ToInt32(pizzaChoice.Find(x => x.Checked).Tag);
 
-            Pizza selectedPizza = pizzaria.Pizzas.Find(x => x.Id == result);
+            return pizzaria.Pizzas.Find(x => x.Id == result).GetPizza();
+        }
 
-            selectedPizza.Ingredients.Add(pizzaProperties.dough.Find(x => x.name == DoughBox.SelectedValue.ToString()));
+        private void AddPizzaButton_Click(object sender, EventArgs e)
+        {
+
+            Pizza selectedPizza = GetPizza();
+
+
+            selectedPizza.Ingredients.Insert(0, pizzaProperties.dough.Find(x => x.name == DoughBox.SelectedValue.ToString()));
 
             selectedPizza.Size = pizzaProperties.sizes.Find(x => x.name == SizeBox.SelectedValue.ToString());
+
+            selectedPizza.Amount = Convert.ToInt32(PizzaAmount.Value);
+            #region
             /*
             List<PizzaProperty> pizza1 = new List<PizzaProperty>();
             List<PizzaProperty> pizza2 = new List<PizzaProperty>();
@@ -97,41 +109,60 @@ namespace Pizzaria_3
 
             pizza3.Ingredients.
             */
-            foreach (var item in pizzaria.Checkout)
-            {
-                if (item.Ingredients.containsall(selectedPizza.Ingredients) && item.Ingredients.Count == selectedPizza.Ingredients.Count)
-                {
+            #endregion
 
+            bool alreadyAdded = false;
+
+
+
+            foreach (Pizza pizza in pizzaria.Checkout)
+
+                if (pizza.Ingredients.All(x => selectedPizza.Ingredients.Contains(x) && pizza.Ingredients.Count == selectedPizza.Ingredients.Count && selectedPizza.Size == pizza.Size))
+                {
+                    pizza.Amount += selectedPizza.Amount;
+                    alreadyAdded = true;
+                    break;
                 }
 
-            }
-
-
-            for (int i = 0; i < PizzaAmount.Value; i++)
-            {
-
+            if (!alreadyAdded)
                 pizzaria.Checkout.Add(selectedPizza);
 
-                dataGridView1.Rows.Add(selectedPizza.ToStringArray());
+            dataGridView1.Rows.Clear();
 
-            }
-
-
-                /*
-                 * Control.ControlCollection controlCollection = panel1.Controls;
-            Control[] controls = new Control[controlCollection.Count];
-            List<Control> controlsList = new List<Control>();
-
-            controlCollection.CopyTo(controls, 0);
+                foreach (Pizza pizza in pizzaria.Checkout)
+                {
+                    dataGridView1.Rows.Add(pizza.ToStringArray());
+                }
 
 
-            controlsList.AddRange(controls);
-            */
+            #region
+            /*
+             * Control.ControlCollection controlCollection = panel1.Controls;
+        Control[] controls = new Control[controlCollection.Count];
+        List<Control> controlsList = new List<Control>();
+
+        controlCollection.CopyTo(controls, 0);
+
+
+        controlsList.AddRange(controls);
+        */
+            #endregion
         }
 
         private void dataGridView1_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
 
+        }
+
+        private void PizzaAmount_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CheckoutButton_Click(object sender, EventArgs e)
+        {
+            Checkout checkout = new Checkout(pizzaria.GetTotal());
+            checkout.Show();
         }
     }
 }
