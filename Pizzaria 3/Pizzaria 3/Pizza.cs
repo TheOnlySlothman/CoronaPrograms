@@ -13,6 +13,7 @@ namespace Pizzaria_3
     {
         public List<Pizza> Pizzas;
         public List<Drink> Drinks;
+        //public List<Item> Items;
         public PizzaProperties PProperties = new PizzaProperties();
         public DrinkProperties DProperties = new DrinkProperties();
         public List<Item> Checkout = new List<Item>();
@@ -57,6 +58,10 @@ namespace Pizzaria_3
                 new Drink(did++, "cola"),
                 new Drink(did++, "fanta")
             };
+
+            //Items = new List<Item>();
+            //Items.AddRange(Pizzas);
+            //Items.AddRange(Drinks);
         }
 
         public double GetTotal()
@@ -87,7 +92,7 @@ namespace Pizzaria_3
 
         public Pizza() => Ingredients = new List<ItemProperty>();
 
-        public string[] ToStringArray()
+        public override string[] ToStringArray()
         {
             StringBuilder sb = new StringBuilder();
             foreach (var item in Ingredients)
@@ -199,6 +204,8 @@ namespace Pizzaria_3
         public ItemProperty Size { get; set; }
 
         public abstract double GetPrice();
+
+        public abstract string[] ToStringArray();
     }
 
     public class Drink : Item
@@ -217,10 +224,22 @@ namespace Pizzaria_3
             this.Name = name;
         }
 
-        public Drink(PizzaProperty size)
+        public Drink(ItemProperty size)
         {
+            this.Size = size;
+        }
+
+        public Drink()
+        { 
 
         }
+
+        public override string[] ToStringArray()
+        {
+            return new string[] { Amount.ToString(), Name, Size.name, GetPrice().ToString() };
+        }
+
+        public Drink GetDrink() => new Drink(Id, Name);
     }
 
     public class DrinkProperties

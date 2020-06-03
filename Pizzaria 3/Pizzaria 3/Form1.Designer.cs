@@ -45,9 +45,9 @@
             this.name2 = new System.Windows.Forms.Label();
             this.Pizza1RadioButton = new System.Windows.Forms.RadioButton();
             this.Pizza2RadioButton = new System.Windows.Forms.RadioButton();
-            this.SizeBox = new System.Windows.Forms.ComboBox();
+            this.PizzaSizeBox = new System.Windows.Forms.ComboBox();
             this.DoughBox = new System.Windows.Forms.ComboBox();
-            this.PizzaAmount = new System.Windows.Forms.NumericUpDown();
+            this.ItemAmount = new System.Windows.Forms.NumericUpDown();
             this.CheckoutButton = new System.Windows.Forms.Button();
             this.GlutenBreadPrice = new System.Windows.Forms.Label();
             this.SizePrice = new System.Windows.Forms.Label();
@@ -60,10 +60,11 @@
             this.Drink2RadioButton = new System.Windows.Forms.RadioButton();
             this.Drink3RadioButton = new System.Windows.Forms.RadioButton();
             this.DrinkPrice = new System.Windows.Forms.Label();
+            this.DrinkSizeBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PizzaAmount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemAmount)).BeginInit();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -239,12 +240,12 @@
             // 
             // SizeBox
             // 
-            this.SizeBox.FormattingEnabled = true;
-            this.SizeBox.Location = new System.Drawing.Point(255, 166);
-            this.SizeBox.Name = "SizeBox";
-            this.SizeBox.Size = new System.Drawing.Size(121, 24);
-            this.SizeBox.TabIndex = 18;
-            this.SizeBox.SelectedIndexChanged += new System.EventHandler(this.PizzaPrice_Update);
+            this.PizzaSizeBox.FormattingEnabled = true;
+            this.PizzaSizeBox.Location = new System.Drawing.Point(255, 166);
+            this.PizzaSizeBox.Name = "SizeBox";
+            this.PizzaSizeBox.Size = new System.Drawing.Size(121, 24);
+            this.PizzaSizeBox.TabIndex = 18;
+            this.PizzaSizeBox.SelectedIndexChanged += new System.EventHandler(this.PizzaPrice_Update);
             // 
             // DoughBox
             // 
@@ -257,16 +258,16 @@
             // 
             // PizzaAmount
             // 
-            this.PizzaAmount.Location = new System.Drawing.Point(467, 421);
-            this.PizzaAmount.Name = "PizzaAmount";
-            this.PizzaAmount.Size = new System.Drawing.Size(100, 22);
-            this.PizzaAmount.TabIndex = 20;
-            this.PizzaAmount.Value = new decimal(new int[] {
+            this.ItemAmount.Location = new System.Drawing.Point(467, 421);
+            this.ItemAmount.Name = "PizzaAmount";
+            this.ItemAmount.Size = new System.Drawing.Size(100, 22);
+            this.ItemAmount.TabIndex = 20;
+            this.ItemAmount.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.PizzaAmount.ValueChanged += new System.EventHandler(this.PizzaPrice_Update);
+            this.ItemAmount.ValueChanged += new System.EventHandler(this.PizzaPrice_Update);
             // 
             // CheckoutButton
             // 
@@ -388,11 +389,20 @@
             this.DrinkPrice.TabIndex = 28;
             this.DrinkPrice.Text = "DrinkPrice";
             // 
+            // DrinkSizeBox
+            // 
+            this.DrinkSizeBox.FormattingEnabled = true;
+            this.DrinkSizeBox.Location = new System.Drawing.Point(419, 224);
+            this.DrinkSizeBox.Name = "DrinkSizeBox";
+            this.DrinkSizeBox.Size = new System.Drawing.Size(121, 24);
+            this.DrinkSizeBox.TabIndex = 29;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1050, 553);
+            this.Controls.Add(this.DrinkSizeBox);
             this.Controls.Add(this.DrinkPrice);
             this.Controls.Add(this.Drink3RadioButton);
             this.Controls.Add(this.Drink2RadioButton);
@@ -402,9 +412,9 @@
             this.Controls.Add(this.SizePrice);
             this.Controls.Add(this.GlutenBreadPrice);
             this.Controls.Add(this.CheckoutButton);
-            this.Controls.Add(this.PizzaAmount);
+            this.Controls.Add(this.ItemAmount);
             this.Controls.Add(this.DoughBox);
-            this.Controls.Add(this.SizeBox);
+            this.Controls.Add(this.PizzaSizeBox);
             this.Controls.Add(this.Pizza2RadioButton);
             this.Controls.Add(this.Pizza1RadioButton);
             this.Controls.Add(this.panel2);
@@ -421,7 +431,7 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PizzaAmount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemAmount)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.ResumeLayout(false);
@@ -443,9 +453,9 @@
         public System.Windows.Forms.DataGridView dataGridView1;
         public System.Windows.Forms.RadioButton Pizza1RadioButton;
         public System.Windows.Forms.RadioButton Pizza2RadioButton;
-        private System.Windows.Forms.ComboBox SizeBox;
+        private System.Windows.Forms.ComboBox PizzaSizeBox;
         private System.Windows.Forms.ComboBox DoughBox;
-        private System.Windows.Forms.NumericUpDown PizzaAmount;
+        private System.Windows.Forms.NumericUpDown ItemAmount;
         private System.Windows.Forms.Button CheckoutButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn Antal;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameColumn;
@@ -462,6 +472,7 @@
         private System.Windows.Forms.RadioButton Drink2RadioButton;
         private System.Windows.Forms.RadioButton Drink3RadioButton;
         private System.Windows.Forms.Label DrinkPrice;
+        private System.Windows.Forms.ComboBox DrinkSizeBox;
     }
 }
 
