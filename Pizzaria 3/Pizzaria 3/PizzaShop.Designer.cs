@@ -31,10 +31,6 @@
             this.AddItemButton = new System.Windows.Forms.Button();
             this.EditorButton = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Antal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ingredientsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.priceColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.Ingredients1 = new System.Windows.Forms.Label();
             this.price1 = new System.Windows.Forms.Label();
@@ -62,6 +58,11 @@
             this.DrinkPrice = new System.Windows.Forms.Label();
             this.DrinkSizeBox = new System.Windows.Forms.ComboBox();
             this.InfoPanel = new System.Windows.Forms.Panel();
+            this.Antal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ItemSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ingredientsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.priceColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -97,6 +98,7 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Antal,
+            this.ItemSize,
             this.nameColumn,
             this.ingredientsColumn,
             this.priceColumn});
@@ -107,38 +109,6 @@
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(356, 248);
             this.dataGridView1.TabIndex = 13;
-            // 
-            // Antal
-            // 
-            this.Antal.HeaderText = "Antal";
-            this.Antal.MinimumWidth = 6;
-            this.Antal.Name = "Antal";
-            this.Antal.ReadOnly = true;
-            this.Antal.Width = 75;
-            // 
-            // nameColumn
-            // 
-            this.nameColumn.HeaderText = "Navn";
-            this.nameColumn.MinimumWidth = 6;
-            this.nameColumn.Name = "nameColumn";
-            this.nameColumn.ReadOnly = true;
-            this.nameColumn.Width = 75;
-            // 
-            // ingredientsColumn
-            // 
-            this.ingredientsColumn.HeaderText = "Ingredienser";
-            this.ingredientsColumn.MinimumWidth = 6;
-            this.ingredientsColumn.Name = "ingredientsColumn";
-            this.ingredientsColumn.ReadOnly = true;
-            this.ingredientsColumn.Width = 250;
-            // 
-            // priceColumn
-            // 
-            this.priceColumn.HeaderText = "Pris";
-            this.priceColumn.MinimumWidth = 6;
-            this.priceColumn.Name = "priceColumn";
-            this.priceColumn.ReadOnly = true;
-            this.priceColumn.Width = 75;
             // 
             // panel1
             // 
@@ -408,6 +378,46 @@
             this.InfoPanel.Size = new System.Drawing.Size(356, 100);
             this.InfoPanel.TabIndex = 30;
             // 
+            // Antal
+            // 
+            this.Antal.HeaderText = "Antal";
+            this.Antal.MinimumWidth = 6;
+            this.Antal.Name = "Antal";
+            this.Antal.ReadOnly = true;
+            this.Antal.Width = 75;
+            // 
+            // Size
+            // 
+            this.ItemSize.HeaderText = "Size";
+            this.ItemSize.MinimumWidth = 6;
+            this.ItemSize.Name = "Size";
+            this.ItemSize.ReadOnly = true;
+            this.ItemSize.Width = 125;
+            // 
+            // nameColumn
+            // 
+            this.nameColumn.HeaderText = "Navn";
+            this.nameColumn.MinimumWidth = 6;
+            this.nameColumn.Name = "nameColumn";
+            this.nameColumn.ReadOnly = true;
+            this.nameColumn.Width = 75;
+            // 
+            // ingredientsColumn
+            // 
+            this.ingredientsColumn.HeaderText = "Ingredienser";
+            this.ingredientsColumn.MinimumWidth = 6;
+            this.ingredientsColumn.Name = "ingredientsColumn";
+            this.ingredientsColumn.ReadOnly = true;
+            this.ingredientsColumn.Width = 250;
+            // 
+            // priceColumn
+            // 
+            this.priceColumn.HeaderText = "Pris";
+            this.priceColumn.MinimumWidth = 6;
+            this.priceColumn.Name = "priceColumn";
+            this.priceColumn.ReadOnly = true;
+            this.priceColumn.Width = 75;
+            // 
             // PizzaShop
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -469,10 +479,6 @@
         private System.Windows.Forms.ComboBox DoughBox;
         private System.Windows.Forms.NumericUpDown ItemAmount;
         private System.Windows.Forms.Button CheckoutButton;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Antal;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nameColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ingredientsColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn priceColumn;
         private System.Windows.Forms.Label GlutenBreadPrice;
         private System.Windows.Forms.Label SizePrice;
         private System.Windows.Forms.Panel panel3;
@@ -486,6 +492,11 @@
         private System.Windows.Forms.Label DrinkPrice;
         private System.Windows.Forms.ComboBox DrinkSizeBox;
         private System.Windows.Forms.Panel InfoPanel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Antal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ItemSize;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nameColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ingredientsColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn priceColumn;
     }
 }
 

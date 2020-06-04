@@ -219,7 +219,7 @@ namespace Pizzaria_3
 
         private void LabelUpdate()
         {
-            GlutenBreadPrice.Text = $"Pizza can be made Gluten free for +{Pizzaria.PProperties.dough.Find(x => x.name == "Gluten-free").price - Pizzaria.PProperties.dough.First().price}";
+            GlutenBreadPrice.Text = $"Pizza can be made Gluten free for + {Pizzaria.PProperties.dough.Find(x => x.name == "Gluten-free").price - Pizzaria.PProperties.dough.First().price}";
 
             SizePrice.Text = $"Family size is {Pizzaria.PProperties.sizes.Find(x => x.name == "family size").price} times the price";
 

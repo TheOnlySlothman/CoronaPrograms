@@ -137,7 +137,7 @@ namespace Pizzaria_3
                 return;
             }
 
-
+            UpdateDataGrid();
 
             #region
             /*
@@ -167,16 +167,6 @@ namespace Pizzaria_3
             */
             #endregion
 
-
-
-            dataGridView1.Rows.Clear();
-
-            foreach (Item item in Pizzaria.Checkout)
-            {
-                dataGridView1.Rows.Add(item.ToStringArray());
-            }
-
-
             #region
             /*
              * Control.ControlCollection controlCollection = panel1.Controls;
@@ -189,6 +179,16 @@ namespace Pizzaria_3
         controlsList.AddRange(controls);
         */
             #endregion
+        }
+
+        private void UpdateDataGrid()
+        {
+            dataGridView1.Rows.Clear();
+
+            foreach (Item item in Pizzaria.Checkout)
+            {
+                dataGridView1.Rows.Add(item.ToStringArray());
+            }
         }
 
         private void PizzaPriceUpdate(object sender, EventArgs e)
@@ -251,9 +251,9 @@ namespace Pizzaria_3
                                                       where pizza.Ingredients.Any(x => x.name == dough.name)
                                                       select dough;
 
-                        if (discount < (i.First().price *= pizza.Size.price))
+                        if (discount < (i.First().price * pizza.Size.price))
                         {
-                            discount = i.First().price;
+                            discount = i.First().price * pizza.Size.price;
                         }
                 }
                     
@@ -264,7 +264,9 @@ namespace Pizzaria_3
 
             Checkout checkout = new Checkout(Pizzaria.Total - discount, checkoutText);
             checkout.Show();
-            discount = 0.0;
+            Pizzaria.Checkout.Clear();
+            UpdateDataGrid();
+            //discount = 0.0;
         }
 
         private void DrinkNameUpdate(object sender, EventArgs e)

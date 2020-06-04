@@ -168,7 +168,7 @@ namespace Pizzaria_3
                 sb.Append(item.name + ", ");
             }
             sb.Remove(sb.Length - 2, 2);
-            return new string[] { Amount.ToString(), Name, sb.ToString(), (Price * Amount).ToString() };
+            return new string[] { Amount.ToString(), Size.name, Name, sb.ToString(), (Price * Amount).ToString() };
         }
 
         public Pizza(int id, string name, List<ItemProperty> ingredients)
@@ -303,7 +303,7 @@ namespace Pizzaria_3
         //creates a string array for use in datagrid
         public override string[] ToStringArray()
         {
-            return new string[] { Amount.ToString(), Name, Size.name, (Price * Amount).ToString() };
+            return new string[] { Amount.ToString(), Size.name, Name, "", (Price * Amount).ToString() };
         }
 
         public Drink GetDrink() => new Drink(Id, Name);
