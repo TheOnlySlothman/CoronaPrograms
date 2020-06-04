@@ -12,10 +12,10 @@ namespace Pizzaria_3
 {
     public partial class PizzaEditor : Form
     {
-        readonly Form1 f1;
+        readonly PizzaShop f1;
         readonly Pizza pizza;
 
-        public PizzaEditor(Form1 f1, Pizza pizza)
+        public PizzaEditor(PizzaShop f1, Pizza pizza)
         {
             InitializeComponent();
             this.f1 = f1;
@@ -25,7 +25,6 @@ namespace Pizzaria_3
         public PizzaProperties pizzaProperties = new PizzaProperties();
         public List<CheckBox> toppingBoxes = new List<CheckBox>();
         public List<CheckBox> spiceBoxes = new List<CheckBox>();
-        readonly Pizzaria pizzaria = new Pizzaria();
 
         public bool ready = false;
 
@@ -66,13 +65,13 @@ namespace Pizzaria_3
 
             spiceBoxes.AddRange(GetCheckBoxes(SpicePanel));
 
-            CheckBoxSetup(toppingBoxes, pizzaria.PProperties.toppings);
-            CheckBoxSetup(spiceBoxes, pizzaria.PProperties.spice);
+            CheckBoxSetup(toppingBoxes, Pizzaria.PProperties.toppings);
+            CheckBoxSetup(spiceBoxes, Pizzaria.PProperties.spice);
 
 
             ready = true;
 
-            //CheeseBox.DisplayMember = pizza.Ingredients.Find(x => pizzaria.Properties.cheese).name;
+            //makes the pizza chosen from PizzaShop in the PizzaEditor
             foreach (var x in
             from x in pizzaProperties.cheese
             from y in pizza.Ingredients
@@ -112,6 +111,7 @@ namespace Pizzaria_3
             }
         }
 
+        //makes a list of checkboxes from inside a panel
         private List<CheckBox> GetCheckBoxes(Panel panel)
         {
             Control.ControlCollection controlCollection = panel.Controls;
@@ -134,6 +134,7 @@ namespace Pizzaria_3
             return checkBoxList;
         }
 
+        //sets the name of an array of checkboxes with names of ItemProperties
         private void CheckBoxSetup(List<CheckBox> checkBoxes, List<ItemProperty> properties)
         {
             List<ItemProperty> multIngredients = new List<ItemProperty>();
@@ -150,9 +151,11 @@ namespace Pizzaria_3
             for (int i = 0; i < amount; i++)
             {
                 checkBoxArr[i].Text = multIngredients[i].name.ToString();
+                checkBoxArr[i].Visible = true;
             }
         }
 
+        //adds a Pizza to Checkout 
         private void AddPizzaButton_Click(object sender, EventArgs e)
         {
 
@@ -164,11 +167,14 @@ namespace Pizzaria_3
                 return;
             }
 
-            Pizza customPizza = MakePizza();
+            Pizzaria.AddPizza(MakePizza());
 
-            string[] row = customPizza.ToStringArray();
+            f1.dataGridView1.Rows.Clear();
 
-            f1.dataGridView1.Rows.Add(row);
+            foreach (Item item in Pizzaria.Checkout)
+            {
+                f1.dataGridView1.Rows.Add(item.ToStringArray());
+            }
             Close();
         }
 
@@ -178,7 +184,7 @@ namespace Pizzaria_3
 
             Pizza customPizza = MakePizza();
 
-            textBox1.Text = customPizza.GetPrice().ToString();
+            textBox1.Text = customPizza.Price.ToString();
         }
 
         private Pizza MakePizza()

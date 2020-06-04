@@ -131,6 +131,7 @@
             this.checkBox9.Size = new System.Drawing.Size(18, 17);
             this.checkBox9.TabIndex = 9;
             this.checkBox9.UseVisualStyleBackColor = true;
+            this.checkBox9.Visible = false;
             this.checkBox9.CheckedChanged += new System.EventHandler(this.PizzaProperty_Changed);
             // 
             // checkBox10
@@ -141,6 +142,7 @@
             this.checkBox10.Size = new System.Drawing.Size(18, 17);
             this.checkBox10.TabIndex = 8;
             this.checkBox10.UseVisualStyleBackColor = true;
+            this.checkBox10.Visible = false;
             this.checkBox10.CheckedChanged += new System.EventHandler(this.PizzaProperty_Changed);
             // 
             // checkBox7
@@ -151,6 +153,7 @@
             this.checkBox7.Size = new System.Drawing.Size(18, 17);
             this.checkBox7.TabIndex = 7;
             this.checkBox7.UseVisualStyleBackColor = true;
+            this.checkBox7.Visible = false;
             this.checkBox7.CheckedChanged += new System.EventHandler(this.PizzaProperty_Changed);
             // 
             // checkBox8
@@ -161,6 +164,7 @@
             this.checkBox8.Size = new System.Drawing.Size(18, 17);
             this.checkBox8.TabIndex = 6;
             this.checkBox8.UseVisualStyleBackColor = true;
+            this.checkBox8.Visible = false;
             this.checkBox8.CheckedChanged += new System.EventHandler(this.PizzaProperty_Changed);
             // 
             // checkBox5
@@ -171,6 +175,7 @@
             this.checkBox5.Size = new System.Drawing.Size(18, 17);
             this.checkBox5.TabIndex = 5;
             this.checkBox5.UseVisualStyleBackColor = true;
+            this.checkBox5.Visible = false;
             this.checkBox5.CheckedChanged += new System.EventHandler(this.PizzaProperty_Changed);
             // 
             // checkBox6
@@ -181,6 +186,7 @@
             this.checkBox6.Size = new System.Drawing.Size(18, 17);
             this.checkBox6.TabIndex = 4;
             this.checkBox6.UseVisualStyleBackColor = true;
+            this.checkBox6.Visible = false;
             this.checkBox6.CheckedChanged += new System.EventHandler(this.PizzaProperty_Changed);
             // 
             // checkBox3
@@ -191,6 +197,7 @@
             this.checkBox3.Size = new System.Drawing.Size(18, 17);
             this.checkBox3.TabIndex = 3;
             this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.Visible = false;
             this.checkBox3.CheckedChanged += new System.EventHandler(this.PizzaProperty_Changed);
             // 
             // checkBox4
@@ -201,6 +208,7 @@
             this.checkBox4.Size = new System.Drawing.Size(18, 17);
             this.checkBox4.TabIndex = 2;
             this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBox4.Visible = false;
             this.checkBox4.CheckedChanged += new System.EventHandler(this.PizzaProperty_Changed);
             // 
             // checkBox2
@@ -211,6 +219,7 @@
             this.checkBox2.Size = new System.Drawing.Size(18, 17);
             this.checkBox2.TabIndex = 1;
             this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.Visible = false;
             this.checkBox2.CheckedChanged += new System.EventHandler(this.PizzaProperty_Changed);
             // 
             // checkBox1
@@ -221,6 +230,7 @@
             this.checkBox1.Size = new System.Drawing.Size(18, 17);
             this.checkBox1.TabIndex = 0;
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.Visible = false;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.PizzaProperty_Changed);
             // 
             // AddPizzaButton
@@ -271,6 +281,7 @@
             this.checkBox11.Size = new System.Drawing.Size(18, 17);
             this.checkBox11.TabIndex = 9;
             this.checkBox11.UseVisualStyleBackColor = true;
+            this.checkBox11.Visible = false;
             this.checkBox11.CheckedChanged += new System.EventHandler(this.PizzaProperty_Changed);
             // 
             // checkBox12
@@ -281,6 +292,7 @@
             this.checkBox12.Size = new System.Drawing.Size(18, 17);
             this.checkBox12.TabIndex = 8;
             this.checkBox12.UseVisualStyleBackColor = true;
+            this.checkBox12.Visible = false;
             this.checkBox12.CheckedChanged += new System.EventHandler(this.PizzaProperty_Changed);
             // 
             // checkBox13
@@ -291,6 +303,7 @@
             this.checkBox13.Size = new System.Drawing.Size(18, 17);
             this.checkBox13.TabIndex = 7;
             this.checkBox13.UseVisualStyleBackColor = true;
+            this.checkBox13.Visible = false;
             this.checkBox13.CheckedChanged += new System.EventHandler(this.PizzaProperty_Changed);
             // 
             // checkBox14
@@ -301,6 +314,7 @@
             this.checkBox14.Size = new System.Drawing.Size(18, 17);
             this.checkBox14.TabIndex = 6;
             this.checkBox14.UseVisualStyleBackColor = true;
+            this.checkBox14.Visible = false;
             this.checkBox14.CheckedChanged += new System.EventHandler(this.PizzaProperty_Changed);
             // 
             // checkBox15
@@ -311,6 +325,7 @@
             this.checkBox15.Size = new System.Drawing.Size(18, 17);
             this.checkBox15.TabIndex = 5;
             this.checkBox15.UseVisualStyleBackColor = true;
+            this.checkBox15.Visible = false;
             this.checkBox15.CheckedChanged += new System.EventHandler(this.PizzaProperty_Changed);
             // 
             // checkBox16
@@ -321,6 +336,7 @@
             this.checkBox16.Size = new System.Drawing.Size(18, 17);
             this.checkBox16.TabIndex = 4;
             this.checkBox16.UseVisualStyleBackColor = true;
+            this.checkBox16.Visible = false;
             this.checkBox16.CheckedChanged += new System.EventHandler(this.PizzaProperty_Changed);
             // 
             // checkBox17
@@ -331,6 +347,7 @@
             this.checkBox17.Size = new System.Drawing.Size(18, 17);
             this.checkBox17.TabIndex = 3;
             this.checkBox17.UseVisualStyleBackColor = true;
+            this.checkBox17.Visible = false;
             this.checkBox17.CheckedChanged += new System.EventHandler(this.PizzaProperty_Changed);
             // 
             // checkBox18
@@ -341,6 +358,7 @@
             this.checkBox18.Size = new System.Drawing.Size(18, 17);
             this.checkBox18.TabIndex = 2;
             this.checkBox18.UseVisualStyleBackColor = true;
+            this.checkBox18.Visible = false;
             this.checkBox18.CheckedChanged += new System.EventHandler(this.PizzaProperty_Changed);
             // 
             // checkBox19
@@ -351,6 +369,7 @@
             this.checkBox19.Size = new System.Drawing.Size(18, 17);
             this.checkBox19.TabIndex = 1;
             this.checkBox19.UseVisualStyleBackColor = true;
+            this.checkBox19.Visible = false;
             this.checkBox19.CheckedChanged += new System.EventHandler(this.PizzaProperty_Changed);
             // 
             // checkBox20
@@ -361,6 +380,7 @@
             this.checkBox20.Size = new System.Drawing.Size(18, 17);
             this.checkBox20.TabIndex = 0;
             this.checkBox20.UseVisualStyleBackColor = true;
+            this.checkBox20.Visible = false;
             this.checkBox20.CheckedChanged += new System.EventHandler(this.PizzaProperty_Changed);
             // 
             // PizzaEditor

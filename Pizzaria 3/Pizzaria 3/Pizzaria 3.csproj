@@ -53,11 +53,11 @@
     <Compile Include="Checkout.Designer.cs">
       <DependentUpon>Checkout.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="PizzaShop.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="PizzaShop.Designer.cs">
+      <DependentUpon>PizzaShop.cs</DependentUpon>
     </Compile>
     <Compile Include="Pizza.cs" />
     <Compile Include="PizzaEditor.cs">
@@ -71,8 +71,8 @@
     <EmbeddedResource Include="Checkout.resx">
       <DependentUpon>Checkout.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="PizzaShop.resx">
+      <DependentUpon>PizzaShop.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PizzaEditor.resx">
       <DependentUpon>PizzaEditor.cs</DependentUpon>

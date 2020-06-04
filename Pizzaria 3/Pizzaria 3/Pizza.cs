@@ -9,21 +9,15 @@ using System.Drawing;
 
 namespace Pizzaria_3
 {
-    public class Pizzaria
+    public static class Pizzaria
     {
-        public List<Pizza> Pizzas;
-        public List<Drink> Drinks;
-        //public List<Item> Items;
-        public PizzaProperties PProperties = new PizzaProperties();
-        public DrinkProperties DProperties = new DrinkProperties();
-        public List<Item> Checkout = new List<Item>();
-
-        public Pizzaria()
+        public static PizzaProperties PProperties = new PizzaProperties();
+        public static DrinkProperties DProperties = new DrinkProperties();
+        public static List<Item> Checkout = new List<Item>();
+        static int pid = 1;
+        static int did = 50;
+        public static List<Pizza> Pizzas = new List<Pizza>
         {
-            int pid = 1;
-            int did = 50;
-            Pizzas = new List<Pizza>
-            {
                 new Pizza(pid++, "pizza1", new List<ItemProperty>()
                 {
                     PProperties.sauce.Find(x => x.name == "tomato sauce"),
@@ -50,41 +44,114 @@ namespace Pizzaria_3
                     PProperties.toppings.Find(x => x.name == "meatballs"),
                     PProperties.spice.Find(x => x.name == "oregano")
                 }),
-            };
+        };
 
-            Drinks = new List<Drink>
-            {
+        public static List<Drink> Drinks = new List<Drink>
+        {
                 new Drink(did++, "sprite"),
                 new Drink(did++, "cola"),
                 new Drink(did++, "fanta")
-            };
+        };
 
-            //Items = new List<Item>();
-            //Items.AddRange(Pizzas);
-            //Items.AddRange(Drinks);
+        //Items = new List<Item>();
+        //Items.AddRange(Pizzas);
+        //Items.AddRange(Drinks);
+
+        public static double Total
+        {
+            get
+            {
+                double total = 0;
+
+                foreach (var item in Checkout)
+                {
+                    total += item.Price * item.Amount;
+                }
+                return total;
+            }
         }
 
-        public double GetTotal()
+        public static void AddPizza(Pizza selectedPizza, int amount, ItemProperty size)
         {
-            double total = 0;
+            bool alreadyAdded = false;
+            selectedPizza.Amount = Convert.ToInt32(amount);
+            selectedPizza.Size = size;
 
-            foreach (var item in Checkout)
-            {
-                total += item.GetPrice() * item.Amount;
-            }
-            return total;
+            foreach (Pizza pizza in Checkout.Where(x => x.GetType() == selectedPizza.GetType()))
+                if (selectedPizza.Ingredients.All(x => selectedPizza.Ingredients.Contains(x) && pizza.Ingredients.Count == selectedPizza.Ingredients.Count && selectedPizza.Size == pizza.Size))
+                {
+                    pizza.Amount += selectedPizza.Amount;
+                    alreadyAdded = true;
+                    break;
+                }
+            if (!alreadyAdded)
+                Checkout.Add(selectedPizza);
+        }
+
+        public static void AddPizza(Pizza selectedPizza)
+        {
+            bool alreadyAdded = false;
+
+            foreach (Pizza pizza in Checkout.Where(x => x.GetType() == selectedPizza.GetType()))
+                if (selectedPizza.Ingredients.All(x => pizza.Ingredients.Contains(x) && pizza.Ingredients.Count == selectedPizza.Ingredients.Count && selectedPizza.Size == pizza.Size))
+                {
+                    pizza.Amount += selectedPizza.Amount;
+                    alreadyAdded = true;
+                    break;
+                }
+            if (!alreadyAdded)
+                Checkout.Add(selectedPizza);
+        }
+
+        public static void AddDrink(Drink selectedDrink, int amount, ItemProperty size)
+        {
+            bool alreadyAdded = false;
+
+            selectedDrink.Amount = amount;
+            selectedDrink.Size = size;
+
+            foreach (Drink drink in Checkout.Where(x => x.GetType() == selectedDrink.GetType()))
+                if (drink.Size == selectedDrink.Size && drink.Name == selectedDrink.Name)
+                {
+                    drink.Amount += selectedDrink.Amount;
+                    alreadyAdded = true;
+                    break;
+                }
+
+            if (!alreadyAdded)
+                Checkout.Add(selectedDrink);
+        }
+
+        public static void AddDrink(Drink selectedDrink)
+        {
+            bool alreadyAdded = false;
+
+            foreach (Drink drink in Checkout.Where(x => x.GetType() == selectedDrink.GetType()))
+                if (drink.Size == selectedDrink.Size && drink.Name == selectedDrink.Name)
+                {
+                    drink.Amount += selectedDrink.Amount;
+                    alreadyAdded = true;
+                    break;
+                }
+
+            if (!alreadyAdded)
+                Checkout.Add(selectedDrink);
         }
     }
 
     public class Pizza : Item
     {
 
-        public override double GetPrice()
+        //price of a single pizza
+        public override double Price
         {
-            IEnumerable<double> i = from x in Ingredients
-                                    select x.price;
+            get
+            {
+                IEnumerable<double> i = from x in Ingredients
+                                        select x.price;
 
-            return Size == null ? i.Sum() : i.Sum() * Size.price;
+                return Size == null ? i.Sum() : i.Sum() * Size.price;
+            }
         }
 
         public List<ItemProperty> Ingredients { get; set; }
@@ -92,6 +159,7 @@ namespace Pizzaria_3
 
         public Pizza() => Ingredients = new List<ItemProperty>();
 
+        //creates a string array for use in datagrid
         public override string[] ToStringArray()
         {
             StringBuilder sb = new StringBuilder();
@@ -100,7 +168,7 @@ namespace Pizzaria_3
                 sb.Append(item.name + ", ");
             }
             sb.Remove(sb.Length - 2, 2);
-            return new string[] { Amount.ToString(), Name, sb.ToString(), GetPrice().ToString() };
+            return new string[] { Amount.ToString(), Name, sb.ToString(), (Price * Amount).ToString() };
         }
 
         public Pizza(int id, string name, List<ItemProperty> ingredients)
@@ -113,6 +181,7 @@ namespace Pizzaria_3
             Ingredients.AddRange(ingredients);
         }
 
+        //creates a copy of selected pizza
         public Pizza GetPizza() => new Pizza(Id, Name, Ingredients);
     }
 
@@ -136,7 +205,7 @@ namespace Pizzaria_3
 
             cheese.AddRange(new List<ItemProperty>()
             {
-                new ItemProperty("none", 0),
+                new ItemProperty("no cheese", 0),
                 new ItemProperty("pizza cheese", 10),
                 new ItemProperty("cheddar", 10)
             });
@@ -203,7 +272,7 @@ namespace Pizzaria_3
 
         public ItemProperty Size { get; set; }
 
-        public abstract double GetPrice();
+        public abstract double Price { get; }
 
         public abstract string[] ToStringArray();
     }
@@ -212,11 +281,8 @@ namespace Pizzaria_3
     {
         readonly double i = 10;
 
-        public override double GetPrice()
-        {
-
-            return Size == null ? i : i * Size.price;
-        }
+        //price of a single drink
+        public override double Price => Size == null ? i : i * Size.price;
 
         public Drink(int id, string name)
         {
@@ -230,13 +296,14 @@ namespace Pizzaria_3
         }
 
         public Drink()
-        { 
+        {
 
         }
 
+        //creates a string array for use in datagrid
         public override string[] ToStringArray()
         {
-            return new string[] { Amount.ToString(), Name, Size.name, GetPrice().ToString() };
+            return new string[] { Amount.ToString(), Name, Size.name, (Price * Amount).ToString() };
         }
 
         public Drink GetDrink() => new Drink(Id, Name);

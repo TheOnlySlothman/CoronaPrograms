@@ -1,6 +1,6 @@
 ﻿namespace Pizzaria_3
 {
-    partial class Form1
+    partial class PizzaShop
     {
         /// <summary>
         /// Required designer variable.
@@ -70,7 +70,7 @@
             // 
             // AddItemButton
             // 
-            this.AddItemButton.Location = new System.Drawing.Point(767, 190);
+            this.AddItemButton.Location = new System.Drawing.Point(682, 501);
             this.AddItemButton.Margin = new System.Windows.Forms.Padding(4);
             this.AddItemButton.Name = "AddItemButton";
             this.AddItemButton.Size = new System.Drawing.Size(100, 28);
@@ -81,9 +81,9 @@
             // 
             // EditorButton
             // 
-            this.EditorButton.Location = new System.Drawing.Point(801, 500);
+            this.EditorButton.Location = new System.Drawing.Point(908, 500);
             this.EditorButton.Name = "EditorButton";
-            this.EditorButton.Size = new System.Drawing.Size(75, 23);
+            this.EditorButton.Size = new System.Drawing.Size(75, 29);
             this.EditorButton.TabIndex = 12;
             this.EditorButton.Text = "Editor";
             this.EditorButton.UseVisualStyleBackColor = true;
@@ -238,11 +238,11 @@
             this.Pizza2RadioButton.Tag = "2";
             this.Pizza2RadioButton.UseVisualStyleBackColor = true;
             // 
-            // SizeBox
+            // PizzaSizeBox
             // 
             this.PizzaSizeBox.FormattingEnabled = true;
             this.PizzaSizeBox.Location = new System.Drawing.Point(255, 166);
-            this.PizzaSizeBox.Name = "SizeBox";
+            this.PizzaSizeBox.Name = "PizzaSizeBox";
             this.PizzaSizeBox.Size = new System.Drawing.Size(121, 24);
             this.PizzaSizeBox.TabIndex = 18;
             this.PizzaSizeBox.SelectedIndexChanged += new System.EventHandler(this.PizzaPrice_Update);
@@ -256,10 +256,10 @@
             this.DoughBox.TabIndex = 19;
             this.DoughBox.SelectedIndexChanged += new System.EventHandler(this.PizzaPrice_Update);
             // 
-            // PizzaAmount
+            // ItemAmount
             // 
-            this.ItemAmount.Location = new System.Drawing.Point(467, 421);
-            this.ItemAmount.Name = "PizzaAmount";
+            this.ItemAmount.Location = new System.Drawing.Point(349, 270);
+            this.ItemAmount.Name = "ItemAmount";
             this.ItemAmount.Size = new System.Drawing.Size(100, 22);
             this.ItemAmount.TabIndex = 20;
             this.ItemAmount.Value = new decimal(new int[] {
@@ -271,9 +271,9 @@
             // 
             // CheckoutButton
             // 
-            this.CheckoutButton.Location = new System.Drawing.Point(682, 500);
+            this.CheckoutButton.Location = new System.Drawing.Point(789, 500);
             this.CheckoutButton.Name = "CheckoutButton";
-            this.CheckoutButton.Size = new System.Drawing.Size(113, 23);
+            this.CheckoutButton.Size = new System.Drawing.Size(113, 29);
             this.CheckoutButton.TabIndex = 21;
             this.CheckoutButton.Text = "Checkout";
             this.CheckoutButton.UseVisualStyleBackColor = true;
@@ -282,7 +282,7 @@
             // GlutenBreadPrice
             // 
             this.GlutenBreadPrice.AutoSize = true;
-            this.GlutenBreadPrice.Location = new System.Drawing.Point(46, 393);
+            this.GlutenBreadPrice.Location = new System.Drawing.Point(252, 39);
             this.GlutenBreadPrice.Name = "GlutenBreadPrice";
             this.GlutenBreadPrice.Size = new System.Drawing.Size(126, 17);
             this.GlutenBreadPrice.TabIndex = 22;
@@ -291,7 +291,7 @@
             // SizePrice
             // 
             this.SizePrice.AutoSize = true;
-            this.SizePrice.Location = new System.Drawing.Point(46, 347);
+            this.SizePrice.Location = new System.Drawing.Point(255, 202);
             this.SizePrice.Name = "SizePrice";
             this.SizePrice.Size = new System.Drawing.Size(70, 17);
             this.SizePrice.TabIndex = 23;
