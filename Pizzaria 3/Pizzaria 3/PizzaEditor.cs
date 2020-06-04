@@ -171,6 +171,8 @@ namespace Pizzaria_3
 
             Pizzaria.AddPizza(MakePizza());
 
+            Pizzaria.RemoveZeroes();
+
             f1.dataGridView1.Rows.Clear();
 
             foreach (Item item in Pizzaria.Checkout)

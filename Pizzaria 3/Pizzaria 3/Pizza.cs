@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Pizzaria_3
 {
@@ -120,6 +121,28 @@ namespace Pizzaria_3
 
             if (!alreadyAdded)
                 Checkout.Add(selectedDrink);
+
+
+        }
+        public static void RemoveZeroes()
+        {
+            List<Item> zeroes = new List<Item>();
+
+            foreach (Item item in Checkout)
+            {
+                if (item.Amount <= 0)
+                {
+                    zeroes.Add(item);
+                }
+            }
+
+            foreach (Item item in zeroes)
+            {
+                if (item.Amount <= 0)
+                {
+                    Checkout.Remove(item);
+                }
+            }
         }
 
         public static void AddDrink(Drink selectedDrink)

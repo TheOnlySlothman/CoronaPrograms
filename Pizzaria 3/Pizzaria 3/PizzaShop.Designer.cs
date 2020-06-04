@@ -63,6 +63,7 @@
             this.nameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ingredientsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.priceColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RemoveItemButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -76,7 +77,7 @@
             this.AddItemButton.Location = new System.Drawing.Point(682, 501);
             this.AddItemButton.Margin = new System.Windows.Forms.Padding(4);
             this.AddItemButton.Name = "AddItemButton";
-            this.AddItemButton.Size = new System.Drawing.Size(100, 28);
+            this.AddItemButton.Size = new System.Drawing.Size(73, 28);
             this.AddItemButton.TabIndex = 2;
             this.AddItemButton.Text = "Add Item";
             this.AddItemButton.UseVisualStyleBackColor = true;
@@ -84,7 +85,7 @@
             // 
             // EditorButton
             // 
-            this.EditorButton.Location = new System.Drawing.Point(908, 500);
+            this.EditorButton.Location = new System.Drawing.Point(963, 500);
             this.EditorButton.Name = "EditorButton";
             this.EditorButton.Size = new System.Drawing.Size(75, 29);
             this.EditorButton.TabIndex = 12;
@@ -95,6 +96,7 @@
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Antal,
@@ -243,7 +245,7 @@
             // 
             // CheckoutButton
             // 
-            this.CheckoutButton.Location = new System.Drawing.Point(789, 500);
+            this.CheckoutButton.Location = new System.Drawing.Point(844, 501);
             this.CheckoutButton.Name = "CheckoutButton";
             this.CheckoutButton.Size = new System.Drawing.Size(113, 29);
             this.CheckoutButton.TabIndex = 21;
@@ -386,13 +388,13 @@
             this.Antal.ReadOnly = true;
             this.Antal.Width = 75;
             // 
-            // Size
+            // ItemSize
             // 
             this.ItemSize.HeaderText = "Size";
             this.ItemSize.MinimumWidth = 6;
-            this.ItemSize.Name = "Size";
+            this.ItemSize.Name = "ItemSize";
             this.ItemSize.ReadOnly = true;
-            this.ItemSize.Width = 125;
+            this.ItemSize.Width = 75;
             // 
             // nameColumn
             // 
@@ -418,11 +420,22 @@
             this.priceColumn.ReadOnly = true;
             this.priceColumn.Width = 75;
             // 
+            // RemoveItemButton
+            // 
+            this.RemoveItemButton.Location = new System.Drawing.Point(762, 500);
+            this.RemoveItemButton.Name = "RemoveItemButton";
+            this.RemoveItemButton.Size = new System.Drawing.Size(76, 29);
+            this.RemoveItemButton.TabIndex = 31;
+            this.RemoveItemButton.Text = "Remove Item";
+            this.RemoveItemButton.UseVisualStyleBackColor = true;
+            this.RemoveItemButton.Click += new System.EventHandler(this.RemoveItemButton_Click);
+            // 
             // PizzaShop
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1050, 553);
+            this.Controls.Add(this.RemoveItemButton);
             this.Controls.Add(this.InfoPanel);
             this.Controls.Add(this.DrinkSizeBox);
             this.Controls.Add(this.DrinkPrice);
@@ -497,6 +510,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn nameColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn ingredientsColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn priceColumn;
+        private System.Windows.Forms.Button RemoveItemButton;
     }
 }
 

@@ -181,9 +181,13 @@ namespace Pizzaria_3
             #endregion
         }
 
+        
+
         private void UpdateDataGrid()
         {
             dataGridView1.Rows.Clear();
+
+            Pizzaria.RemoveZeroes();
 
             foreach (Item item in Pizzaria.Checkout)
             {
@@ -287,5 +291,21 @@ namespace Pizzaria_3
 
         }
 
+        private void RemoveItemButton_Click(object sender, EventArgs e)
+        {
+            List<int> i = new List<int>();
+
+            foreach (DataGridViewRow item in dataGridView1.SelectedRows)
+            {
+                i.Add(item.Index);
+                
+            }
+
+            foreach (int item in i)
+            {
+                Pizzaria.Checkout.RemoveAt(item);
+                UpdateDataGrid();
+            }
+        }
     }
 }
