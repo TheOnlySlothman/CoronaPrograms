@@ -55,20 +55,25 @@ namespace Pizzaria_3
             PizzaSizeBox.DataSource = pizzaSizeList;
             DrinkSizeBox.DataSource = drinkSizeList;
 
-            GlutenBreadPrice.Text = $"Gluten-Free bread is +{Pizzaria.PProperties.dough.Find(x => x.name == "Gluten-free").price - Pizzaria.PProperties.dough.First().price}";
+            LabelUpdate();
 
-            SizePrice.Text = $"Family size is *{Pizzaria.PProperties.sizes.Find(x => x.name == "family size").price} prize";
+            ready = true;
+
+            PizzaPriceUpdate(sender, e);
+            DrinkNameUpdate(sender, e);
+
+        }
+
+        private void LabelUpdate()
+        {
+            GlutenBreadPrice.Text = $"Pizza can be made Gluten free for +{Pizzaria.PProperties.dough.Find(x => x.name == "Gluten-free").price - Pizzaria.PProperties.dough.First().price}";
+
+            SizePrice.Text = $"Family size is {Pizzaria.PProperties.sizes.Find(x => x.name == "family size").price} times the price";
 
             DrinkPrice.Text = $"Drinks:\n" +
                 $"Small: {new Drink(Pizzaria.DProperties.sizes.Find(x => x.name == "small")).Price}\n" +
                 $"Medium: {new Drink(Pizzaria.DProperties.sizes.Find(x => x.name == "medium")).Price}\n" +
                 $"Large: {new Drink(Pizzaria.DProperties.sizes.Find(x => x.name == "large")).Price}";
-
-            ready = true;
-
-            PizzaPrice_Update(sender, e);
-            DrinkName_Update(sender, e);
-
         }
 
         private void EditorButton_Click(object sender, EventArgs e)
@@ -186,7 +191,7 @@ namespace Pizzaria_3
             #endregion
         }
 
-        private void PizzaPrice_Update(object sender, EventArgs e)
+        private void PizzaPriceUpdate(object sender, EventArgs e)
         {
             if (!ready) return;
 
@@ -262,7 +267,7 @@ namespace Pizzaria_3
             discount = 0.0;
         }
 
-        private void DrinkName_Update(object sender, EventArgs e)
+        private void DrinkNameUpdate(object sender, EventArgs e)
         {
             if (!ready) return;
 

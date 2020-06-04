@@ -68,6 +68,8 @@ namespace Pizzaria_3
             CheckBoxSetup(toppingBoxes, Pizzaria.PProperties.toppings);
             CheckBoxSetup(spiceBoxes, Pizzaria.PProperties.spice);
 
+            LabelUpdate();
+
 
             ready = true;
 
@@ -213,6 +215,17 @@ namespace Pizzaria_3
             customPizza.Amount = Convert.ToInt32(PizzaAmount.Value);
 
             return customPizza;
+        }
+
+        private void LabelUpdate()
+        {
+            GlutenBreadPrice.Text = $"Pizza can be made Gluten free for +{Pizzaria.PProperties.dough.Find(x => x.name == "Gluten-free").price - Pizzaria.PProperties.dough.First().price}";
+
+            SizePrice.Text = $"Family size is {Pizzaria.PProperties.sizes.Find(x => x.name == "family size").price} times the price";
+
+            ToppingPrice.Text = $"Toppings are 10 each";
+
+            SpicePrice.Text = $"Spice is 5 each, chili is free";
         }
     }
 }

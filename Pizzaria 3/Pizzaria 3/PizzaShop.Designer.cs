@@ -61,11 +61,13 @@
             this.Drink3RadioButton = new System.Windows.Forms.RadioButton();
             this.DrinkPrice = new System.Windows.Forms.Label();
             this.DrinkSizeBox = new System.Windows.Forms.ComboBox();
+            this.InfoPanel = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ItemAmount)).BeginInit();
             this.panel3.SuspendLayout();
+            this.InfoPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // AddItemButton
@@ -245,7 +247,7 @@
             this.PizzaSizeBox.Name = "PizzaSizeBox";
             this.PizzaSizeBox.Size = new System.Drawing.Size(121, 24);
             this.PizzaSizeBox.TabIndex = 18;
-            this.PizzaSizeBox.SelectedIndexChanged += new System.EventHandler(this.PizzaPrice_Update);
+            this.PizzaSizeBox.SelectedIndexChanged += new System.EventHandler(this.PizzaPriceUpdate);
             // 
             // DoughBox
             // 
@@ -254,7 +256,7 @@
             this.DoughBox.Name = "DoughBox";
             this.DoughBox.Size = new System.Drawing.Size(122, 24);
             this.DoughBox.TabIndex = 19;
-            this.DoughBox.SelectedIndexChanged += new System.EventHandler(this.PizzaPrice_Update);
+            this.DoughBox.SelectedIndexChanged += new System.EventHandler(this.PizzaPriceUpdate);
             // 
             // ItemAmount
             // 
@@ -267,7 +269,7 @@
             0,
             0,
             0});
-            this.ItemAmount.ValueChanged += new System.EventHandler(this.PizzaPrice_Update);
+            this.ItemAmount.ValueChanged += new System.EventHandler(this.PizzaPriceUpdate);
             // 
             // CheckoutButton
             // 
@@ -282,7 +284,7 @@
             // GlutenBreadPrice
             // 
             this.GlutenBreadPrice.AutoSize = true;
-            this.GlutenBreadPrice.Location = new System.Drawing.Point(252, 39);
+            this.GlutenBreadPrice.Location = new System.Drawing.Point(3, 2);
             this.GlutenBreadPrice.Name = "GlutenBreadPrice";
             this.GlutenBreadPrice.Size = new System.Drawing.Size(126, 17);
             this.GlutenBreadPrice.TabIndex = 22;
@@ -291,7 +293,7 @@
             // SizePrice
             // 
             this.SizePrice.AutoSize = true;
-            this.SizePrice.Location = new System.Drawing.Point(255, 202);
+            this.SizePrice.Location = new System.Drawing.Point(3, 19);
             this.SizePrice.Name = "SizePrice";
             this.SizePrice.Size = new System.Drawing.Size(70, 17);
             this.SizePrice.TabIndex = 23;
@@ -397,11 +399,21 @@
             this.DrinkSizeBox.Size = new System.Drawing.Size(121, 24);
             this.DrinkSizeBox.TabIndex = 29;
             // 
-            // Form1
+            // InfoPanel
+            // 
+            this.InfoPanel.Controls.Add(this.GlutenBreadPrice);
+            this.InfoPanel.Controls.Add(this.SizePrice);
+            this.InfoPanel.Location = new System.Drawing.Point(682, 17);
+            this.InfoPanel.Name = "InfoPanel";
+            this.InfoPanel.Size = new System.Drawing.Size(356, 100);
+            this.InfoPanel.TabIndex = 30;
+            // 
+            // PizzaShop
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1050, 553);
+            this.Controls.Add(this.InfoPanel);
             this.Controls.Add(this.DrinkSizeBox);
             this.Controls.Add(this.DrinkPrice);
             this.Controls.Add(this.Drink3RadioButton);
@@ -409,8 +421,6 @@
             this.Controls.Add(this.Drink1RadioButton);
             this.Controls.Add(this.Pizza3RadioButton);
             this.Controls.Add(this.panel3);
-            this.Controls.Add(this.SizePrice);
-            this.Controls.Add(this.GlutenBreadPrice);
             this.Controls.Add(this.CheckoutButton);
             this.Controls.Add(this.ItemAmount);
             this.Controls.Add(this.DoughBox);
@@ -423,7 +433,7 @@
             this.Controls.Add(this.EditorButton);
             this.Controls.Add(this.AddItemButton);
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "Form1";
+            this.Name = "PizzaShop";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -434,6 +444,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.ItemAmount)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.InfoPanel.ResumeLayout(false);
+            this.InfoPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -473,6 +485,7 @@
         private System.Windows.Forms.RadioButton Drink3RadioButton;
         private System.Windows.Forms.Label DrinkPrice;
         private System.Windows.Forms.ComboBox DrinkSizeBox;
+        private System.Windows.Forms.Panel InfoPanel;
     }
 }
 

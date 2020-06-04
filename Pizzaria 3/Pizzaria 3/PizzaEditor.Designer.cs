@@ -57,9 +57,15 @@
             this.checkBox18 = new System.Windows.Forms.CheckBox();
             this.checkBox19 = new System.Windows.Forms.CheckBox();
             this.checkBox20 = new System.Windows.Forms.CheckBox();
+            this.InfoPanel = new System.Windows.Forms.Panel();
+            this.GlutenBreadPrice = new System.Windows.Forms.Label();
+            this.SizePrice = new System.Windows.Forms.Label();
+            this.ToppingPrice = new System.Windows.Forms.Label();
+            this.SpicePrice = new System.Windows.Forms.Label();
             this.ToppingPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PizzaAmount)).BeginInit();
             this.SpicePanel.SuspendLayout();
+            this.InfoPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // DoughBox
@@ -383,11 +389,59 @@
             this.checkBox20.Visible = false;
             this.checkBox20.CheckedChanged += new System.EventHandler(this.PizzaProperty_Changed);
             // 
+            // InfoPanel
+            // 
+            this.InfoPanel.Controls.Add(this.SpicePrice);
+            this.InfoPanel.Controls.Add(this.ToppingPrice);
+            this.InfoPanel.Controls.Add(this.GlutenBreadPrice);
+            this.InfoPanel.Controls.Add(this.SizePrice);
+            this.InfoPanel.Location = new System.Drawing.Point(394, 295);
+            this.InfoPanel.Name = "InfoPanel";
+            this.InfoPanel.Size = new System.Drawing.Size(356, 100);
+            this.InfoPanel.TabIndex = 31;
+            // 
+            // GlutenBreadPrice
+            // 
+            this.GlutenBreadPrice.AutoSize = true;
+            this.GlutenBreadPrice.Location = new System.Drawing.Point(3, 2);
+            this.GlutenBreadPrice.Name = "GlutenBreadPrice";
+            this.GlutenBreadPrice.Size = new System.Drawing.Size(126, 17);
+            this.GlutenBreadPrice.TabIndex = 22;
+            this.GlutenBreadPrice.Text = "Gluten bread price";
+            // 
+            // SizePrice
+            // 
+            this.SizePrice.AutoSize = true;
+            this.SizePrice.Location = new System.Drawing.Point(3, 19);
+            this.SizePrice.Name = "SizePrice";
+            this.SizePrice.Size = new System.Drawing.Size(70, 17);
+            this.SizePrice.TabIndex = 23;
+            this.SizePrice.Text = "Size price";
+            // 
+            // ToppingPrice
+            // 
+            this.ToppingPrice.AutoSize = true;
+            this.ToppingPrice.Location = new System.Drawing.Point(3, 36);
+            this.ToppingPrice.Name = "ToppingPrice";
+            this.ToppingPrice.Size = new System.Drawing.Size(92, 17);
+            this.ToppingPrice.TabIndex = 24;
+            this.ToppingPrice.Text = "ToppingPrice";
+            // 
+            // SpicePrice
+            // 
+            this.SpicePrice.AutoSize = true;
+            this.SpicePrice.Location = new System.Drawing.Point(3, 55);
+            this.SpicePrice.Name = "SpicePrice";
+            this.SpicePrice.Size = new System.Drawing.Size(79, 17);
+            this.SpicePrice.TabIndex = 25;
+            this.SpicePrice.Text = "Spice Price";
+            // 
             // PizzaEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.InfoPanel);
             this.Controls.Add(this.SpicePanel);
             this.Controls.Add(this.PizzaAmount);
             this.Controls.Add(this.ToppingPanel);
@@ -405,6 +459,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.PizzaAmount)).EndInit();
             this.SpicePanel.ResumeLayout(false);
             this.SpicePanel.PerformLayout();
+            this.InfoPanel.ResumeLayout(false);
+            this.InfoPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -441,5 +497,10 @@
         private System.Windows.Forms.CheckBox checkBox18;
         private System.Windows.Forms.CheckBox checkBox19;
         private System.Windows.Forms.CheckBox checkBox20;
+        private System.Windows.Forms.Panel InfoPanel;
+        private System.Windows.Forms.Label GlutenBreadPrice;
+        private System.Windows.Forms.Label SizePrice;
+        private System.Windows.Forms.Label ToppingPrice;
+        private System.Windows.Forms.Label SpicePrice;
     }
 }

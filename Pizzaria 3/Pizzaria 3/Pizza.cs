@@ -235,7 +235,7 @@ namespace Pizzaria_3
                 new ItemProperty("peperoni", 10),
                 new ItemProperty("mushroom", 10),
                 new ItemProperty("kebab", 10),
-                new ItemProperty("pineapple", 60),
+                new ItemProperty("pineapple", 10),
                 new ItemProperty("meatballs", 10),
             });
 
