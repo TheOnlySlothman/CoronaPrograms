@@ -58,10 +58,10 @@
             this.checkBox19 = new System.Windows.Forms.CheckBox();
             this.checkBox20 = new System.Windows.Forms.CheckBox();
             this.InfoPanel = new System.Windows.Forms.Panel();
+            this.SpicePrice = new System.Windows.Forms.Label();
+            this.ToppingPrice = new System.Windows.Forms.Label();
             this.GlutenBreadPrice = new System.Windows.Forms.Label();
             this.SizePrice = new System.Windows.Forms.Label();
-            this.ToppingPrice = new System.Windows.Forms.Label();
-            this.SpicePrice = new System.Windows.Forms.Label();
             this.ToppingPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PizzaAmount)).BeginInit();
             this.SpicePanel.SuspendLayout();
@@ -400,6 +400,24 @@
             this.InfoPanel.Size = new System.Drawing.Size(356, 100);
             this.InfoPanel.TabIndex = 31;
             // 
+            // SpicePrice
+            // 
+            this.SpicePrice.AutoSize = true;
+            this.SpicePrice.Location = new System.Drawing.Point(3, 55);
+            this.SpicePrice.Name = "SpicePrice";
+            this.SpicePrice.Size = new System.Drawing.Size(79, 17);
+            this.SpicePrice.TabIndex = 25;
+            this.SpicePrice.Text = "Spice Price";
+            // 
+            // ToppingPrice
+            // 
+            this.ToppingPrice.AutoSize = true;
+            this.ToppingPrice.Location = new System.Drawing.Point(3, 36);
+            this.ToppingPrice.Name = "ToppingPrice";
+            this.ToppingPrice.Size = new System.Drawing.Size(92, 17);
+            this.ToppingPrice.TabIndex = 24;
+            this.ToppingPrice.Text = "ToppingPrice";
+            // 
             // GlutenBreadPrice
             // 
             this.GlutenBreadPrice.AutoSize = true;
@@ -418,24 +436,6 @@
             this.SizePrice.TabIndex = 23;
             this.SizePrice.Text = "Size price";
             // 
-            // ToppingPrice
-            // 
-            this.ToppingPrice.AutoSize = true;
-            this.ToppingPrice.Location = new System.Drawing.Point(3, 36);
-            this.ToppingPrice.Name = "ToppingPrice";
-            this.ToppingPrice.Size = new System.Drawing.Size(92, 17);
-            this.ToppingPrice.TabIndex = 24;
-            this.ToppingPrice.Text = "ToppingPrice";
-            // 
-            // SpicePrice
-            // 
-            this.SpicePrice.AutoSize = true;
-            this.SpicePrice.Location = new System.Drawing.Point(3, 55);
-            this.SpicePrice.Name = "SpicePrice";
-            this.SpicePrice.Size = new System.Drawing.Size(79, 17);
-            this.SpicePrice.TabIndex = 25;
-            this.SpicePrice.Text = "Spice Price";
-            // 
             // PizzaEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -453,6 +453,7 @@
             this.Controls.Add(this.DoughBox);
             this.Name = "PizzaEditor";
             this.Text = "PizzaEditor";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PizzaEditor_FormClosed);
             this.Load += new System.EventHandler(this.PizzaEditor_Load);
             this.ToppingPanel.ResumeLayout(false);
             this.ToppingPanel.PerformLayout();

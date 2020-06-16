@@ -229,5 +229,10 @@ namespace Pizzaria_3
 
             SpicePrice.Text = $"Spice is 5 each, chili is free";
         }
+
+        private void PizzaEditor_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            f1.Show();
+        }
     }
 }

@@ -59,6 +59,7 @@
             this.Controls.Add(this.label1);
             this.Name = "Checkout";
             this.Text = "Checkout";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Checkout_FormClosed);
             this.Load += new System.EventHandler(this.Checkout_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

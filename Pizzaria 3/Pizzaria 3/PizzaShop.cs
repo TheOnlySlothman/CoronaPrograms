@@ -80,7 +80,7 @@ namespace Pizzaria_3
         {
             PizzaEditor EditorForm = new PizzaEditor(this, MakePizza(ItemChoice()));
             EditorForm.Show();
-            //   this.Hide();
+               this.Hide();
         }
 
         private int ItemChoice()
@@ -98,18 +98,22 @@ namespace Pizzaria_3
             return Convert.ToInt32(ItemChoice.Find(x => x.Checked).Tag);
         }
 
-        private Pizza MakePizza(int result)
+        private Pizza MakePizza(int i)
         {
 
             Pizza pizza;
 
             try
             {
-                pizza = Pizzaria.Pizzas.Find(x => x.Id == result).GetPizza();
+                pizza = Pizzaria.Pizzas.Find(x => x.Id == i).GetPizza();
             }
             catch (NullReferenceException)
             {
-                pizza = new Pizza();
+                pizza = new Pizza(i, "", new List<ItemProperty>
+                {
+                    Pizzaria.PProperties.cheese.Find(x => x.name == "pizza cheese"),
+                    Pizzaria.PProperties.sauce.Find(x => x.name == "tomato sauce"),
+                });
             }
             pizza.Ingredients.Insert(0, pizzaProperties.dough.Find(x => x.name == DoughBox.SelectedValue.ToString()));
 
@@ -118,6 +122,26 @@ namespace Pizzaria_3
             pizza.Amount = Convert.ToInt32(ItemAmount.Value);
 
             return pizza;
+        }
+
+        private Drink MakeDrink(int i)
+        {
+            Drink drink;
+
+            try
+            {
+                drink = Pizzaria.Drinks.Find(x => x.Id == i).GetDrink();
+            }
+            catch (NullReferenceException)
+            {
+                drink = new Drink();
+            }
+
+            drink.Size = drinkProperties.sizes.Find(x => x.name == DrinkSizeBox.SelectedValue.ToString());
+
+            drink.Amount = Convert.ToInt32(ItemAmount.Value);
+
+            return drink;
         }
 
         private void AddItemButton_Click(object sender, EventArgs e)
@@ -130,7 +154,7 @@ namespace Pizzaria_3
             }
             else if (i >= 50)
             {
-                Pizzaria.AddDrink(Pizzaria.Drinks.Find(x => x.Id == i).GetDrink(), Convert.ToInt32(ItemAmount.Value), Pizzaria.DProperties.sizes.Find(x => x.name == DrinkSizeBox.Text));
+                Pizzaria.AddDrink(MakeDrink(ItemChoice()));
             }
             else
             {
@@ -180,8 +204,6 @@ namespace Pizzaria_3
         */
             #endregion
         }
-
-        
 
         private void UpdateDataGrid()
         {
@@ -266,7 +288,8 @@ namespace Pizzaria_3
             checkoutText = "discount: " + discount;
 
 
-            Checkout checkout = new Checkout(Pizzaria.Total - discount, checkoutText);
+            Checkout checkout = new Checkout(this, Pizzaria.Total - discount, checkoutText);
+            this.Hide();
             checkout.Show();
             Pizzaria.Checkout.Clear();
             UpdateDataGrid();

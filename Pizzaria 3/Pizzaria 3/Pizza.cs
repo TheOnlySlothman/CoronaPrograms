@@ -124,6 +124,8 @@ namespace Pizzaria_3
 
 
         }
+
+        //removes pizzas with 0 Amount;
         public static void RemoveZeroes()
         {
             List<Item> zeroes = new List<Item>();
@@ -161,7 +163,20 @@ namespace Pizzaria_3
                 Checkout.Add(selectedDrink);
         }
     }
+    public abstract class Item
+    {
+        public int Id { get; set; }
 
+        public int Amount { get; set; }
+
+        public string Name { get; set; }
+
+        public ItemProperty Size { get; set; }
+
+        public abstract double Price { get; }
+
+        public abstract string[] ToStringArray();
+    }
     public class Pizza : Item
     {
 
@@ -207,7 +222,48 @@ namespace Pizzaria_3
         //creates a copy of selected pizza
         public Pizza GetPizza() => new Pizza(Id, Name, Ingredients);
     }
+    public class Drink : Item
+    {
+        readonly double i = 10;
 
+        //price of a single drink
+        public override double Price => Size == null ? i : i * Size.price;
+
+        public Drink(int id, string name)
+        {
+            this.Id = id;
+            this.Name = name;
+        }
+
+        public Drink(ItemProperty size)
+        {
+            this.Size = size;
+        }
+
+        public Drink()
+        {
+
+        }
+
+        //creates a string array for use in datagrid
+        public override string[] ToStringArray()
+        {
+            return new string[] { Amount.ToString(), Size.name, Name, "", (Price * Amount).ToString() };
+        }
+
+        public Drink GetDrink() => new Drink(Id, Name);
+    }
+    public class ItemProperty
+    {
+        public string name;
+        public double price;
+
+        public ItemProperty(string name, double price)
+        {
+            this.name = name;
+            this.price = price;
+        }
+    }
     public class PizzaProperties
     {
         public List<ItemProperty> sauce;
@@ -272,66 +328,6 @@ namespace Pizzaria_3
 
 
     }
-
-    public class ItemProperty
-    {
-        public string name;
-        public double price;
-
-        public ItemProperty(string name, double price)
-        {
-            this.name = name;
-            this.price = price;
-        }
-    }
-
-    public abstract class Item
-    {
-        public int Id { get; set; }
-
-        public int Amount { get; set; }
-
-        public string Name { get; set; }
-
-        public ItemProperty Size { get; set; }
-
-        public abstract double Price { get; }
-
-        public abstract string[] ToStringArray();
-    }
-
-    public class Drink : Item
-    {
-        readonly double i = 10;
-
-        //price of a single drink
-        public override double Price => Size == null ? i : i * Size.price;
-
-        public Drink(int id, string name)
-        {
-            this.Id = id;
-            this.Name = name;
-        }
-
-        public Drink(ItemProperty size)
-        {
-            this.Size = size;
-        }
-
-        public Drink()
-        {
-
-        }
-
-        //creates a string array for use in datagrid
-        public override string[] ToStringArray()
-        {
-            return new string[] { Amount.ToString(), Size.name, Name, "", (Price * Amount).ToString() };
-        }
-
-        public Drink GetDrink() => new Drink(Id, Name);
-    }
-
     public class DrinkProperties
     {
         public List<ItemProperty> sizes;
