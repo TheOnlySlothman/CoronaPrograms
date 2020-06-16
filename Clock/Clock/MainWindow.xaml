@@ -1,0 +1,39 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Clock"
+        xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="Clock.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" ResizeMode="CanMinimize">
+    <Grid>
+        <TabControl Margin="10,10,10,10">
+            <TabItem Header="Clock">
+                <Grid Background="#FFE5E5E5">
+                    <Label x:Name="ClockTimeLabel" Content="00:00:00" HorizontalAlignment="Center" Margin="210,128,210,128" VerticalAlignment="Center" FontSize="72" Width="340"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="StopWatch">
+                <Grid Background="#FFE5E5E5">
+                    <Label x:Name="StopwatchTimeLabel" Content="00:00:00.00" HorizontalAlignment="Center" Margin="369,124,29,143" VerticalAlignment="Center" FontSize="72" Width="370"/>
+                    <Button x:Name="Start_StopButton" Content="Start/Stop" HorizontalAlignment="Left" Margin="384,265,0,0" VerticalAlignment="Top" Width="76" Click="Start_StopButton_Click"/>
+                    <Button x:Name="Split_ResetButton" Content="Split/Reset" HorizontalAlignment="Left" Margin="579,265,0,0" VerticalAlignment="Top" Width="76" Click="Split_ResetButton_Click"/>
+                    <DataGrid x:Name="StopWatchTimes" HorizontalAlignment="Left" Height="214" Margin="93,124,0,0" VerticalAlignment="Top" Width="100">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Time" Binding="{Binding Time}" CanUserResize="False"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Timer">
+                <Grid Background="#FFE5E5E5">
+                    <TextBox x:Name="TimerAmount" HorizontalAlignment="Left" Height="23" Margin="292,210,0,0" TextWrapping="Wrap" Text="00:00:00" VerticalAlignment="Top" Width="53"/>
+                    <Button x:Name="TimerAddButton" Content="Add" HorizontalAlignment="Left" Margin="217,233,0,0" VerticalAlignment="Top" Width="75" Click="TimerAddButton_Click"/>
+                    <Button x:Name="TimerSubtractButton" Content="Subtract" HorizontalAlignment="Left" Margin="345,233,0,0" VerticalAlignment="Top" Width="75"/>
+                    <Label x:Name="TimerTimeLabel" Content="00:00:00.00" HorizontalAlignment="Center" Margin="133,58,265,210" VerticalAlignment="Center" FontSize="72" Width="370"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
