@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E7C83D7E-9810-4B1B-B808-FA60EF4D13AA}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Clock</RootNamespace>
-    <AssemblyName>Clock</AssemblyName>
+    <RootNamespace>ClockProgram</RootNamespace>
+    <AssemblyName>ClockProgram</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -55,6 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="StopwatchClock.cs" />
+    <Compile Include="TimerClock.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -63,6 +65,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="BaseClock.cs" />
+    <Compile Include="Clock.cs" />
+    <Compile Include="ClockFormating.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

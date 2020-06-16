@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Clock"
-        xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="Clock.MainWindow"
+        xmlns:local="clr-namespace:ClockProgram"
+        xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="ClockProgram.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" ResizeMode="CanMinimize">
     <Grid>
@@ -28,9 +28,9 @@
             </TabItem>
             <TabItem Header="Timer">
                 <Grid Background="#FFE5E5E5">
-                    <TextBox x:Name="TimerAmount" HorizontalAlignment="Left" Height="23" Margin="292,210,0,0" TextWrapping="Wrap" Text="00:00:00" VerticalAlignment="Top" Width="53"/>
+                    <TextBox x:Name="TimerAmount" HorizontalAlignment="Left" Height="23" Margin="292,210,0,0" TextWrapping="Wrap" Text="00:01:00" VerticalAlignment="Top" Width="53"/>
                     <Button x:Name="TimerAddButton" Content="Add" HorizontalAlignment="Left" Margin="217,233,0,0" VerticalAlignment="Top" Width="75" Click="TimerAddButton_Click"/>
-                    <Button x:Name="TimerSubtractButton" Content="Subtract" HorizontalAlignment="Left" Margin="345,233,0,0" VerticalAlignment="Top" Width="75"/>
+                    <Button x:Name="TimerSubtractButton" Content="Subtract" HorizontalAlignment="Left" Margin="345,233,0,0" VerticalAlignment="Top" Width="75" Click="TimerSubtractButton_Click"/>
                     <Label x:Name="TimerTimeLabel" Content="00:00:00.00" HorizontalAlignment="Center" Margin="133,58,265,210" VerticalAlignment="Center" FontSize="72" Width="370"/>
                 </Grid>
             </TabItem>

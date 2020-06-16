@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,106 +17,91 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
-namespace Clock
+namespace ClockProgram
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly string timeType = "HH:mm:ss";
-        private readonly Stopwatch stopWatch = new Stopwatch();
-
-        private readonly DispatcherTimer dispatcherTimerSeconds;
-        private readonly DispatcherTimer dispatcherTimerTicks;
+        private readonly StopwatchClock stopwatchClock;
+        private readonly TimerClock timerClock;
+        readonly Regex timerRegex = new Regex("([0-9]?[0-9])(:[0-5]?[0-9]|:60){2}");
         public MainWindow()
         {
             InitializeComponent();
 
-            ClockTimeLabel.Content = DateTime.Now.ToString(timeType);
+            Clock clock = new Clock(ClockTimeLabel);
+            
+            stopwatchClock = new StopwatchClock(StopwatchTimeLabel);
 
-
-            dispatcherTimerSeconds = new DispatcherTimer();
-            dispatcherTimerSeconds.Tick += new EventHandler(DispatcherTimer_Seconds);
-            dispatcherTimerSeconds.Interval = new TimeSpan(0, 0, 1);
-            dispatcherTimerSeconds.Start();
-
-            dispatcherTimerTicks = new DispatcherTimer();
-            dispatcherTimerTicks.Tick += new EventHandler(DispatcherTimer_Ticks);
-
-
+            timerClock = new TimerClock(TimerTimeLabel);
 
         }
 
-
-        private void DispatcherTimer_Seconds(object sender, EventArgs e)
-        {
-            // Updating the Label which displays the current second
-            ClockTimeLabel.Content = DateTime.Now.ToString(timeType);
-
-            // Forcing the CommandManager to raise the RequerySuggested event
-            CommandManager.InvalidateRequerySuggested();
-        }
-
-        private void DispatcherTimer_Ticks(object sender, EventArgs e)
-        {
-            TimeSpan ts = stopWatch.Elapsed;
-            StopwatchTimeLabel.Content = string.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-            ts.Hours, ts.Minutes, ts.Seconds,
-            ts.Milliseconds / 10);
-
-            // Forcing the CommandManager to raise the RequerySuggested event
-            CommandManager.InvalidateRequerySuggested();
-        }
+        
 
 
         private void Start_StopButton_Click(object sender, RoutedEventArgs e)
         {
 
-            if (!stopWatch.IsRunning)
+            if (!stopwatchClock.Running)
             {
-                stopWatch.Start();
-                dispatcherTimerTicks.Start();
+                stopwatchClock.Start();
             }
             else
             {
-                stopWatch.Stop();
-                dispatcherTimerTicks.Stop();
+                stopwatchClock.Stop();
             }
         }
 
         private void Split_ResetButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!stopWatch.IsRunning)
+            if (!stopwatchClock.Running)
             {
-                stopWatch.Reset();
+                stopwatchClock.Reset();
                 StopwatchTimeLabel.Content = "";
                 StopWatchTimes.Items.Clear();
             }
             else
             {
-                TimeSpan ts = stopWatch.Elapsed;
+                TimeSpan ts = stopwatchClock.GetTime();
 
                 StopWatchTimes.Items.Add(new
                 {
                     Time = string.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-            ts.Hours, ts.Minutes, ts.Seconds,
-            ts.Milliseconds / 10)
+                    ts.Hours, ts.Minutes, ts.Seconds,
+                    ts.Milliseconds / 10)
                 });
             }
         }
 
         private void TimerAddButton_Click(object sender, RoutedEventArgs e)
         {
-            Regex rx = new Regex("\b([0-9][0-9])(:[0-5][0-9]|:60){2}\b");
-            if (rx.IsMatch(TimerAmount.Text))
+            if (timerRegex.IsMatch(TimerAmount.Text))
             {
-
+                string[] s = timerRegex.Match(TimerAmount.Text).Value.Split(':');
+                int[] values = new int[s.Length];
+                for (int i = 0; i < s.Length; i++)
+                {
+                    values[i] = Convert.ToInt32(s[i]);
+                }
+                timerClock.Add(values);
             }
-            
         }
 
-        ///start/stop
-        ///split/reset
+        private void TimerSubtractButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (timerRegex.IsMatch(TimerAmount.Text))
+            {
+                string[] s = timerRegex.Match(TimerAmount.Text).Value.Split(':');
+                int[] values = new int[s.Length];
+                for (int i = 0; i < s.Length; i++)
+                {
+                    values[i] = Convert.ToInt32(s[i]);
+                }
+                timerClock.Subtract(values);
+            }
+        }
     }
 }
