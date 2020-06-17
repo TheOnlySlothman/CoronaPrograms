@@ -34,6 +34,23 @@
                     <Label x:Name="TimerTimeLabel" Content="00:00:00.00" HorizontalAlignment="Center" Margin="133,58,265,210" VerticalAlignment="Center" FontSize="72" Width="370"/>
                 </Grid>
             </TabItem>
+            <TabItem Header="Alarm">
+                <Grid Background="#FFE5E5E5">
+                    <Label x:Name="AlarmTimeLabel" Content="00:00:00" HorizontalAlignment="Center" Margin="228,85,200,182" VerticalAlignment="Center" FontSize="72" Width="340"/>
+                    <Button x:Name="AlarmSetButton" Content="Set Alarm" HorizontalAlignment="Left" Margin="242,250,0,0" VerticalAlignment="Top" Width="75" Click="AlarmSetButton_Click"/>
+                    <TextBox x:Name="AlarmTimeTextBox" HorizontalAlignment="Left" Height="23" Margin="242,222,0,0" TextWrapping="Wrap" Text="00:01:00" VerticalAlignment="Top" Width="120"/>
+                    <Popup Name="myPopup">
+                        <TextBlock Name="myPopupText" 
+                                Background="LightBlue" 
+                                Foreground="Blue">
+                                Popup Text
+                        </TextBlock>
+                    </Popup>
+                    <Button x:Name="On_Off" Content="On/Off" HorizontalAlignment="Left" Margin="402,250,0,0" VerticalAlignment="Top" Width="75" Click="On_Off_Click"/>
+                    <Button x:Name="SnoozeButton" Content="Snooze" HorizontalAlignment="Left" Margin="322,250,0,0" VerticalAlignment="Top" Width="75" Click="SnoozeButton_Click"/>
+                    <TextBox x:Name="AlarmMessageTextBox" HorizontalAlignment="Left" Height="23" Margin="367,222,0,0" TextWrapping="Wrap" Text="Alarm Message" VerticalAlignment="Top" Width="120"/>
+                </Grid>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>

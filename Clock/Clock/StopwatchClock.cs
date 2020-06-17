@@ -16,7 +16,7 @@ namespace ClockProgram
 
         // public DateTime TimerEndTime = new DateTime();
 
-        public StopwatchClock(System.Windows.Controls.Label label)
+        public StopwatchClock(System.Windows.Controls.Label label) : base(label)
         {
             this.label = label;
             InitializeDispatcherTimer();

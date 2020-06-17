@@ -11,7 +11,7 @@ namespace ClockProgram
 {
     class Clock : BaseClock
     {
-        public Clock(System.Windows.Controls.Label label)
+        public Clock(System.Windows.Controls.Label label) : base(label)
         {
             this.label = label;
             InitializeDispatcherTimer();
@@ -20,8 +20,8 @@ namespace ClockProgram
         public override void InitializeDispatcherTimer()
         {
             base.InitializeDispatcherTimer();
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
         }
 
         public override void DispatcherTimer(object sender, EventArgs e)

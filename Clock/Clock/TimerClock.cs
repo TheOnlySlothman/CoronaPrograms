@@ -1,6 +1,7 @@
 ﻿using ClockProgram;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,11 +10,14 @@ namespace ClockProgram
 {
     class TimerClock : BaseClock
     {
-        DateTime TimerEndTime;
-        public TimerClock(System.Windows.Controls.Label label)
+        //protected DateTime timerEndTime;
+        TimeSpan ts;
+        readonly Stopwatch stopwatch;
+        public TimerClock(System.Windows.Controls.Label label) : base(label)
         {
             this.label = label;
             InitializeDispatcherTimer();
+            stopwatch = new Stopwatch();
         }
 
         public override void InitializeDispatcherTimer()
@@ -23,40 +27,33 @@ namespace ClockProgram
 
         public override void DispatcherTimer(object sender, EventArgs e)
         {
-            TimeSpan ts = (TimerEndTime - DateTime.Now);
+            TimeSpan span = ts - stopwatch.Elapsed;
             label.Content = string.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-            ts.Hours, ts.Minutes, ts.Seconds,
-            ts.Milliseconds / 10);
+            span.Hours, span.Minutes, span.Seconds,
+            span.Milliseconds / 10);
 
-            if (TimerEndTime < DateTime.Now)
+            if (ts < stopwatch.Elapsed)
             {
                 dispatcherTimer.Stop();
-                TimerEndTime = DateTime.MinValue;
+                stopwatch.Reset();
+                ts = new TimeSpan(0, 0, 0);
                 label.Content = "00:00:00.00";
             }
         }
 
         public void Add(int[] values)
         {
-            TimeSpan ts = new TimeSpan(values[0], values[1], values[2]);
-
-            if (TimerEndTime == DateTime.MinValue)
+            ts += new TimeSpan(values[0], values[1], values[2]);
+            if (!stopwatch.IsRunning)
             {
-                TimerEndTime = DateTime.Now;
                 dispatcherTimer.Start();
+                stopwatch.Start();
             }
-            TimerEndTime += ts;
         }
 
         public void Subtract(int[] values)
         {
-            TimeSpan ts = new TimeSpan(values[0], values[1], values[2]);
-
-            if (TimerEndTime == DateTime.MinValue)
-            {
-                return;
-            }
-            TimerEndTime -= ts;
+            ts -= new TimeSpan(values[0], values[1], values[2]);
         }
     }
 }

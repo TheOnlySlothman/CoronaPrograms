@@ -13,6 +13,12 @@ namespace ClockProgram
         protected DispatcherTimer dispatcherTimer;
         protected string format = ClockFormating.hours24;
 
+        public BaseClock(System.Windows.Controls.Label label)
+        {
+            this.label = label;
+            InitializeDispatcherTimer();
+        }
+
         public virtual void InitializeDispatcherTimer()
         {
             dispatcherTimer = new DispatcherTimer();
