@@ -11,14 +11,17 @@ namespace ClockProgram
 {
     class StopwatchClock : BaseClock
     {
-        protected Stopwatch Watch { get; } = new Stopwatch();
+        protected Stopwatch Watch = new Stopwatch();
+        public TimeSpan lastLap;
+        readonly System.Windows.Controls.Label lapLabel;
         public bool Running { get => Watch.IsRunning; }
 
         // public DateTime TimerEndTime = new DateTime();
 
-        public StopwatchClock(System.Windows.Controls.Label label) : base(label)
+        public StopwatchClock(System.Windows.Controls.Label label, System.Windows.Controls.Label labLabel)
         {
             this.label = label;
+            this.lapLabel = labLabel;
             InitializeDispatcherTimer();
         }
 
@@ -34,6 +37,12 @@ namespace ClockProgram
             UpdateVisuals(string.Format("{0:00}:{1:00}:{2:00}.{3:00}",
             ts.Hours, ts.Minutes, ts.Seconds,
             ts.Milliseconds / 10));
+
+            ts -= lastLap;
+
+            lapLabel.Content = (string.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+            ts.Hours, ts.Minutes, ts.Seconds,
+            ts.Milliseconds / 10));
         }
 
         public void Start()
@@ -46,6 +55,7 @@ namespace ClockProgram
         {
             dispatcherTimer.Stop();
             Watch.Stop();
+            lastLap = new TimeSpan(0);
         }
 
         public void Reset()
@@ -53,9 +63,19 @@ namespace ClockProgram
             Watch.Reset();
         }
 
-        public TimeSpan GetTime()
+        public void Restart()
         {
-            return Watch.Elapsed;
+            Watch.Restart();
+        }
+
+        public TimeSpan GetLapTime()
+        {
+            return Watch.Elapsed - lastLap;
+        }
+
+        public void CreateLap()
+        {
+            lastLap = Watch.Elapsed;
         }
     }
 }

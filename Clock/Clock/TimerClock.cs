@@ -10,10 +10,10 @@ namespace ClockProgram
 {
     class TimerClock : BaseClock
     {
-        //protected DateTime timerEndTime;
         TimeSpan ts;
+        TimeSpan TimerAmount { get { return ts - stopwatch.Elapsed; } }
         readonly Stopwatch stopwatch;
-        public TimerClock(System.Windows.Controls.Label label) : base(label)
+        public TimerClock(System.Windows.Controls.Label label)
         {
             this.label = label;
             InitializeDispatcherTimer();
@@ -27,10 +27,7 @@ namespace ClockProgram
 
         public override void DispatcherTimer(object sender, EventArgs e)
         {
-            TimeSpan span = ts - stopwatch.Elapsed;
-            label.Content = string.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-            span.Hours, span.Minutes, span.Seconds,
-            span.Milliseconds / 10);
+            UpdateVisuals(TimerAmount);
 
             if (ts < stopwatch.Elapsed)
             {
@@ -41,6 +38,8 @@ namespace ClockProgram
             }
         }
 
+        
+
         public void Add(int[] values)
         {
             ts += new TimeSpan(values[0], values[1], values[2]);
@@ -49,11 +48,32 @@ namespace ClockProgram
                 dispatcherTimer.Start();
                 stopwatch.Start();
             }
+            UpdateVisuals(TimerAmount);
         }
 
         public void Subtract(int[] values)
         {
             ts -= new TimeSpan(values[0], values[1], values[2]);
+            if (ts <= new TimeSpan(0))
+            {
+                ts = new TimeSpan(0);
+                stopwatch.Reset();
+            }
+            UpdateVisuals(TimerAmount);
+        }
+
+        public void PauseOrResume()
+        {
+            if (stopwatch.IsRunning)
+            {
+                stopwatch.Stop();
+                dispatcherTimer.Stop();
+            }
+            else
+            {
+                stopwatch.Start();
+                dispatcherTimer.Start();
+            }
         }
     }
 }

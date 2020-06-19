@@ -11,7 +11,7 @@ namespace ClockProgram
 {
     class Clock : BaseClock
     {
-        public Clock(System.Windows.Controls.Label label) : base(label)
+        public Clock(System.Windows.Controls.Label label)
         {
             this.label = label;
             InitializeDispatcherTimer();

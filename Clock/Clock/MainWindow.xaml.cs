@@ -26,7 +26,7 @@ namespace ClockProgram
     {
         private readonly StopwatchClock stopwatchClock;
         private readonly TimerClock timerClock;
-        private readonly AlarmClock alarmClock;
+        private AlarmClock alarmClock;
         readonly Regex timeRegex = new Regex(@"([0-9]?[0-9])([\W\D][0-5]?[0-9]|[\W\D]60){2}$");
         private readonly char[] splitChArr = { ',', ' ', '.', ';', ':', '-' };
         public MainWindow()
@@ -34,11 +34,11 @@ namespace ClockProgram
             InitializeComponent();
             _ = new Clock(ClockTimeLabel);
 
-            stopwatchClock = new StopwatchClock(StopwatchTimeLabel);
+            stopwatchClock = new StopwatchClock(StopwatchTimeLabel, LapLabel);
 
             timerClock = new TimerClock(TimerTimeLabel);
 
-            alarmClock = new AlarmClock(AlarmTimeLabel, AlarmMessageTextBox.Text);
+            //alarmClock = new AlarmClock(AlarmTimeLabel, AlarmMessageTextBox);
 
             AlarmTimeTextBox.Text = string.Format("{0:00}:{1:00}:{2:00}",
                     DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
@@ -67,18 +67,19 @@ namespace ClockProgram
             {
                 stopwatchClock.Reset();
                 StopwatchTimeLabel.Content = "";
-                StopWatchTimes.Items.Clear();
+                LapLabel.Content = "";
+                StopWatchLapListBox.Items.Clear();
             }
             else
             {
-                TimeSpan ts = stopwatchClock.GetTime();
-
-                StopWatchTimes.Items.Add(new
-                {
-                    Time = string.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                TimeSpan ts = stopwatchClock.GetLapTime();
+                StopWatchLapListBox.Items.Add(
+                    string.Format("{0:00}:{1:00}:{2:00}.{3:00}",
                     ts.Hours, ts.Minutes, ts.Seconds,
                     ts.Milliseconds / 10)
-                });
+                );
+
+                stopwatchClock.CreateLap();
             }
         }
 
@@ -110,28 +111,66 @@ namespace ClockProgram
             }
         }
 
+        readonly List<AlarmClock> alarmList = new List<AlarmClock>();
+
         private void AlarmSetButton_Click(object sender, RoutedEventArgs e)
         {
             if (timeRegex.IsMatch(AlarmTimeTextBox.Text))
             {
+
                 string[] s = timeRegex.Match(AlarmTimeTextBox.Text).Value.Split(splitChArr, 3);
                 int[] values = new int[s.Length];
                 for (int i = 0; i < s.Length; i++)
                 {
                     values[i] = Convert.ToInt32(s[i]);
                 }
-                alarmClock.AddAlarm(values);
+                alarmClock = new AlarmClock(new TimeSpan(values[0], values[1], values[2]));
+                if (AlarmMessageTextBox.Text != null)
+                {
+                    alarmClock.AddMessage(AlarmMessageTextBox.Text);
+                }
+
+                alarmList.Add(alarmClock);
+                UpdateAlarms();
             }
         }
 
         private void SnoozeButton_Click(object sender, RoutedEventArgs e)
         {
-            alarmClock.Add(new TimeSpan(0, 5, 0));
+            alarmClock.Snooze();
         }
 
         private void On_Off_Click(object sender, RoutedEventArgs e)
         {
-            alarmClock.OnOrOff();
+            foreach (AlarmClock item in alarmList)
+            {
+                if (alarmList.IndexOf(item) == AlarmDataGrid.SelectedIndex)
+                {
+                    item.OnOrOff();
+                }
+
+            }
+                UpdateAlarms();
+        }
+
+        public void UpdateAlarms()
+        {
+            AlarmDataGrid.Items.Clear();
+            foreach (var alarm in alarmList)
+            {
+                AlarmDataGrid.Items.Add(new
+                {
+                    Time = string.Format("{0:00}:{1:00}:{2:00}",
+                    alarm.alarmTime.Hour, alarm.alarmTime.Minute, alarm.alarmTime.Second),
+
+                    Enabled = alarm.IsRunning.ToString()
+                });
+            }
+        }
+
+        private void TimerPauseButton_Click(object sender, RoutedEventArgs e)
+        {
+            timerClock.PauseOrResume();
         }
     }
 }

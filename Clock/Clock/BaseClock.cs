@@ -13,9 +13,8 @@ namespace ClockProgram
         protected DispatcherTimer dispatcherTimer;
         protected string format = ClockFormating.hours24;
 
-        public BaseClock(System.Windows.Controls.Label label)
+        public BaseClock()
         {
-            this.label = label;
             InitializeDispatcherTimer();
         }
 
@@ -27,6 +26,12 @@ namespace ClockProgram
 
         public abstract void DispatcherTimer(object sender, EventArgs e);
 
-        public void UpdateVisuals(string output) => label.Content = output;
+        public virtual void UpdateVisuals(string output) => label.Content = output;
+        public virtual void UpdateVisuals(TimeSpan TimerAmount)
+        {
+            label.Content = string.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+            TimerAmount.Hours, TimerAmount.Minutes, TimerAmount.Seconds,
+            TimerAmount.Milliseconds / 10);
+        }
     }
 }

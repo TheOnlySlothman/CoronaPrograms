@@ -4,45 +4,39 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Media;
+using System.Security;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
 namespace ClockProgram
 {
     class AlarmClock : BaseClock
     {
-        readonly string message;
-        protected DateTime alarmTime;
+        string alarmMessage = "standard message";
+        public DateTime alarmTime;
         TimeSpan time;
+        TimeSpan snoozeAmount;
 
-        SoundPlayer player = new SoundPlayer();
-        public AlarmClock(System.Windows.Controls.Label label, string message) : base(label)
+        public bool IsRunning { get => dispatcherTimer.IsEnabled; }
+        public AlarmClock()
         {
-            this.label = label;
-            this.message = message;
             InitializeDispatcherTimer();
-            InitializeSound();
         }
 
-        private void InitializeSound()
+        public AlarmClock(TimeSpan timeSpan)
         {
-            try
-            {
-                var curDir = Directory.GetCurrentDirectory();
-                // Assign the selected file's path to 
-                // the SoundPlayer object.  
-                player.SoundLocation = $@"{curDir}\sounds\oof.wav";
+            InitializeDispatcherTimer();
+            time = timeSpan;
+            SetAlarm();
+        }
 
-                // Load the .wav file.
-                player.Load();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
+        public void AddMessage(string mess)
+        {
+            alarmMessage = mess;
         }
 
         public override void InitializeDispatcherTimer()
@@ -52,11 +46,19 @@ namespace ClockProgram
         }
         public override void DispatcherTimer(object sender, EventArgs e)
         {
-            if (alarmTime < DateTime.Now)
+            if (alarmTime + snoozeAmount < DateTime.Now)
             {
-                MessageBox.Show(message);
-                player.PlaySync();
-                dispatcherTimer.Stop();
+                MessageBoxResult result = MessageBox.Show("Snooze?", alarmMessage, MessageBoxButton.YesNo);
+                //player.Play();
+                if (result == MessageBoxResult.Yes)
+                {
+                    Add(new TimeSpan(0, 1, 0));
+                }
+                else
+                {
+                    snoozeAmount = new TimeSpan(0);
+                    dispatcherTimer.Stop();
+                }
             }
 
 
@@ -73,19 +75,24 @@ namespace ClockProgram
                 Add(new TimeSpan(1, 0, 0, 0));
                 return;
             }
-
         }
 
-        public void AddAlarm(int[] values)
+        public void AddAlarm(TimeSpan ts)
         {
-            time = new TimeSpan(values[0], values[1], values[2]);
+            time = ts;
             SetAlarm();
         }
 
         public void Add(TimeSpan ts)
         {
             alarmTime += ts;
-            UpdateVisuals(alarmTime.ToString(format));
+            // UpdateVisuals(alarmTime.ToString(format));
+            dispatcherTimer.Start();
+        }
+
+        public void Snooze()
+        {
+            snoozeAmount += new TimeSpan(0, 5, 0);
             dispatcherTimer.Start();
         }
 
