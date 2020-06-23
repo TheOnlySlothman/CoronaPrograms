@@ -5,19 +5,26 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ClockProgram
 {
     class TimerClock : BaseClock
     {
         TimeSpan ts;
-        TimeSpan TimerAmount { get { return ts - stopwatch.Elapsed; } }
+        //TimeSpan tsMod;
+        public TimeSpan TimerAmount { get { return ts - stopwatch.Elapsed; } }
         readonly Stopwatch stopwatch;
-        public TimerClock(System.Windows.Controls.Label label)
+        public TimerClock()
         {
-            this.label = label;
             InitializeDispatcherTimer();
             stopwatch = new Stopwatch();
+        }
+        public TimerClock(int[] values)
+        {
+            InitializeDispatcherTimer();
+            stopwatch = new Stopwatch();
+            Add(values);
         }
 
         public override void InitializeDispatcherTimer()
@@ -27,28 +34,20 @@ namespace ClockProgram
 
         public override void DispatcherTimer(object sender, EventArgs e)
         {
-            UpdateVisuals(TimerAmount);
-
             if (ts < stopwatch.Elapsed)
             {
                 dispatcherTimer.Stop();
                 stopwatch.Reset();
-                ts = new TimeSpan(0, 0, 0);
-                label.Content = "00:00:00.00";
+                MessageBox.Show(string.Format("{0:00}:{1:00}:{2:00}",
+                    ts.Hours, ts.Minutes, ts.Seconds) + " Timer is up");
             }
         }
 
-        
+
 
         public void Add(int[] values)
         {
             ts += new TimeSpan(values[0], values[1], values[2]);
-            if (!stopwatch.IsRunning)
-            {
-                dispatcherTimer.Start();
-                stopwatch.Start();
-            }
-            UpdateVisuals(TimerAmount);
         }
 
         public void Subtract(int[] values)
@@ -59,7 +58,6 @@ namespace ClockProgram
                 ts = new TimeSpan(0);
                 stopwatch.Reset();
             }
-            UpdateVisuals(TimerAmount);
         }
 
         public void PauseOrResume()
@@ -74,6 +72,12 @@ namespace ClockProgram
                 stopwatch.Start();
                 dispatcherTimer.Start();
             }
+        }
+
+        public string TimerFormat()
+        {
+            return string.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                    TimerAmount.Hours, TimerAmount.Minutes, TimerAmount.Seconds, TimerAmount.Milliseconds / 10);
         }
     }
 }

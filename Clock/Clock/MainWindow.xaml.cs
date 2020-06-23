@@ -25,7 +25,7 @@ namespace ClockProgram
     public partial class MainWindow : Window
     {
         private readonly StopwatchClock stopwatchClock;
-        private readonly TimerClock timerClock;
+        //private readonly TimerClock timerClock;
         private AlarmClock alarmClock;
         readonly Regex timeRegex = new Regex(@"([0-9]?[0-9])([\W\D][0-5]?[0-9]|[\W\D]60){2}$");
         private readonly char[] splitChArr = { ',', ' ', '.', ';', ':', '-' };
@@ -36,18 +36,19 @@ namespace ClockProgram
 
             stopwatchClock = new StopwatchClock(StopwatchTimeLabel, LapLabel);
 
-            timerClock = new TimerClock(TimerTimeLabel);
+            //timerClock = new TimerClock();
 
             //alarmClock = new AlarmClock(AlarmTimeLabel, AlarmMessageTextBox);
 
             AlarmTimeTextBox.Text = string.Format("{0:00}:{1:00}:{2:00}",
                     DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
+            // InitializeDispatcherTimer();
         }
 
-        
 
 
+        #region Stopwatch
         private void Start_StopButton_Click(object sender, RoutedEventArgs e)
         {
 
@@ -82,7 +83,9 @@ namespace ClockProgram
                 stopwatchClock.CreateLap();
             }
         }
+        #endregion
 
+        #region Timer
         private void TimerAddButton_Click(object sender, RoutedEventArgs e)
         {
             if (timeRegex.IsMatch(TimerAmount.Text))
@@ -93,7 +96,12 @@ namespace ClockProgram
                 {
                     values[i] = Convert.ToInt32(s[i]);
                 }
-                timerClock.Add(values);
+
+
+                timerList[TimerListBox.SelectedIndex].Add(values);
+                TimerListBox.Items[TimerListBox.SelectedIndex] = timerList[TimerListBox.SelectedIndex].TimerFormat();
+
+               // UpdateTimers();
             }
         }
 
@@ -107,10 +115,53 @@ namespace ClockProgram
                 {
                     values[i] = Convert.ToInt32(s[i]);
                 }
-                timerClock.Subtract(values);
+
+                timerList[TimerListBox.SelectedIndex].Subtract(values);
+                TimerListBox.Items[TimerListBox.SelectedIndex] = timerList[TimerListBox.SelectedIndex].TimerFormat();
+                //UpdateTimers();
             }
         }
 
+        private void TimerPauseButton_Click(object sender, RoutedEventArgs e)
+        {
+            timerList[TimerListBox.SelectedIndex].PauseOrResume();
+            TimerListBox.Items[TimerListBox.SelectedIndex] = timerList[TimerListBox.SelectedIndex].TimerFormat();
+            //UpdateTimers();
+        }
+        readonly List<TimerClock> timerList = new List<TimerClock>();
+        private void TimerAddTimerButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (timeRegex.IsMatch(TimerAmount.Text))
+            {
+                string[] s = timeRegex.Match(TimerAmount.Text).Value.Split(splitChArr, 3);
+                int[] values = new int[s.Length];
+                for (int i = 0; i < s.Length; i++)
+                {
+                    values[i] = Convert.ToInt32(s[i]);
+                }
+                TimerClock temp = new TimerClock(values);
+                timerList.Add(temp);
+
+                TimerListBox.Items.Add(temp.TimerFormat());
+
+            }
+        }
+
+        public void UpdateTimers()
+        {
+            TimerListBox.Items.Clear();
+            foreach (var timer in timerList)
+            {
+                TimerListBox.Items.Add
+                (
+                    string.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                    timer.TimerAmount.Hours, timer.TimerAmount.Minutes, timer.TimerAmount.Seconds, timer.TimerAmount.Milliseconds / 10)
+                );
+            }
+        }
+        #endregion
+
+        #region Alarm
         readonly List<AlarmClock> alarmList = new List<AlarmClock>();
 
         private void AlarmSetButton_Click(object sender, RoutedEventArgs e)
@@ -131,13 +182,8 @@ namespace ClockProgram
                 }
 
                 alarmList.Add(alarmClock);
-                UpdateAlarms();
+                AlarmDataGrid.Items.Add(alarmClock.ToObject());
             }
-        }
-
-        private void SnoozeButton_Click(object sender, RoutedEventArgs e)
-        {
-            alarmClock.Snooze();
         }
 
         private void On_Off_Click(object sender, RoutedEventArgs e)
@@ -147,10 +193,10 @@ namespace ClockProgram
                 if (alarmList.IndexOf(item) == AlarmDataGrid.SelectedIndex)
                 {
                     item.OnOrOff();
+                    AlarmDataGrid.Items[AlarmDataGrid.SelectedIndex] = item.ToObject();
                 }
 
             }
-                UpdateAlarms();
         }
 
         public void UpdateAlarms()
@@ -167,10 +213,46 @@ namespace ClockProgram
                 });
             }
         }
-
-        private void TimerPauseButton_Click(object sender, RoutedEventArgs e)
+        private void AlarmEditButton_Click(object sender, RoutedEventArgs e)
         {
-            timerClock.PauseOrResume();
+            if (timeRegex.IsMatch(AlarmTimeTextBox.Text))
+            {
+
+                string[] s = timeRegex.Match(AlarmTimeTextBox.Text).Value.Split(splitChArr, 3);
+                int[] values = new int[s.Length];
+                for (int i = 0; i < s.Length; i++)
+                {
+                    values[i] = Convert.ToInt32(s[i]);
+                }
+                alarmClock = new AlarmClock(new TimeSpan(values[0], values[1], values[2]));
+                if (AlarmMessageTextBox.Text != null)
+                {
+                    alarmClock.AddMessage(AlarmMessageTextBox.Text);
+                }
+
+                //do something about this
+                alarmList[AlarmDataGrid.SelectedIndex] = alarmClock;
+                AlarmDataGrid.Items[AlarmDataGrid.SelectedIndex] = alarmClock.ToObject();
+            }
         }
+        #endregion
+
+        protected DispatcherTimer dispatcherTimer;
+
+        /*
+public void InitializeDispatcherTimer()
+{
+   dispatcherTimer = new DispatcherTimer();
+   dispatcherTimer.Tick += new EventHandler(DispatcherTimer);
+   dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+   dispatcherTimer.Start();
+}
+
+public void DispatcherTimer(object sender, EventArgs e)
+{
+   UpdateTimers();
+   UpdateAlarms();
+}
+*/
     }
 }

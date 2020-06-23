@@ -108,5 +108,17 @@ namespace ClockProgram
                 dispatcherTimer.Stop();
             }
         }
+
+        public object ToObject()
+        {
+            return
+            new
+            {
+                Time = string.Format("{0:00}:{1:00}:{2:00}",
+                    alarmTime.Hour, alarmTime.Minute, alarmTime.Second),
+
+                Enabled = IsRunning.ToString()
+            };
+        }
     }
 }

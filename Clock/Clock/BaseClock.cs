@@ -29,9 +29,7 @@ namespace ClockProgram
         public virtual void UpdateVisuals(string output) => label.Content = output;
         public virtual void UpdateVisuals(TimeSpan TimerAmount)
         {
-            label.Content = string.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-            TimerAmount.Hours, TimerAmount.Minutes, TimerAmount.Seconds,
-            TimerAmount.Milliseconds / 10);
+            throw new NotImplementedException();
         }
     }
 }
