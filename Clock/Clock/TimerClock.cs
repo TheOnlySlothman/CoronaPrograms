@@ -14,7 +14,7 @@ namespace ClockProgram
         TimeSpan ts;
         //TimeSpan tsMod;
         public TimeSpan TimerAmount { get { return ts - stopwatch.Elapsed; } }
-        readonly Stopwatch stopwatch;
+        public readonly Stopwatch stopwatch;
         public TimerClock()
         {
             InitializeDispatcherTimer();
@@ -42,6 +42,7 @@ namespace ClockProgram
                     ts.Hours, ts.Minutes, ts.Seconds) + " Timer is up");
             }
         }
+        
 
 
 

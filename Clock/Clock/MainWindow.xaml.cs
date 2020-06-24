@@ -42,8 +42,9 @@ namespace ClockProgram
 
             AlarmTimeTextBox.Text = string.Format("{0:00}:{1:00}:{2:00}",
                     DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            _ = new DigitalClock(new UIElementCollection[] {DigitalHoursTens.Children, DigitalHoursOnes.Children, DigitalMinutesTens.Children, DigitalMinutesOnes.Children, DigitalSecondsTens.Children, DigitalSecondsOnes.Children});
 
-            // InitializeDispatcherTimer();
+            InitializeDispatcherTimer();
         }
 
 
@@ -97,11 +98,11 @@ namespace ClockProgram
                     values[i] = Convert.ToInt32(s[i]);
                 }
 
-
-                timerList[TimerListBox.SelectedIndex].Add(values);
-                TimerListBox.Items[TimerListBox.SelectedIndex] = timerList[TimerListBox.SelectedIndex].TimerFormat();
-
-               // UpdateTimers();
+                if (TimerListBox.SelectedIndex >= 0)
+                {
+                    timerList[TimerListBox.SelectedIndex].Add(values);
+                    TimerListBox.Items[TimerListBox.SelectedIndex] = timerList[TimerListBox.SelectedIndex].TimerFormat();
+                }
             }
         }
 
@@ -116,17 +117,23 @@ namespace ClockProgram
                     values[i] = Convert.ToInt32(s[i]);
                 }
 
-                timerList[TimerListBox.SelectedIndex].Subtract(values);
-                TimerListBox.Items[TimerListBox.SelectedIndex] = timerList[TimerListBox.SelectedIndex].TimerFormat();
+                if (TimerListBox.SelectedIndex >= 0)
+                {
+                    timerList[TimerListBox.SelectedIndex].Subtract(values);
+                    TimerListBox.Items[TimerListBox.SelectedIndex] = timerList[TimerListBox.SelectedIndex].TimerFormat();
+                }
                 //UpdateTimers();
             }
         }
 
         private void TimerPauseButton_Click(object sender, RoutedEventArgs e)
         {
-            timerList[TimerListBox.SelectedIndex].PauseOrResume();
-            TimerListBox.Items[TimerListBox.SelectedIndex] = timerList[TimerListBox.SelectedIndex].TimerFormat();
-            //UpdateTimers();
+            if (TimerListBox.SelectedIndex >= 0)
+            {
+                timerList[TimerListBox.SelectedIndex].PauseOrResume();
+                TimerListBox.Items[TimerListBox.SelectedIndex] = timerList[TimerListBox.SelectedIndex].TimerFormat();
+                //UpdateTimers();
+            }
         }
         readonly List<TimerClock> timerList = new List<TimerClock>();
         private void TimerAddTimerButton_Click(object sender, RoutedEventArgs e)
@@ -146,7 +153,7 @@ namespace ClockProgram
 
             }
         }
-
+        /*
         public void UpdateTimers()
         {
             TimerListBox.Items.Clear();
@@ -157,6 +164,18 @@ namespace ClockProgram
                     string.Format("{0:00}:{1:00}:{2:00}.{3:00}",
                     timer.TimerAmount.Hours, timer.TimerAmount.Minutes, timer.TimerAmount.Seconds, timer.TimerAmount.Milliseconds / 10)
                 );
+            }
+        }
+        */
+
+        public void UpdateTimers()
+        {
+            for (int i = 0; i < timerList.Count; i++)
+            {
+                if (timerList[i].stopwatch.IsRunning && TimerListBox.SelectedIndex != i)
+                {
+                    TimerListBox.Items[i] = timerList[i].TimerFormat();
+                }
             }
         }
         #endregion
@@ -230,29 +249,31 @@ namespace ClockProgram
                     alarmClock.AddMessage(AlarmMessageTextBox.Text);
                 }
 
-                //do something about this
-                alarmList[AlarmDataGrid.SelectedIndex] = alarmClock;
-                AlarmDataGrid.Items[AlarmDataGrid.SelectedIndex] = alarmClock.ToObject();
+                if (AlarmDataGrid.SelectedIndex >= 0)
+                {
+                    alarmList[AlarmDataGrid.SelectedIndex].IsRunning = false;
+                    alarmList[AlarmDataGrid.SelectedIndex] = alarmClock;
+                    AlarmDataGrid.Items[AlarmDataGrid.SelectedIndex] = alarmClock.ToObject();
+                }
+
             }
         }
         #endregion
 
+
         protected DispatcherTimer dispatcherTimer;
 
-        /*
-public void InitializeDispatcherTimer()
-{
-   dispatcherTimer = new DispatcherTimer();
-   dispatcherTimer.Tick += new EventHandler(DispatcherTimer);
-   dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
-   dispatcherTimer.Start();
-}
 
-public void DispatcherTimer(object sender, EventArgs e)
-{
-   UpdateTimers();
-   UpdateAlarms();
-}
-*/
+        public void InitializeDispatcherTimer()
+        {
+            dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(DispatcherTimer);
+            dispatcherTimer.Start();
+        }
+        public void DispatcherTimer(object sender, EventArgs e)
+        {
+            UpdateTimers();
+            //UpdateAlarms();
+        }
     }
 }

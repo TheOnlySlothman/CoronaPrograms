@@ -21,7 +21,7 @@ namespace ClockProgram
         TimeSpan time;
         TimeSpan snoozeAmount;
 
-        public bool IsRunning { get => dispatcherTimer.IsEnabled; }
+        public bool IsRunning { get => dispatcherTimer.IsEnabled; set => dispatcherTimer.IsEnabled = value; }
         public AlarmClock()
         {
             InitializeDispatcherTimer();
@@ -117,7 +117,9 @@ namespace ClockProgram
                 Time = string.Format("{0:00}:{1:00}:{2:00}",
                     alarmTime.Hour, alarmTime.Minute, alarmTime.Second),
 
-                Enabled = IsRunning.ToString()
+                Enabled = IsRunning.ToString(),
+
+                Message = alarmMessage
             };
         }
     }

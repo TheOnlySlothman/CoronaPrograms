@@ -123,7 +123,6 @@ namespace Pizzaria_3
 
             controlCollection.CopyTo(controls, 0);
 
-
             controlsList.AddRange(controls);
 
             foreach (CheckBox item in controlsList)

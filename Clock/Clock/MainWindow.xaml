@@ -46,13 +46,75 @@
                     </Popup>
                     <Button x:Name="On_Off" Content="On/Off" HorizontalAlignment="Left" Margin="367,250,0,0" VerticalAlignment="Top" Width="120" Click="On_Off_Click"/>
                     <TextBox x:Name="AlarmMessageTextBox" HorizontalAlignment="Left" Height="23" Margin="367,222,0,0" TextWrapping="Wrap" Text="Alarm Message" VerticalAlignment="Top" Width="120"/>
-                    <DataGrid x:Name="AlarmDataGrid" HorizontalAlignment="Left" Height="216" Margin="61,90,0,0" VerticalAlignment="Top" Width="111">
+                    <DataGrid x:Name="AlarmDataGrid" HorizontalAlignment="Left" Height="216" Margin="61,90,0,0" VerticalAlignment="Top" Width="176">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Time" Binding="{Binding Time}" CanUserResize="False"/>
                             <DataGridTextColumn Header="Enabled" Binding="{Binding Enabled}" CanUserResize="False"/>
+                            <DataGridTextColumn Header="Message" Binding="{Binding Message}" CanUserResize="False"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <Button x:Name="AlarmEditButton" Content="Edit" HorizontalAlignment="Left" Margin="492,250,0,0" VerticalAlignment="Top" Width="75" Click="AlarmEditButton_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Digital">
+                <Grid Background="#FFE5E5E5">
+                    <Grid x:Name="DigitalSecondsOnes" Margin="625,104,63,127">
+                        <Image HorizontalAlignment="Left" Height="10" Margin="10,2,0,0" VerticalAlignment="Top" Width="50" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="50" Margin="60,12,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="50" Margin="60,72,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="10" Margin="10,122,0,0" VerticalAlignment="Top" Width="50" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="50" Margin="0,72,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="50" Margin="0,12,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="10" Margin="10,62,0,0" VerticalAlignment="Top" Width="50" Source="Black.png" Stretch="Fill" />
+                    </Grid>
+                    <Grid>
+
+                    </Grid>
+                    <Grid x:Name="DigitalSecondsTens" Margin="540,104,148,127">
+                        <Image HorizontalAlignment="Left" Height="10" Margin="10,2,0,0" VerticalAlignment="Top" Width="50" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="50" Margin="60,12,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="50" Margin="60,72,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="10" Margin="10,122,0,0" VerticalAlignment="Top" Width="50" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="50" Margin="0,72,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="50" Margin="0,12,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="10" Margin="10,62,0,0" VerticalAlignment="Top" Width="50" Source="Black.png" Stretch="Fill" />
+                    </Grid>
+                    <Grid x:Name="DigitalMinutesOnes" Margin="443,104,245,127">
+                        <Image HorizontalAlignment="Left" Height="10" Margin="10,2,0,0" VerticalAlignment="Top" Width="50" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="50" Margin="60,12,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="50" Margin="60,72,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="10" Margin="10,122,0,0" VerticalAlignment="Top" Width="50" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="50" Margin="0,72,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="50" Margin="0,12,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="10" Margin="10,62,0,0" VerticalAlignment="Top" Width="50" Source="Black.png" Stretch="Fill" />
+                    </Grid>
+                    <Grid x:Name="DigitalMinutesTens" Margin="358,104,330,127">
+                        <Image HorizontalAlignment="Left" Height="10" Margin="10,2,0,0" VerticalAlignment="Top" Width="50" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="50" Margin="60,12,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="50" Margin="60,72,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="10" Margin="10,122,0,0" VerticalAlignment="Top" Width="50" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="50" Margin="0,72,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="50" Margin="0,12,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="10" Margin="10,62,0,0" VerticalAlignment="Top" Width="50" Source="Black.png" Stretch="Fill" />
+                    </Grid>
+                    <Grid x:Name="DigitalHoursOnes" Margin="248,104,440,127">
+                        <Image HorizontalAlignment="Left" Height="10" Margin="10,2,0,0" VerticalAlignment="Top" Width="50" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="50" Margin="60,12,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="50" Margin="60,72,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="10" Margin="10,122,0,0" VerticalAlignment="Top" Width="50" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="50" Margin="0,72,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="50" Margin="0,12,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="10" Margin="10,62,0,0" VerticalAlignment="Top" Width="50" Source="Black.png" Stretch="Fill" />
+                    </Grid>
+                    <Grid x:Name="DigitalHoursTens" Margin="163,104,525,127">
+                        <Image HorizontalAlignment="Left" Height="10" Margin="10,2,0,0" VerticalAlignment="Top" Width="50" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="50" Margin="60,12,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="50" Margin="60,72,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="10" Margin="10,122,0,0" VerticalAlignment="Top" Width="50" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="50" Margin="0,72,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="50" Margin="0,12,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
+                        <Image HorizontalAlignment="Left" Height="10" Margin="10,62,0,0" VerticalAlignment="Top" Width="50" Source="Black.png" Stretch="Fill" />
+                    </Grid>
                 </Grid>
             </TabItem>
         </TabControl>

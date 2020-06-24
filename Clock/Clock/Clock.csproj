@@ -56,6 +56,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AlarmClock.cs" />
+    <Compile Include="DigitalClock.cs" />
     <Compile Include="StopwatchClock.cs" />
     <Compile Include="TimerClock.cs" />
     <Page Include="MainWindow.xaml">
@@ -102,6 +103,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Resource Include="Black.png" />
     <Content Include="sounds\oof.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
