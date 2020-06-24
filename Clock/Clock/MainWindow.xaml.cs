@@ -29,6 +29,7 @@ namespace ClockProgram
         private AlarmClock alarmClock;
         readonly Regex timeRegex = new Regex(@"([0-9]?[0-9])([\W\D][0-5]?[0-9]|[\W\D]60){2}$");
         private readonly char[] splitChArr = { ',', ' ', '.', ';', ':', '-' };
+        readonly List<CheckBox> checkBoxes = new List<CheckBox>();
         public MainWindow()
         {
             InitializeComponent();
@@ -42,7 +43,12 @@ namespace ClockProgram
 
             AlarmTimeTextBox.Text = string.Format("{0:00}:{1:00}:{2:00}",
                     DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-            _ = new DigitalClock(new UIElementCollection[] {DigitalHoursTens.Children, DigitalHoursOnes.Children, DigitalMinutesTens.Children, DigitalMinutesOnes.Children, DigitalSecondsTens.Children, DigitalSecondsOnes.Children});
+            _ = new DigitalClock(new UIElementCollection[] { DigitalHoursTens.Children, DigitalHoursOnes.Children, DigitalMinutesTens.Children, DigitalMinutesOnes.Children, DigitalSecondsTens.Children, DigitalSecondsOnes.Children });
+
+            foreach (CheckBox checkBox in WeekDayGrid.Children)
+            {
+                checkBoxes.Add(checkBox);
+            }
 
             InitializeDispatcherTimer();
         }
@@ -153,20 +159,16 @@ namespace ClockProgram
 
             }
         }
-        /*
-        public void UpdateTimers()
+
+        private void TimerRemoveTimerButton_Click(object sender, RoutedEventArgs e)
         {
-            TimerListBox.Items.Clear();
-            foreach (var timer in timerList)
+            if (TimerListBox.SelectedIndex > -1)
             {
-                TimerListBox.Items.Add
-                (
-                    string.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                    timer.TimerAmount.Hours, timer.TimerAmount.Minutes, timer.TimerAmount.Seconds, timer.TimerAmount.Milliseconds / 10)
-                );
+                timerList[TimerListBox.SelectedIndex].stopwatch.Stop();
+                timerList.RemoveAt(TimerListBox.SelectedIndex);
+                TimerListBox.Items.RemoveAt(TimerListBox.SelectedIndex);
             }
         }
-        */
 
         public void UpdateTimers()
         {
@@ -182,6 +184,7 @@ namespace ClockProgram
 
         #region Alarm
         readonly List<AlarmClock> alarmList = new List<AlarmClock>();
+        readonly List<DayOfWeek> days = new List<DayOfWeek>() { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday, DayOfWeek.Saturday, DayOfWeek.Sunday };
 
         private void AlarmSetButton_Click(object sender, RoutedEventArgs e)
         {
@@ -194,7 +197,17 @@ namespace ClockProgram
                 {
                     values[i] = Convert.ToInt32(s[i]);
                 }
-                alarmClock = new AlarmClock(new TimeSpan(values[0], values[1], values[2]));
+                List<DayOfWeek> repeatDays = new List<DayOfWeek>();
+
+
+                for (int i = 0; i < checkBoxes.Count; i++)
+                {
+                    if (checkBoxes[i].IsChecked == true)
+                    {
+                        repeatDays.Add(days[i]);
+                    }
+                }
+                alarmClock = new AlarmClock(new TimeSpan(values[0], values[1], values[2]), repeatDays);
                 if (AlarmMessageTextBox.Text != null)
                 {
                     alarmClock.AddMessage(AlarmMessageTextBox.Text);
@@ -232,6 +245,7 @@ namespace ClockProgram
                 });
             }
         }
+
         private void AlarmEditButton_Click(object sender, RoutedEventArgs e)
         {
             if (timeRegex.IsMatch(AlarmTimeTextBox.Text))
@@ -243,7 +257,14 @@ namespace ClockProgram
                 {
                     values[i] = Convert.ToInt32(s[i]);
                 }
-                alarmClock = new AlarmClock(new TimeSpan(values[0], values[1], values[2]));
+                List<DayOfWeek> repeatDays = new List<DayOfWeek>();
+
+                foreach (CheckBox checkBox in WeekDayGrid.Children)
+                {
+                    checkBoxes.Add(checkBox);
+                }
+
+                alarmClock = new AlarmClock(new TimeSpan(values[0], values[1], values[2]), repeatDays);
                 if (AlarmMessageTextBox.Text != null)
                 {
                     alarmClock.AddMessage(AlarmMessageTextBox.Text);
@@ -257,6 +278,13 @@ namespace ClockProgram
                 }
 
             }
+        }
+
+        private void AlarmRemoveButton_Click(object sender, RoutedEventArgs e)
+        {
+            alarmList[AlarmDataGrid.SelectedIndex].IsRunning = false;
+            alarmList.RemoveAt(AlarmDataGrid.SelectedIndex);
+            AlarmDataGrid.Items.RemoveAt(AlarmDataGrid.SelectedIndex);
         }
         #endregion
 

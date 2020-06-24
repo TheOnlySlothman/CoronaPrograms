@@ -25,12 +25,13 @@
             </TabItem>
             <TabItem Header="Timer">
                 <Grid Background="#FFE5E5E5">
-                    <TextBox x:Name="TimerAmount" HorizontalAlignment="Left" Height="19" Margin="316,86,0,0" TextWrapping="Wrap" Text="00:01:00" VerticalAlignment="Top" Width="58"/>
+                    <TextBox x:Name="TimerAmount" HorizontalAlignment="Left" Height="19" Margin="316,86,0,0" TextWrapping="Wrap" Text="00:01:00" VerticalAlignment="Top" Width="86"/>
                     <Button x:Name="TimerAddButton" Content="Add" HorizontalAlignment="Left" Margin="219,86,0,0" VerticalAlignment="Top" Width="92" Click="TimerAddButton_Click"/>
                     <Button x:Name="TimerSubtractButton" Content="Subtract" HorizontalAlignment="Left" Margin="219,110,0,0" VerticalAlignment="Top" Width="92" Click="TimerSubtractButton_Click"/>
                     <Button x:Name="TimerPauseButton" Content="Pause/Resume" HorizontalAlignment="Left" Margin="219,134,0,0" VerticalAlignment="Top" Width="92" Height="20" Click="TimerPauseButton_Click"/>
                     <ListBox x:Name="TimerListBox" HorizontalAlignment="Left" Height="230" Margin="77,86,0,0" VerticalAlignment="Top" Width="137"/>
-                    <Button x:Name="TimerAddTimerButton" Content="Add Timer" HorizontalAlignment="Left" Margin="316,110,0,0" VerticalAlignment="Top" Width="58" Click="TimerAddTimerButton_Click"/>
+                    <Button x:Name="TimerAddTimerButton" Content="Add Timer" HorizontalAlignment="Left" Margin="316,110,0,0" VerticalAlignment="Top" Width="86" Click="TimerAddTimerButton_Click"/>
+                    <Button x:Name="TimerRemoveTimerButton" Content="Remove Timer" HorizontalAlignment="Left" Margin="316,134,0,0" VerticalAlignment="Top" Width="86" Click="TimerRemoveTimerButton_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Alarm">
@@ -54,11 +55,21 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <Button x:Name="AlarmEditButton" Content="Edit" HorizontalAlignment="Left" Margin="492,250,0,0" VerticalAlignment="Top" Width="75" Click="AlarmEditButton_Click"/>
+                    <Button x:Name="AlarmRemoveButton" Content="Remove Alarm" HorizontalAlignment="Left" Margin="242,274,0,0" VerticalAlignment="Top" Width="120" Click="AlarmRemoveButton_Click"/>
+                    <Grid x:Name="WeekDayGrid" HorizontalAlignment="Left" Height="137" Margin="492,34,0,0" VerticalAlignment="Top" Width="82">
+                        <CheckBox x:Name="MondayCheckbox" Content="Monday" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <CheckBox x:Name="TuesdayCheckbox" Content="Tuesday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,20,0,0"/>
+                        <CheckBox x:Name="WednesdayCheckbox" Content="Wednesday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,40,0,0"/>
+                        <CheckBox x:Name="ThursdayCheckbox" Content="Thursday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,60,0,0"/>
+                        <CheckBox x:Name="FridayCheckbox" Content="Friday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,80,0,0"/>
+                        <CheckBox x:Name="SaturdayCheckbox" Content="Saturday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,100,0,0"/>
+                        <CheckBox x:Name="SundayCheckbox" Content="Sunday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,120,0,0"/>
+                    </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="Digital">
                 <Grid Background="#FFE5E5E5">
-                    <Grid x:Name="DigitalSecondsOnes" Margin="625,104,63,127">
+                    <Grid x:Name="DigitalSecondsOnes" Margin="613,104,75,127">
                         <Image HorizontalAlignment="Left" Height="10" Margin="10,2,0,0" VerticalAlignment="Top" Width="50" Source="Black.png" Stretch="Fill" />
                         <Image HorizontalAlignment="Left" Height="50" Margin="60,12,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
                         <Image HorizontalAlignment="Left" Height="50" Margin="60,72,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
@@ -70,7 +81,7 @@
                     <Grid>
 
                     </Grid>
-                    <Grid x:Name="DigitalSecondsTens" Margin="540,104,148,127">
+                    <Grid x:Name="DigitalSecondsTens" Margin="528,104,160,127">
                         <Image HorizontalAlignment="Left" Height="10" Margin="10,2,0,0" VerticalAlignment="Top" Width="50" Source="Black.png" Stretch="Fill" />
                         <Image HorizontalAlignment="Left" Height="50" Margin="60,12,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
                         <Image HorizontalAlignment="Left" Height="50" Margin="60,72,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
@@ -79,7 +90,7 @@
                         <Image HorizontalAlignment="Left" Height="50" Margin="0,12,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
                         <Image HorizontalAlignment="Left" Height="10" Margin="10,62,0,0" VerticalAlignment="Top" Width="50" Source="Black.png" Stretch="Fill" />
                     </Grid>
-                    <Grid x:Name="DigitalMinutesOnes" Margin="443,104,245,127">
+                    <Grid x:Name="DigitalMinutesOnes" Margin="418,104,270,127">
                         <Image HorizontalAlignment="Left" Height="10" Margin="10,2,0,0" VerticalAlignment="Top" Width="50" Source="Black.png" Stretch="Fill" />
                         <Image HorizontalAlignment="Left" Height="50" Margin="60,12,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
                         <Image HorizontalAlignment="Left" Height="50" Margin="60,72,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
@@ -88,7 +99,7 @@
                         <Image HorizontalAlignment="Left" Height="50" Margin="0,12,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
                         <Image HorizontalAlignment="Left" Height="10" Margin="10,62,0,0" VerticalAlignment="Top" Width="50" Source="Black.png" Stretch="Fill" />
                     </Grid>
-                    <Grid x:Name="DigitalMinutesTens" Margin="358,104,330,127">
+                    <Grid x:Name="DigitalMinutesTens" Margin="333,104,355,127">
                         <Image HorizontalAlignment="Left" Height="10" Margin="10,2,0,0" VerticalAlignment="Top" Width="50" Source="Black.png" Stretch="Fill" />
                         <Image HorizontalAlignment="Left" Height="50" Margin="60,12,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
                         <Image HorizontalAlignment="Left" Height="50" Margin="60,72,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
@@ -97,7 +108,7 @@
                         <Image HorizontalAlignment="Left" Height="50" Margin="0,12,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
                         <Image HorizontalAlignment="Left" Height="10" Margin="10,62,0,0" VerticalAlignment="Top" Width="50" Source="Black.png" Stretch="Fill" />
                     </Grid>
-                    <Grid x:Name="DigitalHoursOnes" Margin="248,104,440,127">
+                    <Grid x:Name="DigitalHoursOnes" Margin="223,104,465,127">
                         <Image HorizontalAlignment="Left" Height="10" Margin="10,2,0,0" VerticalAlignment="Top" Width="50" Source="Black.png" Stretch="Fill" />
                         <Image HorizontalAlignment="Left" Height="50" Margin="60,12,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
                         <Image HorizontalAlignment="Left" Height="50" Margin="60,72,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
@@ -106,7 +117,7 @@
                         <Image HorizontalAlignment="Left" Height="50" Margin="0,12,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
                         <Image HorizontalAlignment="Left" Height="10" Margin="10,62,0,0" VerticalAlignment="Top" Width="50" Source="Black.png" Stretch="Fill" />
                     </Grid>
-                    <Grid x:Name="DigitalHoursTens" Margin="163,104,525,127">
+                    <Grid x:Name="DigitalHoursTens" Margin="138,104,550,127">
                         <Image HorizontalAlignment="Left" Height="10" Margin="10,2,0,0" VerticalAlignment="Top" Width="50" Source="Black.png" Stretch="Fill" />
                         <Image HorizontalAlignment="Left" Height="50" Margin="60,12,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
                         <Image HorizontalAlignment="Left" Height="50" Margin="60,72,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
@@ -115,6 +126,10 @@
                         <Image HorizontalAlignment="Left" Height="50" Margin="0,12,0,0" VerticalAlignment="Top" Width="10" Source="Black.png" Stretch="Fill" />
                         <Image HorizontalAlignment="Left" Height="10" Margin="10,62,0,0" VerticalAlignment="Top" Width="50" Source="Black.png" Stretch="Fill" />
                     </Grid>
+                    <Image HorizontalAlignment="Left" Height="20" Margin="308,137,0,0" VerticalAlignment="Top" Width="20" Source="Black.png" Stretch="Fill"/>
+                    <Image HorizontalAlignment="Left" Height="20" Margin="308,185,0,0" VerticalAlignment="Top" Width="20" Source="Black.png" Stretch="Fill"/>
+                    <Image HorizontalAlignment="Left" Height="20" Margin="503,137,0,0" VerticalAlignment="Top" Width="20" Source="Black.png" Stretch="Fill"/>
+                    <Image HorizontalAlignment="Left" Height="20" Margin="503,185,0,0" VerticalAlignment="Top" Width="20" Source="Black.png" Stretch="Fill"/>
                 </Grid>
             </TabItem>
         </TabControl>

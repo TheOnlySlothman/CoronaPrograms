@@ -20,6 +20,7 @@ namespace ClockProgram
         public DateTime alarmTime;
         TimeSpan time;
         TimeSpan snoozeAmount;
+        readonly List<DayOfWeek> days;
 
         public bool IsRunning { get => dispatcherTimer.IsEnabled; set => dispatcherTimer.IsEnabled = value; }
         public AlarmClock()
@@ -27,10 +28,11 @@ namespace ClockProgram
             InitializeDispatcherTimer();
         }
 
-        public AlarmClock(TimeSpan timeSpan)
+        public AlarmClock(TimeSpan timeSpan, List<DayOfWeek> days)
         {
             InitializeDispatcherTimer();
             time = timeSpan;
+            this.days = days;
             SetAlarm();
         }
 
@@ -46,18 +48,25 @@ namespace ClockProgram
         }
         public override void DispatcherTimer(object sender, EventArgs e)
         {
-            if (alarmTime + snoozeAmount < DateTime.Now)
+            
+            if (alarmTime + snoozeAmount < DateTime.Now && (days.Count == 0 || days.Contains(DateTime.Today.DayOfWeek)))
             {
-                MessageBoxResult result = MessageBox.Show("Snooze?", alarmMessage, MessageBoxButton.YesNo);
-                //player.Play();
-                if (result == MessageBoxResult.Yes)
+                if (days.Count == 0 || days.Contains(DateTime.Today.DayOfWeek))
                 {
-                    Add(new TimeSpan(0, 1, 0));
-                }
-                else
-                {
-                    snoozeAmount = new TimeSpan(0);
-                    dispatcherTimer.Stop();
+
+                    MessageBoxResult result = MessageBox.Show("Snooze?", alarmMessage, MessageBoxButton.YesNo);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        Add(new TimeSpan(0, 1, 0));
+                    }
+                    else
+                    {
+                        if (!days.Contains(DateTime.Today.DayOfWeek))
+                        {
+                            dispatcherTimer.Stop();
+                        }
+                        snoozeAmount = new TimeSpan(0);
+                    }
                 }
             }
 
