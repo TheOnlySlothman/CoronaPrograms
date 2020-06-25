@@ -48,9 +48,9 @@ namespace ClockProgram
         }
         public override void DispatcherTimer(object sender, EventArgs e)
         {
-            
-            if (alarmTime + snoozeAmount < DateTime.Now && (days.Count == 0 || days.Contains(DateTime.Today.DayOfWeek)))
+            if (alarmTime + snoozeAmount < DateTime.Now)
             {
+
                 if (days.Count == 0 || days.Contains(DateTime.Today.DayOfWeek))
                 {
 
@@ -61,12 +61,20 @@ namespace ClockProgram
                     }
                     else
                     {
+                        snoozeAmount = new TimeSpan(0);
                         if (!days.Contains(DateTime.Today.DayOfWeek))
                         {
                             dispatcherTimer.Stop();
                         }
-                        snoozeAmount = new TimeSpan(0);
+                        else
+                        {
+                            alarmTime += new TimeSpan(1, 0, 0, 0);
+                        }
                     }
+                }
+                else
+                {
+                    alarmTime += new TimeSpan(1, 0, 0, 0);
                 }
             }
 

@@ -57,6 +57,7 @@
     </ApplicationDefinition>
     <Compile Include="AlarmClock.cs" />
     <Compile Include="DigitalClock.cs" />
+    <Compile Include="IClock.cs" />
     <Compile Include="StopwatchClock.cs" />
     <Compile Include="TimerClock.cs" />
     <Page Include="MainWindow.xaml">

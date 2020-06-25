@@ -259,9 +259,12 @@ namespace ClockProgram
                 }
                 List<DayOfWeek> repeatDays = new List<DayOfWeek>();
 
-                foreach (CheckBox checkBox in WeekDayGrid.Children)
+                for (int i = 0; i < checkBoxes.Count; i++)
                 {
-                    checkBoxes.Add(checkBox);
+                    if (checkBoxes[i].IsChecked == true)
+                    {
+                        repeatDays.Add(days[i]);
+                    }
                 }
 
                 alarmClock = new AlarmClock(new TimeSpan(values[0], values[1], values[2]), repeatDays);
