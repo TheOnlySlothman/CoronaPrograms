@@ -16,8 +16,6 @@ namespace ClockProgram
         readonly System.Windows.Controls.Label lapLabel;
         public bool Running { get => Watch.IsRunning; }
 
-        // public DateTime TimerEndTime = new DateTime();
-
         public StopwatchClock(System.Windows.Controls.Label label, System.Windows.Controls.Label labLabel)
         {
             this.label = label;

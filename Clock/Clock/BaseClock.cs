@@ -31,5 +31,10 @@ namespace ClockProgram
         {
             throw new NotImplementedException();
         }
+
+        public DateTime GetDateTime()
+        {
+            return DateTime.Now;
+        }
     }
 }

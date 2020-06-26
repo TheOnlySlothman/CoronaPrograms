@@ -36,13 +36,8 @@ namespace ClockProgram
             _ = new Clock(ClockTimeLabel);
 
             stopwatchClock = new StopwatchClock(StopwatchTimeLabel, LapLabel);
-
-            //timerClock = new TimerClock();
-
-            //alarmClock = new AlarmClock(AlarmTimeLabel, AlarmMessageTextBox);
-
-            AlarmTimeTextBox.Text = string.Format("{0:00}:{1:00}:{2:00}",
-                    DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            //AlarmTimeTextBox.Text = string.Format("{0:00}:{1:00}:{2:00}",
+            //        DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
             _ = new DigitalClock(new UIElementCollection[] { DigitalHoursTens.Children, DigitalHoursOnes.Children, DigitalMinutesTens.Children, DigitalMinutesOnes.Children, DigitalSecondsTens.Children, DigitalSecondsOnes.Children });
 
             foreach (CheckBox checkBox in WeekDayGrid.Children)
@@ -56,6 +51,11 @@ namespace ClockProgram
 
 
         #region Stopwatch
+        /// <summary>
+        /// starts or stops the StopwatchClock
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Start_StopButton_Click(object sender, RoutedEventArgs e)
         {
 
@@ -69,8 +69,14 @@ namespace ClockProgram
             }
         }
 
+        /// <summary>
+        /// creates a lap time or resets the StopwatchClock
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Split_ResetButton_Click(object sender, RoutedEventArgs e)
         {
+            //reset
             if (!stopwatchClock.Running)
             {
                 stopwatchClock.Reset();
@@ -78,6 +84,7 @@ namespace ClockProgram
                 LapLabel.Content = "";
                 StopWatchLapListBox.Items.Clear();
             }
+            //add the lap time
             else
             {
                 TimeSpan ts = stopwatchClock.GetLapTime();
@@ -93,10 +100,18 @@ namespace ClockProgram
         #endregion
 
         #region Timer
+        readonly List<TimerClock> timerList = new List<TimerClock>();
+        /// <summary>
+        /// add
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TimerAddButton_Click(object sender, RoutedEventArgs e)
         {
+            //if text matches an amount of time
             if (timeRegex.IsMatch(TimerAmount.Text))
             {
+                //take input
                 string[] s = timeRegex.Match(TimerAmount.Text).Value.Split(splitChArr, 3);
                 int[] values = new int[s.Length];
                 for (int i = 0; i < s.Length; i++)
@@ -104,18 +119,32 @@ namespace ClockProgram
                     values[i] = Convert.ToInt32(s[i]);
                 }
 
+                //create timespan with input
+                TimeSpan ts = new TimeSpan(values[0], values[1], values[2]);
+
+                //if a timer is selected add the TimeSpan to it
                 if (TimerListBox.SelectedIndex >= 0)
                 {
-                    timerList[TimerListBox.SelectedIndex].Add(values);
+                    timerList[TimerListBox.SelectedIndex].Add(ts);
                     TimerListBox.Items[TimerListBox.SelectedIndex] = timerList[TimerListBox.SelectedIndex].TimerFormat();
+                }
+                //else create a new timer with the TimeSpan
+                else if (TimerListBox.SelectedIndex == -1)
+                {
+                    TimerClock temp = new TimerClock(ts);
+                    timerList.Add(temp);
+
+                    TimerListBox.Items.Add(temp.TimerFormat());
                 }
             }
         }
 
         private void TimerSubtractButton_Click(object sender, RoutedEventArgs e)
         {
+            //if text matches an amount of time
             if (timeRegex.IsMatch(TimerAmount.Text))
             {
+                //take input
                 string[] s = timeRegex.Match(TimerAmount.Text).Value.Split(splitChArr, 3);
                 int[] values = new int[s.Length];
                 for (int i = 0; i < s.Length; i++)
@@ -123,9 +152,13 @@ namespace ClockProgram
                     values[i] = Convert.ToInt32(s[i]);
                 }
 
+                //create timespan with input
+                TimeSpan ts = new TimeSpan(values[0], values[1], values[2]);
+
+                //if a timer is selected subtract the TimeSpan from it
                 if (TimerListBox.SelectedIndex >= 0)
                 {
-                    timerList[TimerListBox.SelectedIndex].Subtract(values);
+                    timerList[TimerListBox.SelectedIndex].Subtract(ts);
                     TimerListBox.Items[TimerListBox.SelectedIndex] = timerList[TimerListBox.SelectedIndex].TimerFormat();
                 }
                 //UpdateTimers();
@@ -134,6 +167,7 @@ namespace ClockProgram
 
         private void TimerPauseButton_Click(object sender, RoutedEventArgs e)
         {
+            //pause or resume the selected TimerClock
             if (TimerListBox.SelectedIndex >= 0)
             {
                 timerList[TimerListBox.SelectedIndex].PauseOrResume();
@@ -141,9 +175,10 @@ namespace ClockProgram
                 //UpdateTimers();
             }
         }
-        readonly List<TimerClock> timerList = new List<TimerClock>();
+
         private void TimerAddTimerButton_Click(object sender, RoutedEventArgs e)
         {
+            //if text matches an amount of time
             if (timeRegex.IsMatch(TimerAmount.Text))
             {
                 string[] s = timeRegex.Match(TimerAmount.Text).Value.Split(splitChArr, 3);
@@ -152,7 +187,12 @@ namespace ClockProgram
                 {
                     values[i] = Convert.ToInt32(s[i]);
                 }
-                TimerClock temp = new TimerClock(values);
+
+                //create timespan with input
+                TimeSpan ts = new TimeSpan(values[0], values[1], values[2]);
+
+                //create a new timer with the TimeSpan and add it to the ListBox
+                TimerClock temp = new TimerClock(ts);
                 timerList.Add(temp);
 
                 TimerListBox.Items.Add(temp.TimerFormat());
@@ -162,6 +202,7 @@ namespace ClockProgram
 
         private void TimerRemoveTimerButton_Click(object sender, RoutedEventArgs e)
         {
+            //if a TimerClock is selected stop it and remove it
             if (TimerListBox.SelectedIndex > -1)
             {
                 timerList[TimerListBox.SelectedIndex].stopwatch.Stop();
@@ -170,6 +211,7 @@ namespace ClockProgram
             }
         }
 
+        //takes all running and nonselected timers and updates the visuals
         public void UpdateTimers()
         {
             for (int i = 0; i < timerList.Count; i++)
@@ -188,18 +230,19 @@ namespace ClockProgram
 
         private void AlarmSetButton_Click(object sender, RoutedEventArgs e)
         {
+            //if text matches a point in time
             if (timeRegex.IsMatch(AlarmTimeTextBox.Text))
             {
-
                 string[] s = timeRegex.Match(AlarmTimeTextBox.Text).Value.Split(splitChArr, 3);
                 int[] values = new int[s.Length];
                 for (int i = 0; i < s.Length; i++)
                 {
                     values[i] = Convert.ToInt32(s[i]);
                 }
+
                 List<DayOfWeek> repeatDays = new List<DayOfWeek>();
 
-
+                //take the selected days and add them to a new array
                 for (int i = 0; i < checkBoxes.Count; i++)
                 {
                     if (checkBoxes[i].IsChecked == true)
@@ -207,12 +250,14 @@ namespace ClockProgram
                         repeatDays.Add(days[i]);
                     }
                 }
+                //create new AlarmClock with the selected time and days
                 alarmClock = new AlarmClock(new TimeSpan(values[0], values[1], values[2]), repeatDays);
                 if (AlarmMessageTextBox.Text != null)
                 {
                     alarmClock.AddMessage(AlarmMessageTextBox.Text);
                 }
 
+                //add the new AlarmClock to the alarmList and AlarmDataGrid
                 alarmList.Add(alarmClock);
                 AlarmDataGrid.Items.Add(alarmClock.ToObject());
             }
@@ -231,26 +276,12 @@ namespace ClockProgram
             }
         }
 
-        public void UpdateAlarms()
-        {
-            AlarmDataGrid.Items.Clear();
-            foreach (var alarm in alarmList)
-            {
-                AlarmDataGrid.Items.Add(new
-                {
-                    Time = string.Format("{0:00}:{1:00}:{2:00}",
-                    alarm.alarmTime.Hour, alarm.alarmTime.Minute, alarm.alarmTime.Second),
-
-                    Enabled = alarm.IsRunning.ToString()
-                });
-            }
-        }
 
         private void AlarmEditButton_Click(object sender, RoutedEventArgs e)
         {
+            //if text matches a point in time
             if (timeRegex.IsMatch(AlarmTimeTextBox.Text))
             {
-
                 string[] s = timeRegex.Match(AlarmTimeTextBox.Text).Value.Split(splitChArr, 3);
                 int[] values = new int[s.Length];
                 for (int i = 0; i < s.Length; i++)
@@ -258,7 +289,7 @@ namespace ClockProgram
                     values[i] = Convert.ToInt32(s[i]);
                 }
                 List<DayOfWeek> repeatDays = new List<DayOfWeek>();
-
+                //take the selected days and add them to a new array
                 for (int i = 0; i < checkBoxes.Count; i++)
                 {
                     if (checkBoxes[i].IsChecked == true)
@@ -266,13 +297,14 @@ namespace ClockProgram
                         repeatDays.Add(days[i]);
                     }
                 }
-
+                //create new AlarmClock with the selected time and days
                 alarmClock = new AlarmClock(new TimeSpan(values[0], values[1], values[2]), repeatDays);
                 if (AlarmMessageTextBox.Text != null)
                 {
                     alarmClock.AddMessage(AlarmMessageTextBox.Text);
                 }
 
+                //if an item is selected, stop the previous alarm and put the new alarm in it's place
                 if (AlarmDataGrid.SelectedIndex >= 0)
                 {
                     alarmList[AlarmDataGrid.SelectedIndex].IsRunning = false;
@@ -304,7 +336,6 @@ namespace ClockProgram
         public void DispatcherTimer(object sender, EventArgs e)
         {
             UpdateTimers();
-            //UpdateAlarms();
         }
     }
 }

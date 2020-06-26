@@ -9,7 +9,7 @@ using System.Windows;
 
 namespace ClockProgram
 {
-    class TimerClock : BaseClock
+    class TimerClock : BaseClock, IClock
     {
         TimeSpan ts;
         //TimeSpan tsMod;
@@ -20,11 +20,11 @@ namespace ClockProgram
             InitializeDispatcherTimer();
             stopwatch = new Stopwatch();
         }
-        public TimerClock(int[] values)
+        public TimerClock(TimeSpan span)
         {
             InitializeDispatcherTimer();
             stopwatch = new Stopwatch();
-            Add(values);
+            Add(span);
         }
 
         public override void InitializeDispatcherTimer()
@@ -42,18 +42,18 @@ namespace ClockProgram
                     ts.Hours, ts.Minutes, ts.Seconds) + " Timer is up");
             }
         }
-        
 
 
 
-        public void Add(int[] values)
+
+        public void Add(TimeSpan span)
         {
-            ts += new TimeSpan(values[0], values[1], values[2]);
+            ts += span;
         }
 
-        public void Subtract(int[] values)
+        public void Subtract(TimeSpan span)
         {
-            ts -= new TimeSpan(values[0], values[1], values[2]);
+            ts -= span;
             if (ts <= new TimeSpan(0))
             {
                 ts = new TimeSpan(0);

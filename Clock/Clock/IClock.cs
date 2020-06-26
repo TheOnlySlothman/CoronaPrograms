@@ -9,10 +9,6 @@ namespace ClockProgram
 {
     interface IClock
     {
-        //DateTime Now
-        //{
-            
-        //}
-
+        void Add(TimeSpan ts);
     }
 }

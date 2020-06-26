@@ -14,7 +14,7 @@ using System.Windows.Controls.Primitives;
 
 namespace ClockProgram
 {
-    class AlarmClock : BaseClock
+    class AlarmClock : BaseClock, IClock
     {
         string alarmMessage = "standard message";
         public DateTime alarmTime;
@@ -126,6 +126,7 @@ namespace ClockProgram
             }
         }
 
+        //makes the alarm into an object for datagrid
         public object ToObject()
         {
             return
