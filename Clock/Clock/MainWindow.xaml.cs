@@ -317,9 +317,12 @@ namespace ClockProgram
 
         private void AlarmRemoveButton_Click(object sender, RoutedEventArgs e)
         {
-            alarmList[AlarmDataGrid.SelectedIndex].IsRunning = false;
-            alarmList.RemoveAt(AlarmDataGrid.SelectedIndex);
-            AlarmDataGrid.Items.RemoveAt(AlarmDataGrid.SelectedIndex);
+            if (AlarmDataGrid.SelectedItem != null)
+            {
+                alarmList[AlarmDataGrid.SelectedIndex].IsRunning = false;
+                alarmList.RemoveAt(AlarmDataGrid.SelectedIndex);
+                AlarmDataGrid.Items.RemoveAt(AlarmDataGrid.SelectedIndex);
+            }
         }
         #endregion
 

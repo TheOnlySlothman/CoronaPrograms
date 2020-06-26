@@ -11,6 +11,7 @@ namespace ClockProgram
 {
     class DigitalClock : BaseClock
     {
+        //element collection of children in a grid, with images that symbolise parts of a digitalwatch
         readonly UIElementCollection[] elementCollection = new UIElementCollection[6];
         public DigitalClock(UIElementCollection[] uI)
         {
