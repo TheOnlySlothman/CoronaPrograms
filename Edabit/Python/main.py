@@ -24,7 +24,9 @@ def filter_list(lst):
 
 def are_true(a, b):
     return ("both" if b else "first") if a else "second" if b else "neither"
-    # return a ? b ? "both" : "first" : b ? "second" : "neither"
+
+
+# return a ? b ? "both" : "first" : b ? "second" : "neither"
 
 
 def is_curzon(num):
@@ -40,7 +42,7 @@ def cars_needed(n):
 
 
 def add_indexes(lst):
-    for x in range(0, len(lst)):
+    for x in range(len(lst)):
         lst[x] = lst[x] + x
     return lst
 
@@ -115,7 +117,6 @@ def num_args(*args):
 
 
 def replace_vowels(txt, ch):
-    test = re.split("[aeiouAEIOU]", txt)
     return ch.join(re.split('[aeiouAEIOU]', txt))
 
 
@@ -152,4 +153,153 @@ def probability(lst, n):
 
 
 def society_name(friends):
-    return [x[0] for x in sorted(friends)]
+    return ''.join([x[0] for x in sorted(friends)])
+
+
+def century_from_year(year):
+    return math.ceil(year / 100)
+
+
+def unique(lst):
+    for x in lst:
+        if lst.count(x) == 1:
+            return x
+
+
+def magnitude(lst):
+    sum = 0
+    for x in lst:
+        sum += math.pow(x, 2)
+    return math.sqrt(sum)
+
+
+def greet_people(names):
+    for x in range(len(names)):
+        names[x] = "Hello " + names[x]
+    return ", ".join(names)
+
+
+def sort_by_length(lst):
+    return sorted(lst, key=lambda x: len(x))
+
+
+def can_alternate(s):
+    return abs(s.count('1') - s.count('0')) < 2
+
+
+def index_multiplier(lst):
+    sum = 0
+    for x in range(len(lst)):
+        sum += lst[x] * x
+    return sum
+
+
+def cars(wheels, bodies, figures):
+    return min(math.floor(wheels / 4), bodies, math.floor(figures / 2))
+
+
+def find_odd(lst):
+    uniques = []
+    for x in lst:
+        if uniques.count(x) == 0:
+            uniques.append(x)
+    for x in uniques:
+        if lst.count(x) % 2 == 1:
+            return x
+
+
+def first_and_last(s):
+    return [''.join(sorted(s)), ''.join(reversed(sorted(s)))]
+
+
+def remove_enemies(names, enemies):
+    return [x for x in names if x not in enemies]
+
+
+def ascii_capitalize(txt):
+    lst = []
+    for x in txt:
+        if ord(x) % 2 == 0:
+            lst.append(x.upper())
+        else:
+            lst.append(x.lower())
+    return ''.join(lst)
+
+
+def get_budgets(lst):
+    sum = 0
+    for x in lst:
+        sum += x['budget']
+    return sum
+
+
+def larger_than_right(lst):
+    numbers = []
+    # numbers = [x for x in reversed(lst) if len(numbers) == 0 or x < max(numbers)]
+    for x in reversed(lst):
+        if len(numbers) == 0 or x > max(numbers):
+            numbers.append(x)
+    return list(reversed(numbers))
+
+
+def return_only_integer(lst):
+    return [x for x in lst if type(x) is int]
+
+
+def is_subset(lst1, lst2):
+    return set(lst1).issubset(set(lst2))
+
+
+def reverse(txt):
+    return ''.join([x.swapcase() for x in reversed(txt)])
+
+
+def card_hide(card):
+    lst = []
+    for x in range(len(card) - 4):
+        lst.append('*')
+    return ''.join(lst + card[-4:].split())
+
+
+def showdown(p1, p2):
+    if p1.find("Bang!") < p2.find("Bang!"):
+        return 'p1'
+    elif p1.find("Bang!") > p2.find("Bang!"):
+        return 'p2'
+    else:
+        return 'tie'
+
+
+def how_many_times(msg):
+    sum = 0
+    for x in msg:
+        sum += ord(x) - 96
+    return sum
+
+
+def nth_smallest(lst, n):
+    if len(lst) < n:
+        return
+    return sorted(lst)[n - 1]
+
+
+def convert_cartesian(x, y):
+    return [list(i) for i in zip(x, y)]
+
+
+def eda_bit(start, end):
+    lst = []
+    for x in range(start, end + 1):
+        if x % 3 == 0:
+            if x % 5 == 0:
+                lst.append("EdaBit")
+            else:
+                lst.append("Eda")
+        elif x % 5 == 0:
+            lst.append("Bit")
+        else:
+            lst.append(x)
+    return lst
+
+
+print(eda_bit(1, 20))
