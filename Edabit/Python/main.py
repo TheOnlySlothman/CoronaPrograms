@@ -302,4 +302,34 @@ def eda_bit(start, end):
     return lst
 
 
-print(eda_bit(1, 20))
+def line_length(dot1, dot2):
+    return round(math.sqrt(math.pow(abs(dot1[0] - dot2[0]), 2) + math.pow(abs(dot1[1] - dot2[1]), 2)), 2)
+
+
+def adds_n(n):
+    return lambda x: x + n
+
+
+def neutralise(s1, s2):
+    return ''.join([x if x == y else '0' for x, y in zip(s1, s2)])
+
+
+def lines_are_parallel(l1, l2):
+    return l1[0] / l1[1] == l2[0] / l2[1]
+
+
+def which_is_larger(f, g):
+    if f() > g():
+        return 'f'
+    elif f() < g():
+        return 'g'
+    return 'neither'
+
+
+def pentagonal(num):
+    if num <= 1:
+        return 1
+    return (num - 1) * 5 + pentagonal(num - 1)
+
+
+print(neutralise("--++--", "++--++"))
