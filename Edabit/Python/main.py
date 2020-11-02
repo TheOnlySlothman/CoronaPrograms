@@ -332,4 +332,16 @@ def pentagonal(num):
     return (num - 1) * 5 + pentagonal(num - 1)
 
 
-print(neutralise("--++--", "++--++"))
+def change(x, times):
+    y = x.copy()
+    for i in range(len(x)):
+        j = 1
+        while j <= times:
+            if j <= i < len(x) - j:
+                y[i] -= 1
+            j += 1
+    return y
+
+
+xx = [3, 3, 3, 3, 3, 3, 3]
+print(change(xx, 2))
