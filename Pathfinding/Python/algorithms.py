@@ -6,7 +6,10 @@ class Algorithms:
     def __getitem__(self, item):
         if item == "depth_first":
             from Algorithms import depthfirst
-            return depthfirst.start
+            return depthfirst.solve
         elif item == "breadth_first":
             from Algorithms import breadthfirst
-            return breadthfirst.start
+            return breadthfirst.solve
+        elif item == "dijkstra":
+            from Algorithms import dijkstra
+            return dijkstra.solve

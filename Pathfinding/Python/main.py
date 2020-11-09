@@ -43,7 +43,7 @@ def draw_path(position_list, img, name):
     img.save(f'{name}.png')
 
 
-def solve(algorithm, input_file, output_name):
+def start(algorithm, input_file, output_name):
     img = Image.open(input_file)
     maze = Maze(img)
 
@@ -53,7 +53,7 @@ def solve(algorithm, input_file, output_name):
     draw_nodes([x.Position for x in maze.node_list], img, 'node_map')
     print("Total Nodes: " + str(len(maze.node_list)))
 
-    [visited, path] = algorithm(maze)
+    visited, path = algorithm(maze)
     draw_nodes([x.Position for x in visited], img, f'./Solved Images/{output_name}_visited')
     draw_path([x.Position for x in path], img, f'./Solved Images/{output_name}_path')
     print("Algorithm Visited Nodes: " + str(len(visited)))
@@ -87,7 +87,11 @@ def main():
     parser.add_argument("output_name", nargs='?', default="algorithm")
     args = parser.parse_args()
     # print(args)
-    solve(al.__getitem__(args.Algorithm), images.__getitem__(args.Image), args.output_name)
+    start(al.__getitem__(args.Algorithm), images.__getitem__(args.Image), args.output_name)
 
 
-main()
+def test():
+    start(Algorithms().__getitem__('dijkstra'), Images().__getitem__('tiny'), 'test')
+
+
+test()

@@ -2,7 +2,6 @@ class Maze:
     class Node:
         def __init__(self, position):
             self.Position = position
-
             self.Neighbours = [None, None, None, None]
 
     def node_char_list_add(self, position):

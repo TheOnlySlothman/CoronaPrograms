@@ -1,12 +1,12 @@
 from collections import deque
 
 
-def start(maze):
+def solve(maze):
     visited = []
     queue = deque([maze.start])
     prev = [[None for _ in range(maze.width)] for _ in range(maze.height)]
 
-    while queue:
+    while len(queue) > 0:
 
         current = queue.popleft()
 
@@ -26,4 +26,4 @@ def start(maze):
         path.appendleft(current)
         current = prev[current.Position[1]][current.Position[0]]
 
-    return [visited, path]
+    return visited, path
