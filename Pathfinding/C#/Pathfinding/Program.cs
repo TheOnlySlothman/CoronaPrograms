@@ -8,7 +8,6 @@ namespace Pathfinding
 {
     class Dijkstra
     {
-    
         static void Main(string[] args)
         {
             int[,] graph = new int[,] { { 0, 4, 0, 0, 0, 0, 0, 8, 0 },
@@ -24,16 +23,17 @@ namespace Pathfinding
 
             Dijkstra dijkstra = new Dijkstra();
 
-            dijkstra.FindPath(graph, 0);
+            dijkstra.FindPath(graph, 4);
             Console.ReadKey();
         }
+    
 
     
     
         //num of vectors
-        static int V = 9;
+        static readonly int V = 9;
 
-        int minDistance(bool[] vectorDone, int[] distance)
+        int MinDistance(bool[] vectorDone, int[] distance)
         {
             int minimum = int.MaxValue, minIndex = -1;
 
@@ -79,7 +79,7 @@ namespace Pathfinding
                 // Pick the minimum distance vertex 
                 // from the set of vertices not yet 
                 // processed.
-                int u = minDistance(vectorDone, distance);
+                int u = MinDistance(vectorDone, distance);
 
                 vectorDone[u] = true;
 
@@ -95,12 +95,12 @@ namespace Pathfinding
                 }
             }
 
-            printSolution(distance);
+            PrintSolution(distance);
         }
 
         // A utility function to print 
         // the constructed distance array 
-        void printSolution(int[] dist)
+        void PrintSolution(int[] dist)
         {
             Console.Write("Vertex \t\t Distance "
                           + "from Source\n");

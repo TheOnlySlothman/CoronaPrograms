@@ -47,7 +47,7 @@ def start(algorithm, input_file, output_name):
     img = Image.open(input_file)
     maze = Maze(img)
 
-    # for x in maze.node_char_list:
+    # for x in maze.node_char_list:æ
     # print(x)
 
     draw_nodes([x.Position for x in maze.node_list], img, 'node_map')

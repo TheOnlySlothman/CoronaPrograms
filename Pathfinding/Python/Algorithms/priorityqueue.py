@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 import heapq
-from Algorithms.dijkstra import DistancedNode
+from distanced_node import DistancedNode
 
 
 class PriorityQueue:
@@ -48,11 +48,11 @@ class HeapPQ(PriorityQueue):
     def __len__(self):
         return self.count
 
-    def insert(self, node):
-        distance_node = node.key, node.value
-        if distance_node in self.removed:
-            self.removed.discard(distance_node)
-        heapq.heappush(self.heap, distance_node)
+    def insert(self, distanced_node):
+        dnode_tuple = distanced_node.key, distanced_node.value
+        if dnode_tuple in self.removed:
+            self.removed.discard(dnode_tuple)
+        heapq.heappush(self.heap, dnode_tuple)
         self.count += 1
         return
 

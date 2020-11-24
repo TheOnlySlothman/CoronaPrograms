@@ -1,11 +1,6 @@
 from Algorithms.priorityqueue import HeapPQ
 from collections import deque
-
-
-class DistancedNode:
-    def __init__(self, distance, node):
-        self.key = distance
-        self.value = node
+from distanced_node import DistancedNode
 
 
 def solve(maze):
@@ -23,13 +18,14 @@ def solve(maze):
     while len(queue) > 0:
         n = queue.pop()
 
-        prev.append(n.value)
+        # prev.append(n.value)
+        prev[n.value.Position[1]][n.value.Position[0]] = n.value
 
         if n.value == maze.end:
             break
 
         for x in n.value.Neighbours:
-            if x is not None:
+            if x is not None and x not in visited_nodes:
                 d = abs(n.value.Position[0] - x.Position[0]) + abs(n.value.Position[1] - x.Position[1])
                 visited_nodes.append(n.value)
                 # visited_nodes[n.value.Position[0]][n.value.Position[1]] = n.value
