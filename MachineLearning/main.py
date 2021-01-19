@@ -85,4 +85,26 @@ def Multiplication():
     score = accuracy_score(y_test.values, predictions)
     print(score)
 
-Multiplication()
+def Ordinary_Least_Squares():
+    reg = linear_model.LinearRegression()
+    reg.fit ([[0, 0], [1, 1], [2, 2]], [0, 1, 2])
+
+    reg.fit([[0, 0], [1, 1], [2, 2]], [0, 1, 2])
+
+    print(reg.coef)
+
+def Ridge_regression():
+    reg = linear_model.LinearRegression()
+    reg.fit ([[0, 0], [1, 1], [2, 2]], [0, 1, 2])
+    reg.fit([[0, 0], [1, 1], [2, 2]], [0, 1, 2])
+    print(reg.coef)
+
+
+    reg = linear_model.Ridge(alpha=.5)
+    reg.fit([[0, 0], [0, 0], [1, 1]], [0, .1, 1])
+
+    print(reg.coef_)
+
+    print(reg.intercept_)
+
+Ordinary_Least_Squares()
