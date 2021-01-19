@@ -35,6 +35,8 @@ def linear_regression():
     regr.fit(x_train, y_train)
     predictions = regr.predict(x_test)
 
+    print(regr.coef_)
+
     # score = accuracy_score(y_test, predictions)
     print(x_test)
     print(y_test)
@@ -88,26 +90,19 @@ def Multiplication():
 
 
 def Ordinary_Least_Squares():
-    reg = linear_model.LinearRegression()
-    reg.fit([[0, 0], [1, 1], [2, 2]], [0, 1, 2])
+    regr = linear_model.LinearRegression()
+    regr.fit([[0, 0], [1, 1], [2, 2]], [0, 1, 2])
 
-    reg.fit([[0, 0], [1, 1], [2, 2]], [0, 1, 2])
-
-    print(reg.coef_)
+    print(regr.coef_)
 
 
 def Ridge_regression():
-    reg = linear_model.LinearRegression()
-    reg.fit([[0, 0], [1, 1], [2, 2]], [0, 1, 2])
-    reg.fit([[0, 0], [1, 1], [2, 2]], [0, 1, 2])
-    print(reg.coef_)
+    regr = linear_model.Ridge(alpha=.5)
+    regr.fit([[0, 0], [0, 0], [1, 1]], [0, .1, 1])
 
-    reg = linear_model.Ridge(alpha=.5)
-    reg.fit([[0, 0], [0, 0], [1, 1]], [0, .1, 1])
+    print(regr.coef_)
 
-    print(reg.coef_)
-
-    print(reg.intercept_)
+    print(regr.intercept_)
 
 
-Ordinary_Least_Squares()
+linear_regression()
