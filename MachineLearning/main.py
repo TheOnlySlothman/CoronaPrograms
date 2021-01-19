@@ -69,6 +69,7 @@ def Digit():
     score = accuracy_score(y_test, predictions)
     print(score)
 
+
 def Multiplication():
     df = pd.read_csv('test.csv')
     x = df.drop(columns=['z'])
@@ -85,20 +86,21 @@ def Multiplication():
     score = accuracy_score(y_test.values, predictions)
     print(score)
 
+
 def Ordinary_Least_Squares():
     reg = linear_model.LinearRegression()
-    reg.fit ([[0, 0], [1, 1], [2, 2]], [0, 1, 2])
+    reg.fit([[0, 0], [1, 1], [2, 2]], [0, 1, 2])
 
     reg.fit([[0, 0], [1, 1], [2, 2]], [0, 1, 2])
 
-    print(reg.coef)
+    print(reg.coef_)
+
 
 def Ridge_regression():
     reg = linear_model.LinearRegression()
-    reg.fit ([[0, 0], [1, 1], [2, 2]], [0, 1, 2])
     reg.fit([[0, 0], [1, 1], [2, 2]], [0, 1, 2])
-    print(reg.coef)
-
+    reg.fit([[0, 0], [1, 1], [2, 2]], [0, 1, 2])
+    print(reg.coef_)
 
     reg = linear_model.Ridge(alpha=.5)
     reg.fit([[0, 0], [0, 0], [1, 1]], [0, .1, 1])
@@ -106,5 +108,6 @@ def Ridge_regression():
     print(reg.coef_)
 
     print(reg.intercept_)
+
 
 Ordinary_Least_Squares()
