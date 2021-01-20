@@ -7,6 +7,16 @@ import numpy as np
 
 import matplotlib.pyplot as plt
 
+def plot(x_train, x_test, y_train, y_test, predictions):
+    plt.scatter(x_test, y_test, color='black')
+    plt.scatter(x_train, y_train, color='green')
+    plt.plot(x_test, predictions, color='blue', linewidth=5)
+
+    plt.xticks(())
+    plt.yticks(())
+
+    plt.show()
+
 
 def linear_regression():
     df = pd.read_csv('test2.csv')
@@ -51,17 +61,10 @@ def linear_regression():
     print('Coefficient of determination: %.2f'
           % r2_score(y_test, predictions))
 
-    plt.scatter(x_test, y_test, color='black')
-    plt.scatter(x_train, y_train, color='green')
-    plt.plot(x_test, predictions, color='blue', linewidth=5)
-
-    plt.xticks(())
-    plt.yticks(())
-
-    plt.show()
+    plot(x_train, x_test, y_train, y_test, predictions)
 
 
-def Digit():
+def digit():
     digits = datasets.load_digits()
     clf = svm.SVC(gamma=0.001, C=100.)
 
@@ -72,7 +75,7 @@ def Digit():
     print(score)
 
 
-def Multiplication():
+def multiplication():
     df = pd.read_csv('test.csv')
     x = df.drop(columns=['z'])
     y = df['z']
@@ -89,20 +92,58 @@ def Multiplication():
     print(score)
 
 
-def Ordinary_Least_Squares():
+def ordinary_least_squares():
     regr = linear_model.LinearRegression()
     regr.fit([[0, 0], [1, 1], [2, 2]], [0, 1, 2])
 
     print(regr.coef_)
 
 
-def Ridge_regression():
+def ridge_regression():
+    """
     regr = linear_model.Ridge(alpha=.5)
     regr.fit([[0, 0], [0, 0], [1, 1]], [0, .1, 1])
 
     print(regr.coef_)
 
     print(regr.intercept_)
+    """
+
+    df = pd.read_csv('test.csv')
+    x = df.drop(columns=['z'])
+    y = df['z']
+
+    regr = linear_model.Ridge(alpha=.5)
+
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
+    regr.fit(x_train, y_train)
+    predictions = regr.predict(x_test)
+
+    # plot(x_train.x, x_test.x, x_train.y, x_test.y, predictions)
+
+    print(x_test.values)
+    print(y_test.values)
+    print(predictions)
 
 
-linear_regression()
+def age_classifier():
+    df = pd.read_csv('test3.csv')
+    x = df.drop(columns=['AgeGroup'])
+    y = df['AgeGroup']
+
+    clf = svm.SVC(gamma=0.001, C=100.)
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
+
+    clf.fit(x_train, y_train)
+
+    predictions = clf.predict(x_test)
+
+    print(predictions)
+    print(y_test)
+
+    print(clf.support_vectors_)
+    print(clf.support_)
+    print(clf.n_support_)
+
+
+age_classifier()
