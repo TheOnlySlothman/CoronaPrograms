@@ -7,13 +7,16 @@ import numpy as np
 
 import matplotlib.pyplot as plt
 
+
 def plot(x_train, x_test, y_train, y_test, predictions):
     plt.scatter(x_test, y_test, color='black')
     plt.scatter(x_train, y_train, color='green')
     plt.plot(x_test, predictions, color='blue', linewidth=5)
 
+    """
     plt.xticks(())
     plt.yticks(())
+    """
 
     plt.show()
 
@@ -146,4 +149,35 @@ def age_classifier():
     print(clf.n_support_)
 
 
-age_classifier()
+def obesity_classifier():
+    df = pd.read_csv('500_Person_Gender_Height_Weight_Index.csv')
+    x = df.drop(columns=['Gender', 'Index'])
+    y = df['Index']
+
+    clf = svm.SVC(gamma=0.001, C=100.)
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
+
+    x_min, x_max = x['Height'].min() - .5, x['Height'].max() + .5
+    y_min, y_max = x['Weight'].min() - .5, x['Weight'].max() + .5
+
+    plt.figure()
+
+    plt.scatter(x_test['Height'], x_test['Weight'], c='black')
+    plt.scatter(x_train['Height'], x_train['Weight'], c='green')
+
+    plt.xlabel('Height')
+    plt.ylabel('Weight')
+
+    clf.fit(x_train, y_train)
+
+    predictions = clf.predict(x_test)
+
+    print(predictions)
+    print(y_test)
+
+    score = accuracy_score(y_test, predictions)
+    print(score)
+    plt.show()
+
+
+obesity_classifier()
