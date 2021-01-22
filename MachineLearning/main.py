@@ -3,6 +3,9 @@ from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, mean_squared_error, r2_score
 from sklearn import linear_model, datasets, svm
+
+from mpl_toolkits.mplot3d import Axes3D
+
 import numpy as np
 
 import matplotlib.pyplot as plt
@@ -128,6 +131,13 @@ def ridge_regression():
     print(y_test.values)
     print(predictions)
 
+    plt.figure()
+
+    plt.scatter(x_test['x'], x_test['y'], c='black')
+    plt.scatter(x_train['x'], x_train['y'], c='green')
+
+    plt.show()
+
 
 def age_classifier():
     df = pd.read_csv('test3.csv')
@@ -157,10 +167,7 @@ def obesity_classifier():
     clf = svm.SVC(gamma=0.001, C=100.)
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
 
-    x_min, x_max = x['Height'].min() - .5, x['Height'].max() + .5
-    y_min, y_max = x['Weight'].min() - .5, x['Weight'].max() + .5
-
-    plt.figure()
+    plt.figure(1)
 
     plt.scatter(x_test['Height'], x_test['Weight'], c='black')
     plt.scatter(x_train['Height'], x_train['Weight'], c='green')
@@ -177,7 +184,20 @@ def obesity_classifier():
 
     score = accuracy_score(y_test, predictions)
     print(score)
+
+    fig = plt.figure(2)
+    ax = Axes3D(fig, elev=-150, azim=110)
+    ax.scatter(x_test['Height'], x_test['Weight'], y_test, c='black')
+    ax.scatter(x_train['Height'], x_train['Weight'], y_train, c='green')
+
+    ax.scatter(x_test['Height'], x_test['Weight'], predictions, c='red')
+
+    ax.set_xlabel('Height')
+    ax.set_ylabel('Weight')
+    ax.set_zlabel("Obesity")
+
     plt.show()
 
 
 obesity_classifier()
+# ridge_regression()
