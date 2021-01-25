@@ -11,19 +11,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def plot(x_train, x_test, y_train, y_test, predictions):
-    plt.scatter(x_test, y_test, color='black')
-    plt.scatter(x_train, y_train, color='green')
-    plt.plot(x_test, predictions, color='blue', linewidth=5)
-
-    """
-    plt.xticks(())
-    plt.yticks(())
-    """
-
-    plt.show()
-
-
 def linear_regression():
     df = pd.read_csv('test2.csv')
 
@@ -67,7 +54,16 @@ def linear_regression():
     print('Coefficient of determination: %.2f'
           % r2_score(y_test, predictions))
 
-    plot(x_train, x_test, y_train, y_test, predictions)
+    plt.scatter(x_test, y_test, color='black')
+    plt.scatter(x_train, y_train, color='green')
+    plt.plot(x_test, predictions, color='blue', linewidth=5)
+
+    """
+    plt.xticks(())
+    plt.yticks(())
+    """
+
+    plt.show()
 
 
 def digit():
@@ -96,6 +92,29 @@ def multiplication():
     print(predictions)
     score = accuracy_score(y_test.values, predictions)
     print(score)
+
+    """
+    plt.scatter(x_test['x'], x_test['y'], color='black')
+    plt.scatter(x_train['x'], x_train['y'], color='green')
+    plt.plot(x_test, predictions, color='blue', linewidth=5)
+    """
+    """
+    plt.xticks(())
+    plt.yticks(())
+    """
+
+    fig = plt.figure(2)
+    ax = Axes3D(fig, elev=-150, azim=110)
+    ax.scatter(x_test['x'], x_test['y'], y_test, c='black')
+    ax.scatter(x_train['x'], x_train['y'], y_train, c='green')
+
+    ax.scatter(x_test['x'], x_test['y'], predictions, c='red')
+
+    ax.set_xlabel('x')
+    ax.set_ylabel('y')
+    ax.set_zlabel("z")
+
+    plt.show()
 
 
 def ordinary_least_squares():
@@ -199,5 +218,21 @@ def obesity_classifier():
     plt.show()
 
 
-obesity_classifier()
+def test():
+    from sklearn.neighbors import KDTree
+    x = np.array([[-1, -1], [-2, -1], [-3, -2], [1, 1], [2, 1], [3, 2]])
+    kdt = KDTree(x, leaf_size=30, metric='euclidean')
+    temp = kdt.query(x, k=2, return_distance=False)
+    print(temp)
+    print(x[2]+ temp[2])
+
+    for i in range(len(x)):
+        plt.scatter(x[i, 0], x[i, 1], color='black')
+    #for i in range(len(x)):
+    plt.plot(x[2], x[2] + temp[2], color='blue', linewidth=5)
+    plt.show()
+
+# obesity_classifier()
 # ridge_regression()
+test()
+# multiplication()
