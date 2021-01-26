@@ -3,6 +3,7 @@ from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, mean_squared_error, r2_score
 from sklearn import linear_model, datasets, svm
+from sklearn.neighbors import NearestNeighbors
 
 from mpl_toolkits.mplot3d import Axes3D
 
@@ -219,18 +220,32 @@ def obesity_classifier():
 
 
 def test():
-    from sklearn.neighbors import KDTree
-    x = np.array([[-1, -1], [-2, -1], [-3, -2], [1, 1], [2, 1], [3, 2]])
-    kdt = KDTree(x, leaf_size=30, metric='euclidean')
-    temp = kdt.query(x, k=2, return_distance=False)
-    print(temp)
-    print(x[2]+ temp[2])
+    # x = np.array([[-1, -1], [-2, -1], [-3, -2], [1, 1], [2, 1], [3, 2]])
+    x = np.array([[-1, -1], [-2, -1], [-3, -2], [-1, 0], [1, 1], [2, 1], [3, 2]])
+    # x = np.array([[-1, -1], [-2, -1], [-3, -2]])
+    nbrs = NearestNeighbors(n_neighbors=2, algorithm='ball_tree').fit(x)
+    nbrs_matrix = list(nbrs.kneighbors_graph(x).toarray())
 
     for i in range(len(x)):
         plt.scatter(x[i, 0], x[i, 1], color='black')
-    #for i in range(len(x)):
+
+    for i in [list(i) for i in nbrs_matrix]:
+        pos1 = i.index(1.)
+        i[pos1] = 0
+        pos2 = i.index(1.)
+        plt.plot(x[pos1], x[pos2], color='blue', linewidth=5)
+
+    """
+    print(temp)
+    print(x[2]+ temp[2])
+    """
+
+    """
+    # for i in range(len(x)):
     plt.plot(x[2], x[2] + temp[2], color='blue', linewidth=5)
+    """
     plt.show()
+
 
 # obesity_classifier()
 # ridge_regression()
