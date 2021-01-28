@@ -4,6 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, mean_squared_error, r2_score
 from sklearn import linear_model, datasets, svm
 from sklearn.neighbors import NearestNeighbors
+from sklearn.cluster import KMeans
 
 from mpl_toolkits.mplot3d import Axes3D
 
@@ -219,12 +220,13 @@ def obesity_classifier():
     plt.show()
 
 
-def test():
+def nearest_neighbor():
     # x = np.array([[-1, -1], [-2, -1], [-3, -2], [1, 1], [2, 1], [3, 2]])
     x = np.array([[-1, -1], [-2, -1], [-3, -2], [-1, 0], [1, 1], [2, 1], [3, 2]])
     # x = np.array([[-1, -1], [-2, -1], [-3, -2]])
     nbrs = NearestNeighbors(n_neighbors=2, algorithm='ball_tree').fit(x)
     nbrs_matrix = list(nbrs.kneighbors_graph(x).toarray())
+    print(nbrs_matrix)
 
     for i in range(len(x)):
         plt.scatter(x[i, 0], x[i, 1], color='black')
@@ -233,8 +235,12 @@ def test():
         pos1 = i.index(1.)
         i[pos1] = 0
         pos2 = i.index(1.)
-        plt.plot(x[pos1], x[pos2], color='blue', linewidth=5)
+        if x[pos1][1] < x[pos2][1]:
+            plt.plot(x[pos1], x[pos2], color='blue', linewidth=5)
+        else:
+            plt.plot(x[pos2], x[pos1], color='green', linewidth=5)
 
+    # plt.plot(x[0], x[1])
     """
     print(temp)
     print(x[2]+ temp[2])
@@ -244,10 +250,53 @@ def test():
     # for i in range(len(x)):
     plt.plot(x[2], x[2] + temp[2], color='blue', linewidth=5)
     """
+
+    plt.xlabel('x')
+    plt.ylabel('y')
+
+    plt.show()
+
+
+def kmeans():
+    df = pd.read_csv('500_Person_Gender_Height_Weight_Index.csv')
+    x = df.drop(columns=['Gender', 'Index'])
+    # y = df['Index']
+
+    km = KMeans(n_clusters=8).fit(x.values)
+
+    plt.figure(1)
+
+    plt.scatter(x['Height'], x['Weight'], c='black')
+    for i in km.cluster_centers_:
+        plt.scatter(i[0], i[1], c='green')
+
+    plt.xlabel('Height')
+    plt.ylabel('Weight')
+
+    plt.show()
+
+
+def obesity_cluster():
+    df = pd.read_csv('500_Person_Gender_Height_Weight_Index.csv')
+    x = df.drop(columns=['Gender'])
+
+    km = KMeans(n_clusters=8).fit(x.values)
+
+    fig = plt.figure(2)
+    ax = Axes3D(fig, elev=-150, azim=110)
+    ax.scatter(x['Height'], x['Weight'], x['Index'], c='black')
+    for i in km.cluster_centers_:
+        ax.scatter(i[0], i[1], i[2], c='green')
+
+    ax.set_xlabel('Height')
+    ax.set_ylabel('Weight')
+    ax.set_zlabel("Obesity")
+
     plt.show()
 
 
 # obesity_classifier()
 # ridge_regression()
-test()
+kmeans()
+obesity_cluster()
 # multiplication()
