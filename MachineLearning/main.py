@@ -222,7 +222,7 @@ def obesity_classifier():
 
 def nearest_neighbor():
     # x = np.array([[-1, -1], [-2, -1], [-3, -2], [1, 1], [2, 1], [3, 2]])
-    x = np.array([[-1, -1], [-2, -1], [-3, -2], [-1, 0], [1, 1], [2, 1], [3, 2]])
+    x = np.array([[-1, -1], [-2, -1], [-3, -2], [-1, 0], [1, 1], [2, 1], [3, 2], [0, 0]])
     # x = np.array([[-1, -1], [-2, -1], [-3, -2]])
     nbrs = NearestNeighbors(n_neighbors=2, algorithm='ball_tree').fit(x)
     nbrs_matrix = list(nbrs.kneighbors_graph(x).toarray())
@@ -235,10 +235,14 @@ def nearest_neighbor():
         pos1 = i.index(1.)
         i[pos1] = 0
         pos2 = i.index(1.)
-        if x[pos1][1] < x[pos2][1]:
+        """
+        if x[pos1][1] < x[pos2][1] and x[pos1][0] >= x[pos2][0]:
             plt.plot(x[pos1], x[pos2], color='blue', linewidth=5)
         else:
             plt.plot(x[pos2], x[pos1], color='green', linewidth=5)
+        """
+        if x[pos1].min < 0 or x[pos2].min < 0:
+            plt.plot(x[pos1], x[pos2], color='blue', linewidth=5)
 
     # plt.plot(x[0], x[1])
     """
@@ -297,6 +301,7 @@ def obesity_cluster():
 
 # obesity_classifier()
 # ridge_regression()
-kmeans()
-obesity_cluster()
+nearest_neighbor()
+# kmeans()
+# obesity_cluster()
 # multiplication()
