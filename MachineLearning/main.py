@@ -1,3 +1,5 @@
+import random
+
 import pandas as pd
 from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
 from sklearn.model_selection import train_test_split
@@ -222,14 +224,21 @@ def obesity_classifier():
 
 def nearest_neighbor():
     # x = np.array([[-1, -1], [-2, -1], [-3, -2], [1, 1], [2, 1], [3, 2]])
-    x = np.array([[-1, -1], [-2, -1], [-3, -2], [-1, 0], [1, 1], [2, 1], [3, 2], [0, 0]])
+    # x = np.array([[-1, -1], [-2, -1], [-3, -2], [-1, 0], [1, 1], [2, 1], [3, 2], [0, 0]])
     # x = np.array([[-1, -1], [-2, -1], [-3, -2]])
+    # x = [[-1, -1], [-2, -1], [-3, -2], [-1, 0], [1, 1], [2, 1], [3, 2], [0, 0]]
+    # x = [[-1, -1], [-2, -1], [-3, -3], [-1, 0], [1, 1], [2, 2], [3, 3], [0, 0]]
+    # x = [[-2, 1], [0, 2], [1, 3], [-1, -3], [3, 1], [0, 3], [1, -1], [2, 3], [3, 1], [3, -2]]
+
+    x = get_random_coordinates(10, -3, 3, -3, 3)
+
     nbrs = NearestNeighbors(n_neighbors=2, algorithm='ball_tree').fit(x)
     nbrs_matrix = list(nbrs.kneighbors_graph(x).toarray())
-    print(nbrs_matrix)
+    print(x)
 
     for i in range(len(x)):
-        plt.scatter(x[i, 0], x[i, 1], color='black')
+        # plt.scatter(x[i, 0], x[i, 1], color='black')
+        plt.scatter(x[i][0], x[i][1], color='black')
 
     for i in [list(i) for i in nbrs_matrix]:
         pos1 = i.index(1.)
@@ -241,8 +250,15 @@ def nearest_neighbor():
         else:
             plt.plot(x[pos2], x[pos1], color='green', linewidth=5)
         """
-        if x[pos1].min < 0 or x[pos2].min < 0:
+        """
+        if x[pos1][0] == 0 or x[pos1][1] == 0 or x[pos2][0] == 0 or x[pos2][1] == 0:
             plt.plot(x[pos1], x[pos2], color='blue', linewidth=5)
+        else:
+            plt.plot(x[pos2], x[pos1], color='green', linewidth=5)
+            # plt.plot(x[pos1], x[pos2], color='red', linewidth=5)
+        """
+        plt.plot([x[pos1][0], x[pos2][0]], [x[pos1][1], x[pos2][1]], color='green', linewidth=5)
+
 
     # plt.plot(x[0], x[1])
     """
@@ -259,6 +275,16 @@ def nearest_neighbor():
     plt.ylabel('y')
 
     plt.show()
+
+
+def get_random_coordinates(amount, xmin, xmax, ymin, ymax):
+    arr = []
+    y = [random.randint(xmin, xmax), random.randint(ymin, ymax)]
+    for x in range(amount):
+        while arr.__contains__(y):
+            y = [random.randint(xmin, xmax), random.randint(ymin, ymax)]
+        arr.append([random.randint(xmin, xmax), random.randint(ymin, ymax)])
+    return arr
 
 
 def kmeans():
