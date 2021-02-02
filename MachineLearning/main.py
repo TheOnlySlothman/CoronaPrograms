@@ -1,6 +1,7 @@
 import random
 
 import pandas as pd
+from sklearn.naive_bayes import GaussianNB
 from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, mean_squared_error, r2_score
@@ -222,6 +223,36 @@ def obesity_classifier():
     plt.show()
 
 
+def gaussian_naive_bayes():
+    df = pd.read_csv('500_Person_Gender_Height_Weight_Index.csv')
+    x = df.drop(columns=['Gender', 'Index'])
+    y = df['Index']
+
+    gnb = GaussianNB()
+
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.5)
+
+    gnb.fit(x_train, y_train)
+
+    predictions = gnb.predict(x_test)
+
+    fig = plt.figure(2)
+    ax = Axes3D(fig, elev=-150, azim=110)
+    ax.scatter(x_test['Height'], x_test['Weight'], y_test, c='black')
+    ax.scatter(x_train['Height'], x_train['Weight'], y_train, c='green')
+
+    ax.scatter(x_test['Height'], x_test['Weight'], predictions, c='red')
+
+    ax.set_xlabel('Height')
+    ax.set_ylabel('Weight')
+    ax.set_zlabel("Obesity")
+
+    score = accuracy_score(y_test, predictions)
+    print(score)
+
+    plt.show()
+
+
 def nearest_neighbor():
     # x = np.array([[-1, -1], [-2, -1], [-3, -2], [1, 1], [2, 1], [3, 2]])
     # x = np.array([[-1, -1], [-2, -1], [-3, -2], [-1, 0], [1, 1], [2, 1], [3, 2], [0, 0]])
@@ -259,7 +290,6 @@ def nearest_neighbor():
         """
         plt.plot([x[pos1][0], x[pos2][0]], [x[pos1][1], x[pos2][1]], color='green', linewidth=5)
 
-
     # plt.plot(x[0], x[1])
     """
     print(temp)
@@ -283,7 +313,7 @@ def get_random_coordinates(amount, xmin, xmax, ymin, ymax):
     for x in range(amount):
         while arr.__contains__(y):
             y = [random.randint(xmin, xmax), random.randint(ymin, ymax)]
-        arr.append([random.randint(xmin, xmax), random.randint(ymin, ymax)])
+        arr.append(y)
     return arr
 
 
@@ -325,9 +355,4 @@ def obesity_cluster():
     plt.show()
 
 
-# obesity_classifier()
-# ridge_regression()
-nearest_neighbor()
-# kmeans()
-# obesity_cluster()
-# multiplication()
+gaussian_naive_bayes()
