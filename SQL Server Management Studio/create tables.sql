@@ -1,3 +1,6 @@
+use testDB
+
+drop table Inventory
 drop table Items
 drop table ITypes
 drop table Players
@@ -40,18 +43,18 @@ create table Person (
 	)
 
 create table Classes (
-	Id int not null primary key,
+	Id int not null primary key identity(1,1),
 	Name varchar(15)
 	)
 
 create table Players (
-	Id int not null primary key,
-	Name varchar(15),
+	Id int not null primary key identity(1,1),
+	Name varchar(30),
 	ClassId int foreign key references Classes(Id)
 	)
 
 create table ITypes (
-	Id int not null primary key,
+	Id int not null primary key identity(1,1),
 	Name varchar(15)
 	)
 
@@ -60,4 +63,13 @@ create  table Items (
 	Name varchar(15),
 	TypeId int foreign key references ITypes(Id),
 	Weight Decimal
+	)
+
+create table Inventory (
+	Id int not null primary key,
+	Item1 int foreign key references Items(Id),
+	Item2 int foreign key references Items(Id),
+	Item3 int foreign key references Items(Id),
+	Item4 int foreign key references Items(Id),
+	Item5 int foreign key references Items(Id)
 	)
