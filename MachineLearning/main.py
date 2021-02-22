@@ -230,7 +230,7 @@ def gaussian_naive_bayes():
 
     gnb = GaussianNB()
 
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.5)
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
 
     gnb.fit(x_train, y_train)
 
