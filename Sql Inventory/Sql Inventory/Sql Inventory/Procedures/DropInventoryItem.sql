@@ -1,4 +1,4 @@
-create or alter procedure DropItem
+create or alter procedure DropInventoryItem
 	@playerId int,
 	@inventoryId int
 as
@@ -22,3 +22,5 @@ as
 		update Inventory
 		set Item5 = null
 		where Id = @playerId
+
+drop procedure DropItem

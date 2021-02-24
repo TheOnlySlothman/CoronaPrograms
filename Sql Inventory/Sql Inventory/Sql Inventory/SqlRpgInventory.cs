@@ -46,6 +46,7 @@ namespace Sql_Inventory
             try
             {
                 SqlCommand myCommand = new SqlCommand(query, connection);
+                
                 return myCommand.ExecuteReader();
             }
             catch (Exception e)
@@ -55,74 +56,86 @@ namespace Sql_Inventory
             }
         }
 
-        public ConsoleKeyInfo PlayerSelect()
+        void AddInventoryItem(int playerId)
         {
-            Console.Clear();
-            ConsoleKeyInfo keyInfo;
-            SqlDataReader reader = SqlRead("execute GetPlayers");
-            do
-            {
-                while (reader.Read())
-                {
-                    Console.WriteLine($"{reader["Id"]}. {reader["Name"]}");
-                }
-                Console.WriteLine("ESC. Quit");
-                keyInfo = Console.ReadKey();
-            } while (!int.TryParse(keyInfo.KeyChar.ToString(), out _) && keyInfo.Key != ConsoleKey.Escape);
-            reader.Close();
-            return keyInfo;
-        }
-
-        public void PlayerMenu(int playerId)
-        {
-            ConsoleKeyInfo keyInfo;
-            do
-            {
-                Console.Clear();
-                Console.WriteLine("1. Add Item");
-                Console.WriteLine("2. Drop Item");
-                Console.WriteLine("3. See Inventory");
-                Console.WriteLine("4. Update Inventory");
-
-                Console.WriteLine("ESC. Quit");
-                keyInfo = Console.ReadKey();
-
-                switch (keyInfo.KeyChar)
-                {
-                    case '1':
-                        AddItem(playerId);
-                        break;
-                    case '2':
-                        DropItem(playerId);
-                        break;
-                    case '3':
-                        ShowInventory(playerId);
-                        Console.ReadKey(true);
-                        break;
-                    case '4':
-                        Update(playerId);
-                        break;
-                    default:
-                        break;
-                }
-            } while (keyInfo.Key != ConsoleKey.Escape);
-        }
-
-        void AddItem(int playerId)
-        {
-            Console.Clear();
-            SqlDataReader reader = SqlRead("select * from Items");
             int itemId;
             do
             {
-                while (reader.Read())
-                {
-                    Console.WriteLine($"{reader["Id"]}. {reader["Name"]}");
-                }
+                ShowItems();
             } while (!int.TryParse(Console.ReadKey().KeyChar.ToString(), out itemId));
-            reader.Close();
             SqlCommandQuery($"execute ItemToInventory @playerId = {playerId}, @itemId = {itemId}");
         }
+
+
+
+        void DropInventoryItem(int playerId)
+        {
+            int inventoryId;
+
+            do
+            {
+                ShowInventory(playerId);
+            } while (!int.TryParse(Console.ReadKey().KeyChar.ToString(), out inventoryId));
+
+            SqlCommandQuery($"execute DropInventoryItem @playerId = {playerId}, @inventoryId = {inventoryId}");
+        }
+
+        void Update(int playerId)
+        {
+            int inventoryId;
+            int itemId;
+
+            do
+            {
+                ShowInventory(playerId);
+            } while (!int.TryParse(Console.ReadKey().KeyChar.ToString(), out inventoryId));
+
+            do
+            {
+                ShowItems();
+            } while (!int.TryParse(Console.ReadKey().KeyChar.ToString(), out itemId));
+
+            SqlCommandQuery($"execute UpdateItem @playerId = {playerId}, @itemId = {itemId}, @inventoryId = {inventoryId}");
+        }
+
+        void AddItem()
+        {
+            // ShowItems();
+            int type;
+            double weight;
+
+            Console.WriteLine("Name");
+            string name = Console.ReadLine();
+
+            do
+            {
+                ShowITypes();
+            } while (!int.TryParse(Console.ReadKey().KeyChar.ToString(), out type));
+
+
+            do
+            {
+                Console.WriteLine("Weight");
+            } while (!double.TryParse(Console.ReadKey().KeyChar.ToString(), out weight));
+
+            SqlCommandQuery($"insert into Items values('{name}', {type}, '{weight}')");
+        }
+
+
+
+        void DropItem()
+        {
+            int itemId;
+
+            do
+            {
+                ShowItems();
+            } while (!int.TryParse(Console.ReadKey().KeyChar.ToString(), out itemId));
+
+            SqlCommandQuery($"execute DeleteItem  @itemId = {itemId}");
+        }
+
+        #region Show Methods
 
         void ShowInventory(int playerId)
         {
@@ -157,45 +170,142 @@ namespace Sql_Inventory
             }
         }
 
-        void DropItem(int playerId)
-        {
-            int inventoryId;
-
-            do
-            {
-                ShowInventory(playerId);
-            } while (!int.TryParse(Console.ReadKey().KeyChar.ToString(), out inventoryId));
-
-            SqlCommandQuery($"execute DropItem @playerId = {playerId}, @inventoryId = {inventoryId}");
-        }
-
-        void Update(int playerId)
-        {
-            int inventoryId;
-            int itemId;
-
-            do
-            {
-                ShowInventory(playerId);
-            } while (!int.TryParse(Console.ReadKey().KeyChar.ToString(), out inventoryId));
-
-            do
-            {
-                ShowItems();
-            } while (!int.TryParse(Console.ReadKey().KeyChar.ToString(), out itemId));
-
-            SqlCommandQuery($"execute UpdateItem @playerId = {playerId}, @itemId = {itemId}, @inventoryId = {inventoryId}");
-        }
-
         void ShowItems()
         {
             Console.Clear();
-            SqlDataReader reader = SqlRead("select * from  Items");
+            SqlDataReader reader = SqlRead("execute ShowItems");
+            while (reader.Read())
+            {
+                Console.WriteLine($"{reader["Id"]}. {reader["Name"]}, {reader["TypeName"]}, {reader["Weight"]}");
+            }
+            reader.Close();
+        }
+
+        void ShowITypes()
+        {
+            Console.Clear();
+            SqlDataReader reader = SqlRead("select * from ITypes");
             while (reader.Read())
             {
                 Console.WriteLine($"{reader["Id"]}. {reader["Name"]}");
             }
             reader.Close();
         }
+        #endregion
+
+        #region Menus
+        public void AdminMenu()
+        {
+            ConsoleKeyInfo keyInfo;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("1. Item Types");
+                Console.WriteLine("2. Items");
+                Console.WriteLine("3. Classes");
+                Console.WriteLine("4. Players");
+
+                Console.WriteLine("ESC. Quit");
+                keyInfo = Console.ReadKey();
+
+                switch (keyInfo.KeyChar)
+                {
+                    case '1':
+                        break;
+                    case '2':
+                        ItemMenu();
+                        break;
+                    default:
+                        break;
+                }
+            } while (keyInfo.Key != ConsoleKey.Escape);
+        }
+
+        void ItemMenu()
+        {
+            ConsoleKeyInfo keyInfo;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("1. Add Item");
+                Console.WriteLine("2. Drop Item");
+                Console.WriteLine("3. See Items");
+                Console.WriteLine("4. Update Items");
+
+                Console.WriteLine("ESC. Quit");
+                keyInfo = Console.ReadKey();
+
+                switch (keyInfo.KeyChar)
+                {
+                    case '1':
+                        AddItem();
+                        break;
+                    case '2':
+                        DropItem();
+                        break;
+                    case '3':
+                        ShowItems();
+                        Console.ReadKey(true);
+                        break;
+                    default:
+                        break;
+                }
+            } while (keyInfo.Key != ConsoleKey.Escape);
+        }
+
+        public void PlayerMenu(int playerId)
+        {
+            ConsoleKeyInfo keyInfo;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("1. Add Item");
+                Console.WriteLine("2. Drop Item");
+                Console.WriteLine("3. See Inventory");
+                Console.WriteLine("4. Update Inventory");
+
+                Console.WriteLine("ESC. Quit");
+                keyInfo = Console.ReadKey();
+
+                switch (keyInfo.KeyChar)
+                {
+                    case '1':
+                        AddInventoryItem(playerId);
+                        break;
+                    case '2':
+                        DropInventoryItem(playerId);
+                        break;
+                    case '3':
+                        ShowInventory(playerId);
+                        Console.ReadKey(true);
+                        break;
+                    case '4':
+                        Update(playerId);
+                        break;
+                    default:
+                        break;
+                }
+            } while (keyInfo.Key != ConsoleKey.Escape);
+        }
+
+        public ConsoleKeyInfo PlayerSelectMenu()
+        {
+            Console.Clear();
+            ConsoleKeyInfo keyInfo;
+            SqlDataReader reader = SqlRead("execute GetPlayers");
+            do
+            {
+                while (reader.Read())
+                {
+                    Console.WriteLine($"{reader["Id"]}. {reader["Name"]}");
+                }
+                Console.WriteLine("ESC. Quit");
+                keyInfo = Console.ReadKey();
+            } while (!int.TryParse(keyInfo.KeyChar.ToString(), out _) && keyInfo.Key != ConsoleKey.Escape);
+            reader.Close();
+            return keyInfo;
+        }
+
+        #endregion
     }
 }
