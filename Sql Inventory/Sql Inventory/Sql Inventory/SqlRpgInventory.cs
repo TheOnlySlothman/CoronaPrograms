@@ -32,13 +32,23 @@ namespace Sql_Inventory
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
+                Console.ReadKey(true);
                 return null;
             }
         }
 
         void SqlCommandQuery(string query)
         {
+            try
+            {
             new SqlCommand(query, connection).ExecuteNonQuery();
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                Console.ReadKey(true);
+            }
         }
 
         static SqlDataReader SqlRead(string query)
@@ -46,16 +56,18 @@ namespace Sql_Inventory
             try
             {
                 SqlCommand myCommand = new SqlCommand(query, connection);
-                
+
                 return myCommand.ExecuteReader();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
+                Console.ReadKey(true);
                 return null;
             }
         }
 
+        #region Inventory
         void AddInventoryItem(int playerId)
         {
             int itemId;
@@ -65,8 +77,6 @@ namespace Sql_Inventory
             } while (!int.TryParse(Console.ReadKey().KeyChar.ToString(), out itemId));
             SqlCommandQuery($"execute ItemToInventory @playerId = {playerId}, @itemId = {itemId}");
         }
-
-
 
         void DropInventoryItem(int playerId)
         {
@@ -80,7 +90,7 @@ namespace Sql_Inventory
             SqlCommandQuery($"execute DropInventoryItem @playerId = {playerId}, @inventoryId = {inventoryId}");
         }
 
-        void Update(int playerId)
+        void UpdateInventory(int playerId)
         {
             int inventoryId;
             int itemId;
@@ -97,43 +107,93 @@ namespace Sql_Inventory
 
             SqlCommandQuery($"execute UpdateItem @playerId = {playerId}, @itemId = {itemId}, @inventoryId = {inventoryId}");
         }
+        #endregion
 
+        List<int> GetIds(string table)
+        {
+            SqlDataReader reader = SqlRead($"select * from {table}");
+            List<int> lst = new List<int>();
+
+            while (reader.Read())
+            {
+                lst.Add((int)reader["Id"]);
+            }
+            reader.Close();
+            return lst;
+        }
+
+        #region Item
         void AddItem()
         {
             // ShowItems();
             int type;
             double weight;
-
+            Console.Clear();
             Console.WriteLine("Name");
             string name = Console.ReadLine();
+
+            
 
             do
             {
                 ShowITypes();
-            } while (!int.TryParse(Console.ReadKey().KeyChar.ToString(), out type));
+            } while (!(int.TryParse(Console.ReadKey().KeyChar.ToString(), out type) && GetIds("ITypes").Contains(type)));
+
 
 
             do
             {
+                Console.Clear();
                 Console.WriteLine("Weight");
-            } while (!double.TryParse(Console.ReadKey().KeyChar.ToString(), out weight));
+            } while (!double.TryParse(Console.ReadLine(), out weight));
 
             SqlCommandQuery($"insert into Items values('{name}', {type}, '{weight}')");
         }
 
-
-
-        void DropItem()
+        void DeleteItem()
         {
             int itemId;
 
             do
             {
                 ShowItems();
-            } while (!int.TryParse(Console.ReadKey().KeyChar.ToString(), out itemId));
+            } while (!int.TryParse(Console.ReadLine(), out itemId));
 
             SqlCommandQuery($"execute DeleteItem  @itemId = {itemId}");
         }
+
+        void UpdateItem()
+        {
+            int itemId;
+            int type;
+            double weight;
+            string name;
+
+            do
+            {
+                ShowItems();
+            } while (!int.TryParse(Console.ReadKey().KeyChar.ToString(), out itemId));
+
+            Console.Clear();
+            Console.WriteLine("Name");
+            name = Console.ReadLine();
+
+            do
+            {
+                ShowITypes();
+            } while (!(int.TryParse(Console.ReadKey().KeyChar.ToString(), out type) && GetIds("ITypes").Contains(type)));
+
+
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("Weight");
+            } while (!double.TryParse(Console.ReadLine(), out weight));
+
+            SqlCommandQuery($"update Items set Name = '{name}', TypeId = {type}, Weight = '{weight}' where Id = {itemId}");
+        }
+
+        #endregion
 
         #region Show Methods
 
@@ -211,6 +271,7 @@ namespace Sql_Inventory
                 switch (keyInfo.KeyChar)
                 {
                     case '1':
+                        ItemTypeMenu();
                         break;
                     case '2':
                         ItemMenu();
@@ -241,11 +302,49 @@ namespace Sql_Inventory
                         AddItem();
                         break;
                     case '2':
-                        DropItem();
+                        DeleteItem();
                         break;
                     case '3':
                         ShowItems();
                         Console.ReadKey(true);
+                        break;
+                    case '4':
+                        UpdateItem();
+                        break;
+                    default:
+                        break;
+                }
+            } while (keyInfo.Key != ConsoleKey.Escape);
+        }
+
+        void ItemTypeMenu()
+        {
+            ConsoleKeyInfo keyInfo;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("1. Add ItemType");
+                Console.WriteLine("2. Drop ItemType");
+                Console.WriteLine("3. See ItemsType");
+                Console.WriteLine("4. Update ItemsType");
+
+                Console.WriteLine("ESC. Quit");
+                keyInfo = Console.ReadKey();
+
+                switch (keyInfo.KeyChar)
+                {
+                    case '1':
+                        AddItemType();
+                        break;
+                    case '2':
+                        DeleteItemType();
+                        break;
+                    case '3':
+                        ShowITypes();
+                        Console.ReadKey(true);
+                        break;
+                    case '4':
+                        UpdateItemType();
                         break;
                     default:
                         break;
@@ -280,7 +379,7 @@ namespace Sql_Inventory
                         Console.ReadKey(true);
                         break;
                     case '4':
-                        Update(playerId);
+                        UpdateInventory(playerId);
                         break;
                     default:
                         break;
@@ -305,6 +404,48 @@ namespace Sql_Inventory
             reader.Close();
             return keyInfo;
         }
+
+        #endregion
+
+        #region ItemType
+        void AddItemType()
+        {
+            Console.Clear();
+            Console.WriteLine("Name");
+            string name = Console.ReadLine();
+
+            SqlCommandQuery($"insert into ITypes values('{name}')");
+        }
+
+        void DeleteItemType()
+        {
+            int itemTypeId;
+
+            do
+            {
+                ShowITypes();
+            } while (!int.TryParse(Console.ReadLine(), out itemTypeId));
+
+            SqlCommandQuery($"Delete from ITypes where Id = {itemTypeId}");
+        }
+
+        void UpdateItemType()
+        {
+            int itemTypeId;
+
+            do
+            {
+                ShowITypes();
+            } while (!int.TryParse(Console.ReadKey().KeyChar.ToString(), out itemTypeId));
+
+            Console.Clear();
+            Console.WriteLine("Name");
+            string name = Console.ReadLine();
+
+
+            SqlCommandQuery($"update ITypes set Name = '{name}' where Id = {itemTypeId}");
+        }
+
 
         #endregion
     }
