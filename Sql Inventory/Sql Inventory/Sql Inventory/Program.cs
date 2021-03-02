@@ -48,7 +48,7 @@ namespace Sql_Inventory
                 keyInfo = rpgInventory.PlayerSelectMenu();
                 if (int.TryParse(keyInfo.KeyChar.ToString(), out int num))
                 {
-                    rpgInventory.PlayerMenu(num);
+                    rpgInventory.PlayersMenu(num);
                 }
             } while (keyInfo.Key != ConsoleKey.Escape);
         }

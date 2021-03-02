@@ -10,6 +10,7 @@ namespace Sql_Inventory
     class SqlRpgInventory
     {
         public static SqlConnection connection;
+
         public SqlRpgInventory()
         {
             connection = SqlConnect();
@@ -41,7 +42,7 @@ namespace Sql_Inventory
         {
             try
             {
-            new SqlCommand(query, connection).ExecuteNonQuery();
+                new SqlCommand(query, connection).ExecuteNonQuery();
 
             }
             catch (Exception e)
@@ -67,47 +68,7 @@ namespace Sql_Inventory
             }
         }
 
-        #region Inventory
-        void AddInventoryItem(int playerId)
-        {
-            int itemId;
-            do
-            {
-                ShowItems();
-            } while (!int.TryParse(Console.ReadKey().KeyChar.ToString(), out itemId));
-            SqlCommandQuery($"execute ItemToInventory @playerId = {playerId}, @itemId = {itemId}");
-        }
-
-        void DropInventoryItem(int playerId)
-        {
-            int inventoryId;
-
-            do
-            {
-                ShowInventory(playerId);
-            } while (!int.TryParse(Console.ReadKey().KeyChar.ToString(), out inventoryId));
-
-            SqlCommandQuery($"execute DropInventoryItem @playerId = {playerId}, @inventoryId = {inventoryId}");
-        }
-
-        void UpdateInventory(int playerId)
-        {
-            int inventoryId;
-            int itemId;
-
-            do
-            {
-                ShowInventory(playerId);
-            } while (!int.TryParse(Console.ReadKey().KeyChar.ToString(), out inventoryId));
-
-            do
-            {
-                ShowItems();
-            } while (!int.TryParse(Console.ReadKey().KeyChar.ToString(), out itemId));
-
-            SqlCommandQuery($"execute UpdateItem @playerId = {playerId}, @itemId = {itemId}, @inventoryId = {inventoryId}");
-        }
-        #endregion
+        #region Menu
 
         List<int> GetIds(string table)
         {
@@ -122,7 +83,273 @@ namespace Sql_Inventory
             return lst;
         }
 
+        public void AdminMenu()
+        {
+            ConsoleKeyInfo keyInfo;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("1. Item Types");
+                Console.WriteLine("2. Items");
+                Console.WriteLine("3. Classes");
+                Console.WriteLine("4. Players");
+
+                Console.WriteLine("ESC. Quit");
+                keyInfo = Console.ReadKey();
+
+                switch (keyInfo.KeyChar)
+                {
+                    case '1':
+                        ItemTypeMenu();
+                        break;
+                    case '2':
+                        ItemMenu();
+                        break;
+                    case '3':
+                        ClassMenu();
+                        break;
+                    case '4':
+                        PlayerMenu();
+                        break;
+                    default:
+                        break;
+                }
+            } while (keyInfo.Key != ConsoleKey.Escape);
+        }
+
+        void ItemMenu()
+        {
+            ConsoleKeyInfo keyInfo;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("1. Add Item");
+                Console.WriteLine("2. Delete Item");
+                Console.WriteLine("3. See Items");
+                Console.WriteLine("4. Update Items");
+
+                Console.WriteLine("ESC. Quit");
+                keyInfo = Console.ReadKey();
+
+                switch (keyInfo.KeyChar)
+                {
+                    case '1':
+                        AddItem();
+                        break;
+                    case '2':
+                        DeleteItem();
+                        break;
+                    case '3':
+                        ShowItems();
+                        Console.ReadKey(true);
+                        break;
+                    case '4':
+                        UpdateItem();
+                        break;
+                    default:
+                        break;
+                }
+            } while (keyInfo.Key != ConsoleKey.Escape);
+        }
+
+        void ItemTypeMenu()
+        {
+            ConsoleKeyInfo keyInfo;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("1. Add ItemType");
+                Console.WriteLine("2. Delete ItemType");
+                Console.WriteLine("3. See ItemsType");
+                Console.WriteLine("4. Update ItemsType");
+
+                Console.WriteLine("ESC. Quit");
+                keyInfo = Console.ReadKey();
+
+                switch (keyInfo.KeyChar)
+                {
+                    case '1':
+                        AddItemType();
+                        break;
+                    case '2':
+                        DeleteItemType();
+                        break;
+                    case '3':
+                        ShowITypes();
+                        Console.ReadKey(true);
+                        break;
+                    case '4':
+                        UpdateItemType();
+                        break;
+                    default:
+                        break;
+                }
+            } while (keyInfo.Key != ConsoleKey.Escape);
+        }
+
+        void ClassMenu()
+        {
+            ConsoleKeyInfo keyInfo;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("1. Add Class");
+                Console.WriteLine("2. Delete Class");
+                Console.WriteLine("3. See Class");
+                Console.WriteLine("4. Update Class");
+
+                Console.WriteLine("ESC. Quit");
+                keyInfo = Console.ReadKey();
+
+                switch (keyInfo.KeyChar)
+                {
+                    case '1':
+                        AddClass();
+                        break;
+                    case '2':
+                        DeleteClass();
+                        break;
+                    case '3':
+                        ShowClasses();
+                        Console.ReadKey(true);
+                        break;
+                    case '4':
+                        UpdateClass();
+                        break;
+                    default:
+                        break;
+                }
+            } while (keyInfo.Key != ConsoleKey.Escape);
+        }
+
+        void PlayerMenu()
+        {
+            ConsoleKeyInfo keyInfo;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("1. Add Player");
+                Console.WriteLine("2. Delete Player");
+                Console.WriteLine("3. See Player");
+                Console.WriteLine("4. Update Player");
+
+                Console.WriteLine("ESC. Quit");
+                keyInfo = Console.ReadKey();
+
+                switch (keyInfo.KeyChar)
+                {
+                    case '1':
+                        AddPlayer();
+                        break;
+                    case '2':
+                        DeletePlayer();
+                        break;
+                    case '3':
+                        ShowPlayers();
+                        Console.ReadKey(true);
+                        break;
+                    case '4':
+                        UpdatePlayers();
+                        break;
+                    default:
+                        break;
+                }
+            } while (keyInfo.Key != ConsoleKey.Escape);
+        }
+
+        public void PlayersMenu(int playerId)
+        {
+            ConsoleKeyInfo keyInfo;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("1. Add Item");
+                Console.WriteLine("2. Drop Item");
+                Console.WriteLine("3. See Inventory");
+                Console.WriteLine("4. Update Inventory");
+
+                Console.WriteLine("ESC. Quit");
+                keyInfo = Console.ReadKey();
+
+                switch (keyInfo.KeyChar)
+                {
+                    case '1':
+                        AddInventoryItem(playerId);
+                        break;
+                    case '2':
+                        DropInventoryItem(playerId);
+                        break;
+                    case '3':
+                        ShowInventory(playerId);
+                        Console.ReadKey(true);
+                        break;
+                    case '4':
+                        UpdateInventory(playerId);
+                        break;
+                    default:
+                        break;
+                }
+            } while (keyInfo.Key != ConsoleKey.Escape);
+        }
+
+        public ConsoleKeyInfo PlayerSelectMenu()
+        {
+            Console.Clear();
+            ConsoleKeyInfo keyInfo;
+            do
+            {
+                ShowPlayers();
+                keyInfo = Console.ReadKey();
+            } while (!int.TryParse(keyInfo.KeyChar.ToString(), out _) && keyInfo.Key != ConsoleKey.Escape);
+            return keyInfo;
+        }
+
+        #endregion
+
+        #region ItemType
+
+        void AddItemType()
+        {
+            Console.Clear();
+            Console.WriteLine("Name");
+            string name = Console.ReadLine();
+
+            SqlCommandQuery($"insert into ITypes values('{name}')");
+        }
+
+        void DeleteItemType()
+        {
+            int itemTypeId;
+
+            do
+            {
+                ShowITypes();
+            } while (!int.TryParse(Console.ReadLine(), out itemTypeId));
+
+            SqlCommandQuery($"Delete from ITypes where Id = {itemTypeId}");
+        }
+
+        void UpdateItemType()
+        {
+            int itemTypeId;
+
+            do
+            {
+                ShowITypes();
+            } while (!int.TryParse(Console.ReadLine(), out itemTypeId));
+
+            Console.Clear();
+            Console.WriteLine("Name");
+            string name = Console.ReadLine();
+
+
+            SqlCommandQuery($"update ITypes set Name = '{name}' where Id = {itemTypeId}");
+        }
+
+        #endregion
+
         #region Item
+
         void AddItem()
         {
             // ShowItems();
@@ -132,12 +359,12 @@ namespace Sql_Inventory
             Console.WriteLine("Name");
             string name = Console.ReadLine();
 
-            
+
 
             do
             {
                 ShowITypes();
-            } while (!(int.TryParse(Console.ReadKey().KeyChar.ToString(), out type) && GetIds("ITypes").Contains(type)));
+            } while (!(int.TryParse(Console.ReadLine(), out type) && GetIds("ITypes").Contains(type)));
 
 
 
@@ -172,7 +399,7 @@ namespace Sql_Inventory
             do
             {
                 ShowItems();
-            } while (!int.TryParse(Console.ReadKey().KeyChar.ToString(), out itemId));
+            } while (!int.TryParse(Console.ReadLine(), out itemId));
 
             Console.Clear();
             Console.WriteLine("Name");
@@ -181,7 +408,7 @@ namespace Sql_Inventory
             do
             {
                 ShowITypes();
-            } while (!(int.TryParse(Console.ReadKey().KeyChar.ToString(), out type) && GetIds("ITypes").Contains(type)));
+            } while (!(int.TryParse(Console.ReadLine(), out type) && GetIds("ITypes").Contains(type)));
 
 
             do
@@ -193,6 +420,145 @@ namespace Sql_Inventory
             SqlCommandQuery($"update Items set Name = '{name}', TypeId = {type}, Weight = '{weight}' where Id = {itemId}");
         }
 
+        #endregion
+
+        #region Classes
+
+        void AddClass()
+        {
+            Console.Clear();
+            Console.WriteLine("Name");
+            string name = Console.ReadLine();
+
+            SqlCommandQuery($"insert into Classes values('{name}')");
+        }
+
+        void DeleteClass()
+        {
+            int classID;
+
+            do
+            {
+                ShowClasses();
+            } while (!int.TryParse(Console.ReadLine(), out classID));
+
+            SqlCommandQuery($"Delete from Classes where Id = {classID}");
+        }
+
+        void UpdateClass()
+        {
+            int classID;
+
+            do
+            {
+                ShowClasses();
+            } while (!int.TryParse(Console.ReadLine(), out classID));
+
+            Console.Clear();
+            Console.WriteLine("Name");
+            string name = Console.ReadLine();
+
+
+            SqlCommandQuery($"update Classes set Name = '{name}' where Id = {classID}");
+        }
+
+        #endregion
+
+        #region Player
+
+        void AddPlayer()
+        {
+            Console.Clear();
+            Console.WriteLine("Name");
+            string name = Console.ReadLine();
+            int classId;
+
+            do
+            {
+                ShowClasses();
+            } while (!(int.TryParse(Console.ReadLine(), out classId) && GetIds("Classes").Contains(classId)));
+
+            SqlCommandQuery($"insert into Players values('{name}', {classId})");
+        }
+
+        void DeletePlayer()
+        {
+            int playerID;
+
+            do
+            {
+                ShowPlayers();
+            } while (!int.TryParse(Console.ReadLine(), out playerID));
+
+            SqlCommandQuery($"Delete from Players where Id = {playerID}");
+
+        }
+
+        void UpdatePlayers()
+        {
+            int playerId;
+            int classId;
+
+            do
+            {
+                ShowPlayers();
+            } while (!(int.TryParse(Console.ReadLine(), out playerId) && GetIds("Players").Contains(playerId)));
+
+            Console.Clear();
+            Console.WriteLine("Name");
+            string name = Console.ReadLine();
+
+            do
+            {
+                ShowClasses();
+            } while (!(int.TryParse(Console.ReadKey().KeyChar.ToString(), out classId) && GetIds("Classes").Contains(classId)));
+
+
+            SqlCommandQuery($"update Players set Name = '{name}', ClassId = {classId} where Id = {playerId}");
+        }
+
+        #endregion
+
+        #region Inventory
+        void AddInventoryItem(int playerId)
+        {
+            int itemId;
+            do
+            {
+                ShowItems();
+            } while (!(int.TryParse(Console.ReadLine(), out itemId) && GetIds("Items").Contains(itemId)));
+            SqlCommandQuery($"execute ItemToInventory @playerId = {playerId}, @itemId = {itemId}");
+        }
+
+        void DropInventoryItem(int playerId)
+        {
+            int inventoryId;
+
+            do
+            {
+                ShowInventory(playerId);
+            } while (!int.TryParse(Console.ReadLine(), out inventoryId));
+
+            SqlCommandQuery($"execute DropInventoryItem @playerId = {playerId}, @inventoryId = {inventoryId}");
+        }
+
+        void UpdateInventory(int playerId)
+        {
+            int inventoryId;
+            int itemId;
+
+            do
+            {
+                ShowInventory(playerId);
+            } while (!int.TryParse(Console.ReadLine(), out inventoryId));
+
+            do
+            {
+                ShowItems();
+            } while (!int.TryParse(Console.ReadLine(), out itemId));
+
+            SqlCommandQuery($"execute UpdateItem @playerId = {playerId}, @itemId = {itemId}, @inventoryId = {inventoryId}");
+        }
         #endregion
 
         #region Show Methods
@@ -251,202 +617,28 @@ namespace Sql_Inventory
             }
             reader.Close();
         }
-        #endregion
 
-        #region Menus
-        public void AdminMenu()
-        {
-            ConsoleKeyInfo keyInfo;
-            do
-            {
-                Console.Clear();
-                Console.WriteLine("1. Item Types");
-                Console.WriteLine("2. Items");
-                Console.WriteLine("3. Classes");
-                Console.WriteLine("4. Players");
-
-                Console.WriteLine("ESC. Quit");
-                keyInfo = Console.ReadKey();
-
-                switch (keyInfo.KeyChar)
-                {
-                    case '1':
-                        ItemTypeMenu();
-                        break;
-                    case '2':
-                        ItemMenu();
-                        break;
-                    default:
-                        break;
-                }
-            } while (keyInfo.Key != ConsoleKey.Escape);
-        }
-
-        void ItemMenu()
-        {
-            ConsoleKeyInfo keyInfo;
-            do
-            {
-                Console.Clear();
-                Console.WriteLine("1. Add Item");
-                Console.WriteLine("2. Drop Item");
-                Console.WriteLine("3. See Items");
-                Console.WriteLine("4. Update Items");
-
-                Console.WriteLine("ESC. Quit");
-                keyInfo = Console.ReadKey();
-
-                switch (keyInfo.KeyChar)
-                {
-                    case '1':
-                        AddItem();
-                        break;
-                    case '2':
-                        DeleteItem();
-                        break;
-                    case '3':
-                        ShowItems();
-                        Console.ReadKey(true);
-                        break;
-                    case '4':
-                        UpdateItem();
-                        break;
-                    default:
-                        break;
-                }
-            } while (keyInfo.Key != ConsoleKey.Escape);
-        }
-
-        void ItemTypeMenu()
-        {
-            ConsoleKeyInfo keyInfo;
-            do
-            {
-                Console.Clear();
-                Console.WriteLine("1. Add ItemType");
-                Console.WriteLine("2. Drop ItemType");
-                Console.WriteLine("3. See ItemsType");
-                Console.WriteLine("4. Update ItemsType");
-
-                Console.WriteLine("ESC. Quit");
-                keyInfo = Console.ReadKey();
-
-                switch (keyInfo.KeyChar)
-                {
-                    case '1':
-                        AddItemType();
-                        break;
-                    case '2':
-                        DeleteItemType();
-                        break;
-                    case '3':
-                        ShowITypes();
-                        Console.ReadKey(true);
-                        break;
-                    case '4':
-                        UpdateItemType();
-                        break;
-                    default:
-                        break;
-                }
-            } while (keyInfo.Key != ConsoleKey.Escape);
-        }
-
-        public void PlayerMenu(int playerId)
-        {
-            ConsoleKeyInfo keyInfo;
-            do
-            {
-                Console.Clear();
-                Console.WriteLine("1. Add Item");
-                Console.WriteLine("2. Drop Item");
-                Console.WriteLine("3. See Inventory");
-                Console.WriteLine("4. Update Inventory");
-
-                Console.WriteLine("ESC. Quit");
-                keyInfo = Console.ReadKey();
-
-                switch (keyInfo.KeyChar)
-                {
-                    case '1':
-                        AddInventoryItem(playerId);
-                        break;
-                    case '2':
-                        DropInventoryItem(playerId);
-                        break;
-                    case '3':
-                        ShowInventory(playerId);
-                        Console.ReadKey(true);
-                        break;
-                    case '4':
-                        UpdateInventory(playerId);
-                        break;
-                    default:
-                        break;
-                }
-            } while (keyInfo.Key != ConsoleKey.Escape);
-        }
-
-        public ConsoleKeyInfo PlayerSelectMenu()
+        void ShowClasses()
         {
             Console.Clear();
-            ConsoleKeyInfo keyInfo;
-            SqlDataReader reader = SqlRead("execute GetPlayers");
-            do
+            SqlDataReader reader = SqlRead("select * from Classes");
+            while (reader.Read())
             {
-                while (reader.Read())
-                {
-                    Console.WriteLine($"{reader["Id"]}. {reader["Name"]}");
-                }
-                Console.WriteLine("ESC. Quit");
-                keyInfo = Console.ReadKey();
-            } while (!int.TryParse(keyInfo.KeyChar.ToString(), out _) && keyInfo.Key != ConsoleKey.Escape);
+                Console.WriteLine($"{reader["Id"]}. {reader["Name"]}");
+            }
             reader.Close();
-            return keyInfo;
         }
 
-        #endregion
-
-        #region ItemType
-        void AddItemType()
+        void ShowPlayers()
         {
             Console.Clear();
-            Console.WriteLine("Name");
-            string name = Console.ReadLine();
-
-            SqlCommandQuery($"insert into ITypes values('{name}')");
-        }
-
-        void DeleteItemType()
-        {
-            int itemTypeId;
-
-            do
+            SqlDataReader reader = SqlRead("execute GetPlayers");
+            while (reader.Read())
             {
-                ShowITypes();
-            } while (!int.TryParse(Console.ReadLine(), out itemTypeId));
-
-            SqlCommandQuery($"Delete from ITypes where Id = {itemTypeId}");
+                Console.WriteLine($"{reader["Id"]}. {reader["Name"]}, {reader["Class"]}");
+            }
+            reader.Close();
         }
-
-        void UpdateItemType()
-        {
-            int itemTypeId;
-
-            do
-            {
-                ShowITypes();
-            } while (!int.TryParse(Console.ReadKey().KeyChar.ToString(), out itemTypeId));
-
-            Console.Clear();
-            Console.WriteLine("Name");
-            string name = Console.ReadLine();
-
-
-            SqlCommandQuery($"update ITypes set Name = '{name}' where Id = {itemTypeId}");
-        }
-
-
         #endregion
     }
 }
