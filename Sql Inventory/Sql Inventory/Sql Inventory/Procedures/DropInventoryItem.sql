@@ -22,5 +22,3 @@ as
 		update Inventory
 		set Item5 = null
 		where Id = @playerId
-
-drop procedure DropItem

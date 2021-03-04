@@ -10,6 +10,7 @@ namespace Sql_Inventory
     class SqlRpgInventory
     {
         public static SqlConnection connection;
+        static readonly string exitWord = "exit";
 
         public SqlRpgInventory()
         {
@@ -299,6 +300,8 @@ namespace Sql_Inventory
             do
             {
                 ShowPlayers();
+
+                Console.WriteLine("ESC. Quit");
                 keyInfo = Console.ReadKey();
             } while (!int.TryParse(keyInfo.KeyChar.ToString(), out _) && keyInfo.Key != ConsoleKey.Escape);
             return keyInfo;
@@ -312,38 +315,54 @@ namespace Sql_Inventory
         {
             Console.Clear();
             Console.WriteLine("Name");
+            Console.WriteLine($"type {exitWord} to exit");
             string name = Console.ReadLine();
 
-            SqlCommandQuery($"insert into ITypes values('{name}')");
+
+            if (name.ToLower() != exitWord)
+            {
+                SqlCommandQuery($"insert into ITypes values('{name}')");
+            }
         }
 
         void DeleteItemType()
         {
             int itemTypeId;
+            string input;
 
             do
             {
                 ShowITypes();
-            } while (!int.TryParse(Console.ReadLine(), out itemTypeId));
+                Console.WriteLine($"type {exitWord} to exit");
+                input = Console.ReadLine();
+            } while (!((int.TryParse(input, out itemTypeId) && GetIds("ITypes").Contains(itemTypeId)) || input.ToLower() == exitWord));
 
-            SqlCommandQuery($"Delete from ITypes where Id = {itemTypeId}");
+            if (GetIds("ITypes").Contains(itemTypeId))
+            {
+                SqlCommandQuery($"Delete from ITypes where Id = {itemTypeId}");
+            }
         }
 
         void UpdateItemType()
         {
             int itemTypeId;
-
+            string input;
             do
             {
                 ShowITypes();
-            } while (!int.TryParse(Console.ReadLine(), out itemTypeId));
+                Console.WriteLine($"type {exitWord} to exit");
+                input = Console.ReadLine();
+            } while (!((int.TryParse(input, out itemTypeId) && GetIds("ITypes").Contains(itemTypeId)) || input.ToLower() == exitWord));
 
             Console.Clear();
             Console.WriteLine("Name");
+            Console.WriteLine($"type {exitWord} to exit");
             string name = Console.ReadLine();
 
-
-            SqlCommandQuery($"update ITypes set Name = '{name}' where Id = {itemTypeId}");
+            if (GetIds("ITypes").Contains(itemTypeId))
+            {
+                SqlCommandQuery($"update ITypes set Name = '{name}' where Id = {itemTypeId}");
+            }
         }
 
         #endregion
@@ -357,36 +376,58 @@ namespace Sql_Inventory
             double weight;
             Console.Clear();
             Console.WriteLine("Name");
+            Console.WriteLine($"type {exitWord} to exit");
+
             string name = Console.ReadLine();
 
+            if (name.ToLower() == exitWord)
+            {
+                return;
+            }
+
+            string input;
 
 
             do
             {
                 ShowITypes();
-            } while (!(int.TryParse(Console.ReadLine(), out type) && GetIds("ITypes").Contains(type)));
+                input = Console.ReadLine();
+            } while (!((int.TryParse(input, out type) && GetIds("ITypes").Contains(type)) || input.ToLower() == exitWord));
 
-
+            if (input.ToLower() == exitWord)
+            {
+                return;
+            }
 
             do
             {
                 Console.Clear();
                 Console.WriteLine("Weight");
-            } while (!double.TryParse(Console.ReadLine(), out weight));
+                Console.WriteLine($"type {exitWord} to exit");
+            } while (!double.TryParse(Console.ReadLine(), out weight) || input.ToLower() == exitWord);
 
-            SqlCommandQuery($"insert into Items values('{name}', {type}, '{weight}')");
+            if (input.ToLower() != exitWord)
+            {
+                SqlCommandQuery($"insert into Items values('{name}', {type}, '{weight}')");
+            }
         }
 
         void DeleteItem()
         {
             int itemId;
+            string input;
 
             do
             {
                 ShowItems();
-            } while (!int.TryParse(Console.ReadLine(), out itemId));
+                Console.WriteLine($"type {exitWord} to exit");
+                input = Console.ReadLine();
+            } while (!((int.TryParse(input, out itemId) && GetIds("ITypes").Contains(itemId)) || input.ToLower() == exitWord));
 
-            SqlCommandQuery($"execute DeleteItem  @itemId = {itemId}");
+            if (input.ToLower() != exitWord)
+            {
+                SqlCommandQuery($"execute DeleteItem  @itemId = {itemId}");
+            }
         }
 
         void UpdateItem()
@@ -404,20 +445,32 @@ namespace Sql_Inventory
             Console.Clear();
             Console.WriteLine("Name");
             name = Console.ReadLine();
+            string input;
 
             do
             {
                 ShowITypes();
-            } while (!(int.TryParse(Console.ReadLine(), out type) && GetIds("ITypes").Contains(type)));
+                Console.WriteLine($"type {exitWord} to exit");
+                input = Console.ReadLine();
+            } while (!((int.TryParse(input, out type) && GetIds("ITypes").Contains(type)) || input.ToLower() == exitWord));
 
+            if (input.ToLower() == exitWord)
+            {
+                return;
+            }
 
             do
             {
                 Console.Clear();
                 Console.WriteLine("Weight");
-            } while (!double.TryParse(Console.ReadLine(), out weight));
+                Console.WriteLine($"type {exitWord} to exit");
+                input = Console.ReadLine();
+            } while (!((double.TryParse(input, out weight)) || input.ToLower() == exitWord));
 
-            SqlCommandQuery($"update Items set Name = '{name}', TypeId = {type}, Weight = '{weight}' where Id = {itemId}");
+            if (input.ToLower() != exitWord)
+            {
+                SqlCommandQuery($"update Items set Name = '{name}', TypeId = {type}, Weight = '{weight}' where Id = {itemId}");
+            }
         }
 
         #endregion
@@ -428,7 +481,13 @@ namespace Sql_Inventory
         {
             Console.Clear();
             Console.WriteLine("Name");
+            Console.WriteLine($"type {exitWord} to exit");
             string name = Console.ReadLine();
+
+            if (name.ToLower() == exitWord)
+            {
+                return;
+            }
 
             SqlCommandQuery($"insert into Classes values('{name}')");
         }
@@ -436,27 +495,46 @@ namespace Sql_Inventory
         void DeleteClass()
         {
             int classID;
+            string input;
 
             do
             {
                 ShowClasses();
-            } while (!int.TryParse(Console.ReadLine(), out classID));
+                Console.WriteLine($"type {exitWord} to exit");
+                input = Console.ReadLine();
+            } while (!((int.TryParse(input, out classID) && GetIds("ITypes").Contains(classID)) || input.ToLower() == exitWord));
 
-            SqlCommandQuery($"Delete from Classes where Id = {classID}");
+            if (input.ToLower() != exitWord)
+            {
+                SqlCommandQuery($"Delete from Classes where Id = {classID}");
+            }
         }
 
         void UpdateClass()
         {
             int classID;
+            string input;
 
             do
             {
                 ShowClasses();
-            } while (!int.TryParse(Console.ReadLine(), out classID));
+                Console.WriteLine($"type {exitWord} to exit");
+                input = Console.ReadLine();
+            } while (!((int.TryParse(input, out classID) && GetIds("ITypes").Contains(classID)) || input.ToLower() == exitWord));
+
+            if (input.ToLower() == exitWord)
+            {
+                return;
+            }
 
             Console.Clear();
             Console.WriteLine("Name");
             string name = Console.ReadLine();
+
+            if (name.ToLower() == exitWord)
+            {
+                return;
+            }
 
 
             SqlCommandQuery($"update Classes set Name = '{name}' where Id = {classID}");
