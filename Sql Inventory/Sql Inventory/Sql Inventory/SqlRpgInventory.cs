@@ -422,7 +422,7 @@ namespace Sql_Inventory
                 ShowItems();
                 Console.WriteLine($"type {exitWord} to exit");
                 input = Console.ReadLine();
-            } while (!((int.TryParse(input, out itemId) && GetIds("ITypes").Contains(itemId)) || input.ToLower() == exitWord));
+            } while (!((int.TryParse(input, out itemId) && GetIds("Items").Contains(itemId)) || input.ToLower() == exitWord));
 
             if (input.ToLower() != exitWord)
             {
@@ -436,16 +436,23 @@ namespace Sql_Inventory
             int type;
             double weight;
             string name;
+            string input;
 
             do
             {
                 ShowItems();
-            } while (!int.TryParse(Console.ReadLine(), out itemId));
+                Console.WriteLine($"type {exitWord} to exit");
+                input = Console.ReadLine();
+            } while (!((int.TryParse(input, out itemId) && GetIds("Items").Contains(itemId)) || input.ToLower() == exitWord));
+
+            if (input.ToLower() == exitWord)
+            {
+                return;
+            }
 
             Console.Clear();
             Console.WriteLine("Name");
             name = Console.ReadLine();
-            string input;
 
             do
             {
@@ -502,7 +509,7 @@ namespace Sql_Inventory
                 ShowClasses();
                 Console.WriteLine($"type {exitWord} to exit");
                 input = Console.ReadLine();
-            } while (!((int.TryParse(input, out classID) && GetIds("ITypes").Contains(classID)) || input.ToLower() == exitWord));
+            } while (!((int.TryParse(input, out classID) && GetIds("Classes").Contains(classID)) || input.ToLower() == exitWord));
 
             if (input.ToLower() != exitWord)
             {
@@ -520,7 +527,7 @@ namespace Sql_Inventory
                 ShowClasses();
                 Console.WriteLine($"type {exitWord} to exit");
                 input = Console.ReadLine();
-            } while (!((int.TryParse(input, out classID) && GetIds("ITypes").Contains(classID)) || input.ToLower() == exitWord));
+            } while (!((int.TryParse(input, out classID) && GetIds("Classes").Contains(classID)) || input.ToLower() == exitWord));
 
             if (input.ToLower() == exitWord)
             {
@@ -548,27 +555,49 @@ namespace Sql_Inventory
         {
             Console.Clear();
             Console.WriteLine("Name");
+            Console.WriteLine($"type {exitWord} to exit");
             string name = Console.ReadLine();
             int classId;
+            string input;
+
+            if (name.ToLower() == exitWord)
+            {
+                return;
+            }
 
             do
             {
                 ShowClasses();
-            } while (!(int.TryParse(Console.ReadLine(), out classId) && GetIds("Classes").Contains(classId)));
+                Console.WriteLine($"type {exitWord} to exit");
+                input = Console.ReadLine();
+            } while (!((int.TryParse(input, out classId) && GetIds("Classes").Contains(classId)) || input.ToLower() == exitWord));
+
+            if (input.ToLower() == exitWord)
+            {
+                return;
+            }
 
             SqlCommandQuery($"insert into Players values('{name}', {classId})");
         }
 
         void DeletePlayer()
         {
-            int playerID;
+            int playerId;
+            string input;
 
             do
             {
                 ShowPlayers();
-            } while (!int.TryParse(Console.ReadLine(), out playerID));
+                Console.WriteLine($"type {exitWord} to exit");
+                input = Console.ReadLine();
+            } while (!((int.TryParse(input, out playerId) && GetIds("Players").Contains(playerId)) || input.ToLower() == exitWord));
 
-            SqlCommandQuery($"Delete from Players where Id = {playerID}");
+            if (input.ToLower() == exitWord)
+            {
+                return;
+            }
+
+            SqlCommandQuery($"Delete from Players where Id = {playerId}");
 
         }
 
@@ -576,20 +605,40 @@ namespace Sql_Inventory
         {
             int playerId;
             int classId;
+            string input;
 
             do
             {
                 ShowPlayers();
-            } while (!(int.TryParse(Console.ReadLine(), out playerId) && GetIds("Players").Contains(playerId)));
+                Console.WriteLine($"type {exitWord} to exit");
+                input = Console.ReadLine();
+            } while (!((int.TryParse(input, out playerId) && GetIds("Players").Contains(playerId)) || input.ToLower() == exitWord));
+
+            if (input.ToLower() == exitWord)
+            {
+                return;
+            }
 
             Console.Clear();
             Console.WriteLine("Name");
             string name = Console.ReadLine();
 
+            if (name.ToLower() == exitWord)
+            {
+                return;
+            }
+
             do
             {
                 ShowClasses();
-            } while (!(int.TryParse(Console.ReadKey().KeyChar.ToString(), out classId) && GetIds("Classes").Contains(classId)));
+                Console.WriteLine($"type {exitWord} to exit");
+                input = Console.ReadLine();
+            } while (!((int.TryParse(input, out classId) && GetIds("Classes").Contains(classId)) || input.ToLower() == exitWord));
+
+            if (name.ToLower() == exitWord)
+            {
+                return;
+            }
 
 
             SqlCommandQuery($"update Players set Name = '{name}', ClassId = {classId} where Id = {playerId}");
@@ -601,21 +650,38 @@ namespace Sql_Inventory
         void AddInventoryItem(int playerId)
         {
             int itemId;
+            string input;
             do
             {
                 ShowItems();
-            } while (!(int.TryParse(Console.ReadLine(), out itemId) && GetIds("Items").Contains(itemId)));
+                Console.WriteLine($"type {exitWord} to exit");
+                input = Console.ReadLine();
+            } while (!((int.TryParse(input, out itemId) && GetIds("Items").Contains(itemId)) || input.ToLower() == exitWord));
+
+            if (input.ToLower() == exitWord)
+            {
+                return;
+            }
+
             SqlCommandQuery($"execute ItemToInventory @playerId = {playerId}, @itemId = {itemId}");
         }
 
         void DropInventoryItem(int playerId)
         {
             int inventoryId;
+            string input;
 
             do
             {
                 ShowInventory(playerId);
-            } while (!int.TryParse(Console.ReadLine(), out inventoryId));
+                Console.WriteLine($"type {exitWord} to exit");
+                input = Console.ReadLine();
+            } while (!((int.TryParse(input, out inventoryId) && GetIds("Inventory").Contains(inventoryId)) || input.ToLower() == exitWord));
+
+            if (input.ToLower() == exitWord)
+            {
+                return;
+            }
 
             SqlCommandQuery($"execute DropInventoryItem @playerId = {playerId}, @inventoryId = {inventoryId}");
         }
@@ -624,16 +690,31 @@ namespace Sql_Inventory
         {
             int inventoryId;
             int itemId;
+            string input;
 
             do
             {
                 ShowInventory(playerId);
-            } while (!int.TryParse(Console.ReadLine(), out inventoryId));
+                Console.WriteLine($"type {exitWord} to exit");
+                input = Console.ReadLine();
+            } while (!((int.TryParse(input, out inventoryId) && GetIds("Inventory").Contains(inventoryId)) || input.ToLower() == exitWord));
+
+            if (input.ToLower() == exitWord)
+            {
+                return;
+            }
 
             do
             {
                 ShowItems();
-            } while (!int.TryParse(Console.ReadLine(), out itemId));
+                Console.WriteLine($"type {exitWord} to exit");
+                input = Console.ReadLine();
+            } while (!((int.TryParse(input, out itemId) && GetIds("Items").Contains(itemId)) || input.ToLower() == exitWord));
+
+            if (input.ToLower() == exitWord)
+            {
+                return;
+            }
 
             SqlCommandQuery($"execute UpdateItem @playerId = {playerId}, @itemId = {itemId}, @inventoryId = {inventoryId}");
         }
