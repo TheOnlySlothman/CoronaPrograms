@@ -2,23 +2,18 @@ create or alter procedure DropInventoryItem
 	@playerId int,
 	@inventoryId int
 as
+	declare @itemSlot varchar(5)
+	declare @sql nvarchar(1000)
 	if (@inventoryId = 1)
-		update Inventory
-		set Item1 = null
-		where Id = @playerId
+		set @itemSlot = 'Item1'
 	else if (@inventoryId = 2)
-		update Inventory
-		set Item2 = null
-		where Id = @playerId
+		set @itemSlot = 'Item2'
 	else if (@inventoryId = 3)
-		update Inventory
-		set Item3 = null
-		where Id = @playerId
+		set @itemSlot = 'Item3'
 	else if (@inventoryId = 4)
-		update Inventory
-		set Item4 = null
-		where Id = @playerId
+		set @itemSlot = 'Item4'
 	else if (@inventoryId = 5)
-		update Inventory
-		set Item5 = null
-		where Id = @playerId
+		set @itemSlot = 'Item5'
+
+		execute('update Inventory set ' + @itemSlot + ' = null where Id = ' + @playerId)
+		

@@ -9,7 +9,7 @@ namespace Sql_Inventory
 {
     class SqlRpgInventory
     {
-        public static SqlConnection connection;
+        static SqlConnection connection;
         static readonly string exitWord = "exit";
 
         public SqlRpgInventory()
@@ -84,12 +84,13 @@ namespace Sql_Inventory
             return lst;
         }
 
-        public void AdminMenu()
+        void AdminMenu()
         {
             ConsoleKeyInfo keyInfo;
             do
             {
                 Console.Clear();
+                Console.WriteLine("Select table to edit");
                 Console.WriteLine("1. Item Types");
                 Console.WriteLine("2. Items");
                 Console.WriteLine("3. Classes");
@@ -124,6 +125,7 @@ namespace Sql_Inventory
             do
             {
                 Console.Clear();
+                Console.WriteLine("Items");
                 Console.WriteLine("1. Add Item");
                 Console.WriteLine("2. Delete Item");
                 Console.WriteLine("3. See Items");
@@ -159,6 +161,7 @@ namespace Sql_Inventory
             do
             {
                 Console.Clear();
+                Console.WriteLine("Item Types");
                 Console.WriteLine("1. Add ItemType");
                 Console.WriteLine("2. Delete ItemType");
                 Console.WriteLine("3. See ItemsType");
@@ -194,6 +197,7 @@ namespace Sql_Inventory
             do
             {
                 Console.Clear();
+                Console.WriteLine("Classes");
                 Console.WriteLine("1. Add Class");
                 Console.WriteLine("2. Delete Class");
                 Console.WriteLine("3. See Class");
@@ -229,6 +233,7 @@ namespace Sql_Inventory
             do
             {
                 Console.Clear();
+                Console.WriteLine("Players");
                 Console.WriteLine("1. Add Player");
                 Console.WriteLine("2. Delete Player");
                 Console.WriteLine("3. See Player");
@@ -258,12 +263,13 @@ namespace Sql_Inventory
             } while (keyInfo.Key != ConsoleKey.Escape);
         }
 
-        public void PlayersMenu(int playerId)
+        void PlayersMenu(int playerId)
         {
             ConsoleKeyInfo keyInfo;
             do
             {
                 Console.Clear();
+                Console.WriteLine("Inventory");
                 Console.WriteLine("1. Add Item");
                 Console.WriteLine("2. Drop Item");
                 Console.WriteLine("3. See Inventory");
@@ -293,7 +299,7 @@ namespace Sql_Inventory
             } while (keyInfo.Key != ConsoleKey.Escape);
         }
 
-        public ConsoleKeyInfo PlayerSelectMenu()
+        ConsoleKeyInfo PlayerSelectMenu()
         {
             Console.Clear();
             ConsoleKeyInfo keyInfo;
@@ -305,6 +311,56 @@ namespace Sql_Inventory
                 keyInfo = Console.ReadKey();
             } while (!int.TryParse(keyInfo.KeyChar.ToString(), out _) && keyInfo.Key != ConsoleKey.Escape);
             return keyInfo;
+        }
+
+        public void MainMenu()
+        {
+            ConsoleKeyInfo keyInfo;
+            bool isInt;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("Select a menu");
+                Console.WriteLine("1. Players");
+                Console.WriteLine("2. Admin");
+                Console.WriteLine("ESC. Quit");
+
+                keyInfo = Console.ReadKey();
+                isInt = int.TryParse(keyInfo.KeyChar.ToString(), out int num);
+
+                if (isInt)
+                {
+                    switch (num)
+                    {
+                        case 1:
+                            Player(this);
+                            break;
+                        case 2:
+                            Admin(this);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            } while (keyInfo.Key != ConsoleKey.Escape);
+        }
+
+        void Player(SqlRpgInventory rpgInventory)
+        {
+            ConsoleKeyInfo keyInfo;
+            do
+            {
+                keyInfo = rpgInventory.PlayerSelectMenu();
+                if (int.TryParse(keyInfo.KeyChar.ToString(), out int num))
+                {
+                    rpgInventory.PlayersMenu(num);
+                }
+            } while (keyInfo.Key != ConsoleKey.Escape);
+        }
+
+        static void Admin(SqlRpgInventory rpgInventory)
+        {
+            rpgInventory.AdminMenu();
         }
 
         #endregion
@@ -643,8 +699,8 @@ namespace Sql_Inventory
 
             SqlCommandQuery($"update Players set Name = '{name}', ClassId = {classId} where Id = {playerId}");
         }
-
         #endregion
+
 
         #region Inventory
         void AddInventoryItem(int playerId)
@@ -725,7 +781,6 @@ namespace Sql_Inventory
         void ShowInventory(int playerId)
         {
             Console.Clear();
-            // SqlDataReader reader = SqlRead($"select * from Inventory where Id = {playerId}");
             SqlDataReader reader = SqlRead($"select * from Inventory where Id = {playerId}");
             List<int> lst = new List<int>();
 
