@@ -18,7 +18,7 @@ namespace Portfolio_Website.Controllers
         {
             _db = db;
         }
-        
+
         public IActionResult Portfolio()
         {
             IEnumerable<Project> objList = _db.Projects;
