@@ -1,0 +1,29 @@
+﻿@page "{portfolioID:int}"
+@model Portfolio_Website.Models.Project
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<link rel="stylesheet" href="~/css/StyleSheet.css" />
+
+<div class="text-center">
+    <div class="container" style="border:dotted">
+        <div class="row">
+            <div class="col-sm-6 center">
+                <h1>@Model.Title</h1>
+            </div>
+            <div class="col-sm-6">
+                <img src=@Model.Img alt="Project Image" width="500"/>
+            </div>
+        </div>
+        @*<div>@Model.fillerText</div>*@
+        <div>@Model.Description</div>
+        @if (Model.WebLink != null)
+        {
+            <a href="@Model.WebLink">@Model.WebLink</a>
+        }
+    </div>
+    <a asp-page="./Portfolio" class="btn btn-default btn-primary center">All Projects</a>
+</div>
+
+
