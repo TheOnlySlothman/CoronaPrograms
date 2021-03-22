@@ -1,0 +1,32 @@
+﻿@page
+@model IEnumerable<Models.Project>
+@{
+    ViewData["Title"] = "Portfolio";
+}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+@*<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
+<link rel="stylesheet" href="~/css/StyleSheet.css" />
+@*
+    
+@foreach (var project in Model)
+{
+    <div class="text-center">
+        <div class="container">
+            <div class="row" style="border:double">
+                <div class="col-sm-6 center">
+                    <h2 class="text-center">@project.Title</h2>
+                </div>
+                <div>
+                    <img src=@project.Img alt="Project Image" height="250" />
+                </div>
+                <div class="center">
+                    <a class="btn btn-lg" asp-page="./Project" asp-route-portfolioID="@project.ID">
+                        <i class="glyphicon glyphicon-zoom-in"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+*@
