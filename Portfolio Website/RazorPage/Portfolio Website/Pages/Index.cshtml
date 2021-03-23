@@ -1,0 +1,59 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+@using Portfolio_Website.Profiles;
+<link rel="stylesheet" href="~/css/StyleSheet.css" />
+
+<div class="text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <p style="font-size: larger">@Model.profile.Description</p>
+            </div>
+            <div class="col-sm-6">
+                <img src=@Model.profile.Image alt="Project Image" height="250" />
+            </div>
+        </div>
+        <div class="row" style="margin: 20px">
+            @*<div class="col-sm-6">*@
+            <a href="~/Files/Uddannelsesplan.pdf" class="h3 center">Uddannelses plan</a>
+            <table class="table">
+                @foreach (var item in Model.educationPlan)
+                {
+                    <tr style="color: white">
+                        <td class="h4">@item.start.ToMyTime()</td>
+                        <td class="h4">til</td>
+                        <td class="h4">@item.end.ToMyTime()</td>
+                        <td class="h4">@item.name</td>
+                    </tr>
+                }
+            </table>
+            @*</div>*@
+            @*<div class="col-sm-12">
+                    @foreach (var item in Model.educationPlan)
+                    {
+                        <div class="text-center">
+                            <div class="container">
+                                <div class="row" style="border:double">
+                                    <div class="center">
+                                        <h4>@string.Format("{0:d}", item.start)</h4>
+                                    </div>
+                                    <div class="center">
+                                        <h4>til</h4>
+                                    </div>
+                                    <div class="center">
+                                        <h4>@string.Format("{0:d}", item.end)</h4>
+                                    </div>
+                                    <div class="center">
+                                        <h4>@item.name</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>*@
+        </div>
+    </div>
+</div>
