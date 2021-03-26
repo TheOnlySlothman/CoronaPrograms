@@ -16,7 +16,11 @@
                     <h2 class="text-center">@project.Title</h2>
                 </div>
                 <div>
-                    <img src=@project.Img alt="Project Image" height="250" />
+                    @*
+                        <img src=@project.Img alt="Project Image" height="250" />
+                        <img src=@(FileResult(project.ImgByte, "image/png")) alt="Project Image" height="250" />
+                    *@
+                        <img src="data:image;base64,@Convert.ToBase64String(project.ImgByte)" alt="Project Image" height="250" />
                 </div>
                 <div class="center">
                     @*

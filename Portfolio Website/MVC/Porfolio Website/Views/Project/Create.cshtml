@@ -1,11 +1,11 @@
-﻿@model Portfolio_Website.Models.Project
+﻿@model Portfolio_Website.Models.ProjectWithFile
 @{
     ViewData["Title"] = "Add Project";
 }
 
 <link rel="stylesheet" href="~/css/StyleSheet.css" />
 
-<form method="post" asp-action="Create">
+<form method="post" enctype="multipart/form-data" asp-action="Create">
     <div class="border p-3">
         <div class="form-group row">
             <h2 class="text-white-50 pl-3">Add Project</h2>
@@ -23,24 +23,28 @@
                         <label asp-for="WebLink"></label>
                     </div>
                     <div class="col-3">
-                        <label asp-for="Img"></label>
+                        <label asp-for="ImgByte"></label>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-3">
-                        <input asp-for="Title" class="form-control"/>
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
                     </div>
                     <div class="col-3">
-                        <input asp-for="Description" class="form-control"/>
+                        <input asp-for="Description" class="form-control" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
                     <div class="col-3">
-                        <input asp-for="WebLink" class="form-control" placeholder="https://google.com"/>
+                        <input asp-for="WebLink" class="form-control" type="url" placeholder="https://google.com" />
                     </div>
-                    @*
                     <div class="col-3">
-                        <input asp-for="Img" class="form-control" type="file" id="imgUpload" />
+                        @*
+                            <input asp-action="" class="form-control" type="file" id="imgUpload" />
+                        *@
+                        <input asp-for="ImgFile" class="form-control" type="file" id="imgUpload" />
+                        <span asp-validation-for="ImgFile" class="text-danger"></span>
                     </div>
-                    *@
                 </div>
                 <div class="form-group row">
                     <div class="col-12 row">

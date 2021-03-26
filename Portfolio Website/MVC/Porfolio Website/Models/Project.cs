@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
@@ -62,24 +64,20 @@ namespace Portfolio_Website.Models
     {
         [Key]
         public int ID { get; set; }
+        [Required]
         public string Title { get; set; }
-        public string Img { get; set; }
+        [DisplayName("Image")]
+        public byte[] ImgByte { get; set; }
+        [Required]
         public string Description { get; set; }
+        [Url]
         public string WebLink { get; set; }
-        /*
-        public Project(string Title, string Img, string Description, string WebLink)
-        {
-            this.Title = Title;
-            this.Img = Img;
-            this.Description = Description;
-            this.WebLink = WebLink;
-        }
+    }
 
-        public Project()
-        {
-
-        }
-        */
+    public class ProjectWithFile : Project
+    {
+        [Required]
+        public IFormFile ImgFile { get; set; }
     }
 
 

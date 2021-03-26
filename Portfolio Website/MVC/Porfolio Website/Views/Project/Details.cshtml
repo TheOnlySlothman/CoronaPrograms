@@ -12,7 +12,7 @@
                 <h1>@Model.Title</h1>
             </div>
             <div class="col-sm-6">
-                <img src=@Model.Img alt="Project Image" width="500" />
+                <img src="data:image;base64,@Convert.ToBase64String(Model.ImgByte)" alt="Project Image" width="100%" />
             </div>
         </div>
         @*<div>@Model.fillerText</div>*@
