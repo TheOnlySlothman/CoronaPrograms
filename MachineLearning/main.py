@@ -1,19 +1,21 @@
 import random
-
-import pandas as pd
-from sklearn.naive_bayes import GaussianNB
-from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score, mean_squared_error, r2_score
-from sklearn import linear_model, datasets, svm
-from sklearn.neighbors import NearestNeighbors
-from sklearn.cluster import KMeans
-
-from mpl_toolkits.mplot3d import Axes3D
-
-import numpy as np
+from pathlib import Path
 
 import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import seaborn as sns
+from mpl_toolkits.mplot3d import Axes3D
+from sklearn import linear_model, datasets, svm, tree
+from sklearn.cluster import KMeans
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_selection import VarianceThreshold
+from sklearn.metrics import accuracy_score, mean_squared_error, r2_score, precision_score, recall_score
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+from sklearn.neighbors import NearestNeighbors
+from sklearn.svm import LinearSVC
+from sklearn.tree import DecisionTreeClassifier
 
 
 def linear_regression():
@@ -101,7 +103,7 @@ def multiplication():
     """
     plt.scatter(x_test['x'], x_test['y'], color='black')
     plt.scatter(x_train['x'], x_train['y'], color='green')
-    plt.plot(x_test, predictions, color='blue', linewidth=5)
+    plt.plot(x_test, predictions, color='blue', line_width=5)
     """
     """
     plt.xticks(())
@@ -184,7 +186,7 @@ def age_classifier():
 
 
 def obesity_classifier():
-    df = pd.read_csv('500_Person_Gender_Height_Weight_Index.csv')
+    df = pd.read_csv('Data/500_Person_Gender_Height_Weight_Index.csv')
     x = df.drop(columns=['Gender', 'Index'])
     y = df['Index']
 
@@ -224,7 +226,7 @@ def obesity_classifier():
 
 
 def gaussian_naive_bayes():
-    df = pd.read_csv('500_Person_Gender_Height_Weight_Index.csv')
+    df = pd.read_csv('Data/500_Person_Gender_Height_Weight_Index.csv')
     x = df.drop(columns=['Gender', 'Index'])
     y = df['Index']
 
@@ -317,8 +319,8 @@ def get_random_coordinates(amount, xmin, xmax, ymin, ymax):
     return arr
 
 
-def kmeans():
-    df = pd.read_csv('500_Person_Gender_Height_Weight_Index.csv')
+def k_means():
+    df = pd.read_csv('Data/500_Person_Gender_Height_Weight_Index.csv')
     x = df.drop(columns=['Gender', 'Index'])
     # y = df['Index']
 
@@ -337,7 +339,7 @@ def kmeans():
 
 
 def obesity_cluster():
-    df = pd.read_csv('500_Person_Gender_Height_Weight_Index.csv')
+    df = pd.read_csv('Data/500_Person_Gender_Height_Weight_Index.csv')
     x = df.drop(columns=['Gender'])
 
     km = KMeans(n_clusters=8).fit(x.values)
@@ -355,4 +357,135 @@ def obesity_cluster():
     plt.show()
 
 
-gaussian_naive_bayes()
+def heatmap(df):
+    correlations = df.corr()
+    plt.figure(figsize=(correlations.shape[0], correlations.shape[1]))
+    _ = sns.heatmap(correlations, linewidth=1, annot=True, mask=np.triu(correlations))
+    plt.show()
+
+
+def pairplot(df, hue=None):
+    sns.pairplot(df, corner=True, diag_kind="kde", hue=hue)
+    plt.show()
+
+
+# def school_grades():
+#     df = pd.read_csv('Data/school_grades_dataset.csv')
+#     X = df[["school", "sex", "age", "address", "Pstatus", "Medu", "Fedu", "Mjob", "Fjob", "studytime", "failures",
+#             "schoolsup", "famsup", "paid", "activities", "nursery", "higher", "internet", "romantic", "famrel",
+#             "freetime", "goout", "Dalc", "Walc", "absences", "G1", "G2", "G3"]]
+#     # temp = X[X["failures"] > 0]
+#     # temp = temp[["G1", "G2", "G3", "failures"]]
+#     # pairplot(temp)
+#     # temp2 = X[X["failures"] == 0]
+#     # temp2 = temp2[["G1", "G2", "G3"]]
+#     # pairplot(X[["G1", "G2", "G3", "failures"]], "failures")
+#     heatmap(df)
+
+
+def vectorize_column(column, df):
+    vectorizer = CountVectorizer(analyzer='char')
+    X = vectorizer.fit_transform(df[column])
+
+    names = []
+    for item in vectorizer.get_feature_names_out():
+        names.append(column + "-" + str(item))
+    return pd.DataFrame(X.toarray(), columns=names, index=df.axes[0].values)
+
+
+def decision_tree(X, y, class_names):
+    # model = DecisionTreeClassifier(max_depth=6, min_samples_leaf=10)
+    model = DecisionTreeClassifier()
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5)
+    model = model.fit(X_train, y_train)
+    y_predict = model.predict(X_test)
+    # y_predict_prob = model.predict_proba(X_test)
+
+    print("accuracy:", accuracy_score(y_test, y_predict))
+    print("precision:", precision_score(y_test, y_predict))
+    print("recall:", recall_score(y_test, y_predict))
+
+    fig, axes = plt.subplots(nrows=1, ncols=1, figsize=(4, 4), dpi=300)
+    tree.plot_tree(model, feature_names=X.columns, class_names=class_names, filled=True)
+    # tree.plot_tree(model, feature_names=X.columns)
+    # r = export_text(model, feature_names=X.columns)
+    # print(r)
+    # ft_importance = pd.Series(model.feature_importances_, index=X.columns).sort_values()
+    plt.show()
+
+
+def linear_svc(X, y):
+    model = LinearSVC()
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5)
+    model = model.fit(X_train, y_train)
+    y_predict = model.predict(X_test)
+    print("accuracy:", accuracy_score(y_test, y_predict))
+    print("precision:", precision_score(y_test, y_predict))
+    print("recall:", recall_score(y_test, y_predict))
+
+
+def mushroom_refit(file):
+    df_CSV = pd.read_csv(file + '.csv')
+
+    for item in df_CSV.columns:
+        if item == "eatability":
+            df["poisoned"] = (df_CSV["eatability"] == "p").astype(int)
+        elif item == "bruises":
+            df["bruised"] = (df_CSV["bruises"] == "t").astype(int)
+        else:
+            temp = vectorize_column(item, df_CSV)
+            df = pd.concat([df, temp], axis=1)
+
+    # df.rename(columns={'eatability': 'poisoned', 'bruises': 'bruised'}, inplace=True)
+
+    df.to_csv(path_or_buf= file + "-refit.csv", sep=",", index=False)
+
+
+def mushrooms_decision_tree():
+    df = pd.DataFrame()
+    if not Path("Data/agaricus-lepiota-refit.csv").is_file():
+        mushroom_refit("Data/agaricus-lepiota")
+    else:
+        df = pd.read_csv('Data/agaricus-lepiota-refit.csv')
+
+    X = df.drop(columns=["poisoned", "stalk-root-?", "bruised"])
+    y = df["poisoned"]
+
+    sel = VarianceThreshold(threshold=(.8 * (1 - .8)))
+    X2 = sel.fit_transform(X)
+    X2 = pd.DataFrame(X2, index=X.axes[0].values, columns=sel.get_feature_names_out())
+
+    decision_tree(X, y, ["Safe", "Poisonous"])
+    decision_tree(X2, y, ["Safe", "Poisonous"])
+    # heatmap(pd.concat([X, y], axis=1))
+
+    # param_grid = {
+    #     'max_depth': [5, 15, 25],
+    #     'min_samples_leaf': [1, 3, 10, 15, 20, 50],
+    #     'max_leaf_nodes': [10, 20, 35, 50]}
+    # dt = DecisionTreeClassifier()
+    # gs = GridSearchCV(dt, param_grid, scoring='f1', cv=5)
+    # gs.fit(X, y)
+    # print("best params X: ", gs.best_params_)
+    # gs.fit(X2, y)
+    # print("best params X2: ", gs.best_params_)
+
+
+def mushroom_linear_svc():
+    df = pd.DataFrame()
+    if not Path("Data/agaricus-lepiota-refit.csv").is_file():
+        mushroom_refit("Data/agaricus-lepiota")
+    else:
+        df = pd.read_csv('Data/agaricus-lepiota-refit.csv')
+
+    X = df.drop(columns=["poisoned", "stalk-root-?", "bruised"])
+    y = df["poisoned"]
+
+    sel = VarianceThreshold(threshold=(.8 * (1 - .8)))
+    X2 = sel.fit_transform(X)
+    X2 = pd.DataFrame(X2, index=X.axes[0].values, columns=sel.get_feature_names_out())
+    linear_svc(X, y)
+    linear_svc(X2, y)
+
+
+mushrooms_decision_tree()
